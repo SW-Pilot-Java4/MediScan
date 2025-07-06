@@ -24,6 +24,9 @@ repositories {
 }
 
 dependencies {
+//     Apache Commons CSV
+    implementation 'org.apache.commons:commons-csv:1.10.0'
+
 //    H2 임시 데이터 베이스로 H2 사용
     runtimeOnly 'com.h2database:h2'
 //   spring data JPA
