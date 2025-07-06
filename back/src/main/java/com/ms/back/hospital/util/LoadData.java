@@ -1,5 +1,6 @@
 package com.ms.back.hospital.util;
 
+import com.ms.back.global.exception.MediscanCustomException;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.repository.HospitalRepository;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 @Service
@@ -22,9 +20,10 @@ import java.nio.charset.StandardCharsets;
 @Transactional(readOnly = true)
 public class LoadData {
     private final HospitalRepository hospitalRepository;
+    private final Policy policy;
 // 임시 서비스
     @Transactional
-    public void readSampleData() throws Exception {
+    public void readSampleData()  {
         ClassPathResource resource = new ClassPathResource("initData/sampleData.csv");
 
         try (InputStream inputStream = resource.getInputStream();
@@ -45,6 +44,16 @@ public class LoadData {
 
                 hospitalRepository.save(hospital);
             }
+        }catch (FileNotFoundException e) {
+            throw new MediscanCustomException.NotFoundFileException();
+        }catch (IllegalArgumentException e) {
+            throw new MediscanCustomException.InvalidFileFormatException();
+        }catch (IOException e) {
+            throw new MediscanCustomException.FileReadingErrorException();
         }
+    }
+
+    public void exceptionTest() {
+        policy.exceptionTest(true);
     }
 }
