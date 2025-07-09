@@ -16,10 +16,13 @@ interface KakaoMap {
 interface KakaoMarkerOptions {
   map: KakaoMap;
   position: KakaoLatLng;
+  title?: string;
+  image?: KakaoMarkerImage;
 }
 
 interface KakaoMarker {
   setMap(map: KakaoMap | null): void;
+  getPosition(): kakao.maps.LatLng;
 }
 
 interface KakaoMaps {
@@ -28,6 +31,8 @@ interface KakaoMaps {
   Map: new (container: HTMLElement, options: KakaoMapOptions) => KakaoMap;
   Marker: new (options: KakaoMarkerOptions) => KakaoMarker;
   InfoWindow: new (options: KakaoInfoWindowOptions) => KakaoInfoWindow;
+  Size: new (width: number, height: number) => KakaoSize;
+  MarkerImage: new (src: string, size: KakaoSize) => KakaoMarkerImage;
   event: KakaoEvent;
   load: (callback: () => void) => void;
 }

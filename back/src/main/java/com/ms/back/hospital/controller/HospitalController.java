@@ -18,9 +18,10 @@ public class HospitalController {
     private final HospitalRepository hospitalRepository;
 
     @GetMapping
-    public List<Hospital> getHospitals(@RequestParam(defaultValue = "10") int limit) {
+    public List<Hospital> getHospitals(@RequestParam(defaultValue = "50000") int limit) {
         Pageable pageable = PageRequest.of(0, limit);
-        return hospitalRepository.findAll(pageable).getContent();
+        return hospitalRepository.findByAddressContaining("경산", pageable).getContent();
     }
+
 
 }
