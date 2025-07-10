@@ -3,6 +3,7 @@ package com.ms.back.hospital.util;
 import com.ms.back.global.exception.MediscanCustomException;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.repository.HospitalRepository;
+import com.ms.back.hospital.repository.HospitalRepositoryImpl;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
@@ -19,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class LoadData {
-    private final HospitalRepository hospitalRepository;
+    private final HospitalRepositoryImpl hospitalRepositoryImpl;
     private final Policy policy;
 // 임시 서비스
     @Transactional
@@ -42,7 +43,7 @@ public class LoadData {
 
                 Hospital hospital = Hospital.create(ykiho, name, code, address, callNumber, x, y);
 
-                hospitalRepository.save(hospital);
+                hospitalRepositoryImpl.save(hospital);
             }
         }catch (FileNotFoundException e) {
             throw new MediscanCustomException.NotFoundFileException();
