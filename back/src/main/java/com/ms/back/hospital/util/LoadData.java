@@ -35,13 +35,17 @@ public class LoadData {
 
                 String ykiho = record.get(0);
                 String name = record.get(1);
-                String code = record.get(2);
+                String categoryCode = record.get(2);
+                String regionCode = record.get(4);
+                String districtCode = record.get(6);
+                String postalCode = record.get(9);
                 String address = record.get(10);
                 String callNumber = record.get(11);
                 String x = record.get(28);
                 String y = record.get(29);
 
-                Hospital hospital = Hospital.create(ykiho, name, code, address, callNumber, x, y);
+                Hospital hospital = Hospital.create(ykiho, name, categoryCode, regionCode
+                        ,districtCode, postalCode, address, callNumber, x, y);
 
                 hospitalRepositoryImpl.save(hospital);
             }
