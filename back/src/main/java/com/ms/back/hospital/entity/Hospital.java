@@ -1,9 +1,6 @@
 package com.ms.back.hospital.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +17,9 @@ public class Hospital {
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    private HospitalGrade grade;
 
     @Column(name = "categoryCode", nullable = false)
     private Long categoryCode;

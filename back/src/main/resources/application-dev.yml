@@ -23,6 +23,11 @@ spring:
     console:
       enabled: true
 
+  batch:
+    job:
+      enabled: false
+
+
 logging:
   level:
     com.ms.back: DEBUG

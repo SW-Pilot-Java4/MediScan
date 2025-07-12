@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,6 +21,11 @@ public class HospitalRepositoryImpl implements HospitalRepository{
     @Override
     public void save(Hospital hospital) {
         hospitalJPARepository.save(hospital);
+    }
+
+    @Override
+    public Optional<Hospital> findByHospitalCode(String hospitalCode) {
+        return hospitalJPARepository.findById(hospitalCode);
     }
 
 }
