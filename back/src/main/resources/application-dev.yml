@@ -26,6 +26,7 @@ spring:
   batch:
     job:
       enabled: false
+      name: loadHospitalJob
 
 
 logging:
