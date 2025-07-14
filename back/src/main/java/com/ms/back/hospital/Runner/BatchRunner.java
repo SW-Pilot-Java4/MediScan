@@ -17,6 +17,7 @@ import java.time.LocalTime;
 public class BatchRunner {
     private final JobLauncher jobLauncher;
     private final Job loadHospitalJob;
+    private final Job loadHospitalDetailJob;
 
     @Bean
     public ApplicationRunner runHospitalJobOnStartup() {
@@ -26,6 +27,7 @@ public class BatchRunner {
                     .toJobParameters();
 
             jobLauncher.run(loadHospitalJob, jobParameters);
+            jobLauncher.run(loadHospitalDetailJob, jobParameters);
         };
     }
 }

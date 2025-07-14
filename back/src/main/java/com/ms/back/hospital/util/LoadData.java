@@ -2,9 +2,7 @@ package com.ms.back.hospital.util;
 
 import com.ms.back.global.exception.MediscanCustomException;
 import com.ms.back.hospital.entity.Hospital;
-import com.ms.back.hospital.repository.HospitalRepository;
 import com.ms.back.hospital.repository.HospitalRepositoryImpl;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -25,7 +23,7 @@ public class LoadData {
 // 임시 서비스
     @Transactional
     public void readSampleData()  {
-        ClassPathResource resource = new ClassPathResource("initData/sampleData.csv");
+        ClassPathResource resource = new ClassPathResource("csv/hospital.csv");
 
         try (InputStream inputStream = resource.getInputStream();
              Reader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);

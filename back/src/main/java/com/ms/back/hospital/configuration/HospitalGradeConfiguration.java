@@ -1,11 +1,15 @@
 package com.ms.back.hospital.configuration;
 
 import com.ms.back.hospital.entity.Hospital;
+import com.ms.back.hospital.entity.HospitalDetail;
 import com.ms.back.hospital.entity.HospitalGrade;
+import com.ms.back.hospital.itemProcessor.HospitalDetailProcessor;
 import com.ms.back.hospital.itemProcessor.HospitalGradeProcessor;
 import com.ms.back.hospital.itemProcessor.HospitalProcessor;
+import com.ms.back.hospital.itemReader.HospitalDetailReader;
 import com.ms.back.hospital.itemReader.HospitalGradeReader;
 import com.ms.back.hospital.itemReader.HospitalReader;
+import com.ms.back.hospital.itemWriter.HospitalDetailWriter;
 import com.ms.back.hospital.itemWriter.HospitalGradeWriter;
 import com.ms.back.hospital.itemWriter.HospitalWriter;
 import com.ms.back.hospital.listener.JobListener;
@@ -30,14 +34,17 @@ public class HospitalGradeConfiguration {
 //    Reader
     private final HospitalGradeReader hospitalGradeReader;
     private final HospitalReader hospitalReader;
+    private final HospitalDetailReader hospitalDetailReader;
 
 //    Processor
     private final HospitalGradeProcessor hospitalGradeProcessor;
     private final HospitalProcessor hospitalProcessor;
+    private final HospitalDetailProcessor hospitalDetailProcessor;
 
 //    Writer
     private final HospitalGradeWriter hospitalGradeWriter;
     private final HospitalWriter hospitalWriter;
+    private final HospitalDetailWriter hospitalDetailWriter;
 
     @Bean(name ="loadHospitalJob" )
     public Job loadHospitalJob() {
@@ -78,4 +85,25 @@ public class HospitalGradeConfiguration {
                 .writer(hospitalGradeWriter)
                 .build();
     }
+
+    @Bean(name ="loadHospitalDetailJob" )
+    public Job loadHospitalDetailJob() {
+        return new JobBuilder("loadHospitalDetailJob", jobRepository)
+                .start(loadHospitalDetailStep())
+                .listener(jobListener)
+                .build();
+
+    }
+
+    @JobScope
+    @Bean
+    public Step loadHospitalDetailStep() {
+        return new StepBuilder("loadHospitalDetailStep", jobRepository)
+                .<HospitalDetail, HospitalDetail>chunk(1000,ptm)
+                .reader(hospitalDetailReader.readerByHospitalDetail())
+                .processor(hospitalDetailProcessor)
+                .writer(hospitalDetailWriter)
+                .build();
+    }
+
 }

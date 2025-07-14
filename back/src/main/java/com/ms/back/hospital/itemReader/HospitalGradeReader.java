@@ -3,7 +3,6 @@ package com.ms.back.hospital.itemReader;
 import com.ms.back.hospital.entity.HospitalGrade;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
-import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.xml.builder.StaxEventItemReaderBuilder;
@@ -29,11 +28,7 @@ import java.util.Map;
 @Component
 public class HospitalGradeReader{
     @Autowired
-    private EntityManagerFactory entityManagerFactory;
-    @Autowired
     private Environment env;
-
-
 
     @Bean
     public ItemReader<? extends HospitalGrade> read() {

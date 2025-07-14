@@ -1,52 +1,22 @@
 package com.ms.back.hospital.itemReader;
 
-import com.ms.back.hospital.DefaultLineMapper;
 import com.ms.back.hospital.HospitalFieldSetMapper;
 import com.ms.back.hospital.entity.Hospital;
-import com.ms.back.hospital.entity.HospitalGrade;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.security.AnyTypePermission;
-import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.item.xml.builder.StaxEventItemReaderBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.oxm.Unmarshaller;
-import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @Component
 public class HospitalReader {
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-    @Autowired
-    private Environment env;
-
-
-
     @Bean
     public ItemReader<? extends Hospital> readerByCSV() {
         return new FlatFileItemReaderBuilder<Hospital>()
                 .name("hospitalReader")
-                .resource(new ClassPathResource("/initData/sampleData.csv"))
+                .resource(new ClassPathResource("/csv/hospital.csv"))
                 .fieldSetMapper(new HospitalFieldSetMapper())
                 .linesToSkip(1)
                 .delimited().delimiter(",")
@@ -84,6 +54,4 @@ public class HospitalReader {
                 )
                 .build();
     }
-
-
 }
