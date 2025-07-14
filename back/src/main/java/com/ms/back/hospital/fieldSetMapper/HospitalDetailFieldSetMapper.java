@@ -1,6 +1,5 @@
-package com.ms.back.hospital;
+package com.ms.back.hospital.fieldSetMapper;
 
-import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
@@ -10,8 +9,6 @@ public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDeta
     @Override
     public HospitalDetail mapFieldSet(FieldSet fieldSet) throws BindException {
         if (fieldSet == null) return null;
-
-
 
         HospitalDetail hospitalDetail = HospitalDetail.create(
                 fieldSet.readRawString(0),
@@ -47,5 +44,5 @@ public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDeta
         return hospitalDetail;
     }
 
-    
+
 }

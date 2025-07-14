@@ -23,7 +23,7 @@ public class HospitalDetail {
             joinColumns = @JoinColumn(name = "hospital_code")
     )
     @Column(name = "department_code")
-    private List<Long> departmentCodes;
+    private List<String> departmentCodes;
 
     @Column(name = "closedSunday")
     private String closedSunday;          // 휴진안내_일요일
@@ -103,7 +103,7 @@ public class HospitalDetail {
     @Column(name = "treatSatEnd")
     private String treatSatEnd;           // 진료종료시간_토요일
 
-    private HospitalDetail(String hospitalCode, Hospital hospital, List<Long> departmentCodes,
+    private HospitalDetail(String hospitalCode, Hospital hospital, List<String> departmentCodes,
                           String closedSunday, String closedHoliday, String emergencyDayYn,
                           String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
                           String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
@@ -185,5 +185,13 @@ public class HospitalDetail {
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
+    }
+
+    public void setDepartmentCodes(List<String> departmentCodes) {
+        this.departmentCodes = departmentCodes;
+    }
+
+    public HospitalDetail() {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.ms.back.hospital.itemReader;
 
-import com.ms.back.hospital.HospitalFieldSetMapper;
+import com.ms.back.hospital.fieldSetMapper.HospitalFieldSetMapper;
 import com.ms.back.hospital.entity.Hospital;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;

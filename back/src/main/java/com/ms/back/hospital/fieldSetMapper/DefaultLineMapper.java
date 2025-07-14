@@ -1,4 +1,4 @@
-package com.ms.back.hospital;
+package com.ms.back.hospital.fieldSetMapper;
 
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;

@@ -1,7 +1,8 @@
 package com.ms.back.hospital.itemReader;
 
-import com.ms.back.hospital.HospitalDetailFieldSetMapper;
-import com.ms.back.hospital.HospitalFieldSetMapper;
+import com.ms.back.hospital.dto.HospitalCodeWithDepartments;
+import com.ms.back.hospital.fieldSetMapper.HospitalDetailFieldSetMapper;
+import com.ms.back.hospital.fieldSetMapper.HospitalFieldSetMapper;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -62,23 +65,4 @@ public class HospitalDetailReader {
                 )
                 .build();
     }
-
-    public ItemReader<? extends Hospital> readerByHospitalDepartment() {
-        return new FlatFileItemReaderBuilder<Hospital>()
-                .name("hospitalDepartmentReader")
-                .resource(new ClassPathResource("/csv/hospital_department.csv"))
-                .fieldSetMapper(new HospitalFieldSetMapper())
-                .linesToSkip(1)
-                .delimited().delimiter(",")
-                .names(
-                        "hospitalCode",         // 암호화요양기호
-                        "hospitalName",         // 요양기관명
-                        "departmentCode",       // 진료과목코드
-                        "departmentName",       // 진료과목코드명
-                        "specialistCount",      // 과목별 전문의수
-                        "optionalDoctorCount"   // 선택진료 의사수
-                )
-                .build();
-    }
-
 }

@@ -1,14 +1,18 @@
 package com.ms.back.hospital.configuration;
 
+import com.ms.back.hospital.dto.HospitalCodeWithDepartments;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import com.ms.back.hospital.entity.HospitalGrade;
+import com.ms.back.hospital.itemProcessor.HospitalDepartmentProcessor;
 import com.ms.back.hospital.itemProcessor.HospitalDetailProcessor;
 import com.ms.back.hospital.itemProcessor.HospitalGradeProcessor;
 import com.ms.back.hospital.itemProcessor.HospitalProcessor;
+import com.ms.back.hospital.itemReader.GroupedHospitalDepartmentReader;
 import com.ms.back.hospital.itemReader.HospitalDetailReader;
 import com.ms.back.hospital.itemReader.HospitalGradeReader;
 import com.ms.back.hospital.itemReader.HospitalReader;
+import com.ms.back.hospital.itemWriter.HospitalDepartmentWriter;
 import com.ms.back.hospital.itemWriter.HospitalDetailWriter;
 import com.ms.back.hospital.itemWriter.HospitalGradeWriter;
 import com.ms.back.hospital.itemWriter.HospitalWriter;
@@ -35,16 +39,19 @@ public class HospitalGradeConfiguration {
     private final HospitalGradeReader hospitalGradeReader;
     private final HospitalReader hospitalReader;
     private final HospitalDetailReader hospitalDetailReader;
+    private final GroupedHospitalDepartmentReader groupedHospitalDepartmentReader;
 
 //    Processor
     private final HospitalGradeProcessor hospitalGradeProcessor;
     private final HospitalProcessor hospitalProcessor;
     private final HospitalDetailProcessor hospitalDetailProcessor;
+    private final HospitalDepartmentProcessor hospitalDepartmentProcessor;
 
 //    Writer
     private final HospitalGradeWriter hospitalGradeWriter;
     private final HospitalWriter hospitalWriter;
     private final HospitalDetailWriter hospitalDetailWriter;
+    private final HospitalDepartmentWriter hospitalDepartmentWriter;
 
     @Bean(name ="loadHospitalJob" )
     public Job loadHospitalJob() {
@@ -90,6 +97,7 @@ public class HospitalGradeConfiguration {
     public Job loadHospitalDetailJob() {
         return new JobBuilder("loadHospitalDetailJob", jobRepository)
                 .start(loadHospitalDetailStep())
+                .next(loadHospitalDepartmentStep())
                 .listener(jobListener)
                 .build();
 
@@ -103,6 +111,17 @@ public class HospitalGradeConfiguration {
                 .reader(hospitalDetailReader.readerByHospitalDetail())
                 .processor(hospitalDetailProcessor)
                 .writer(hospitalDetailWriter)
+                .build();
+    }
+
+    @JobScope
+    @Bean
+    public Step loadHospitalDepartmentStep() {
+        return new StepBuilder("loadHospitalDepartmentStep", jobRepository)
+                .<HospitalCodeWithDepartments, HospitalDetail>chunk(1000,ptm)
+                .reader(groupedHospitalDepartmentReader.readerByHospitalDepartment())
+                .processor(hospitalDepartmentProcessor)
+                .writer(hospitalDepartmentWriter)
                 .build();
     }
 
