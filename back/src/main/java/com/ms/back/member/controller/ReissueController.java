@@ -1,19 +1,16 @@
-package com.ms.back.controller;
+package com.ms.back.member.controller;
 
-import com.ms.back.entity.RefreshEntity;
-import com.ms.back.jwt.JWTUtil;
-import com.ms.back.repository.RefreshRepository;
+import com.ms.back.member.entity.RefreshEntity;
+import com.ms.back.member.jwt.JWTUtil;
+import com.ms.back.member.repository.RefreshRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;

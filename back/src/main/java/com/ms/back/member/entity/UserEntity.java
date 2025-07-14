@@ -1,4 +1,4 @@
-package com.ms.back.entity;
+package com.ms.back.member.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,13 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
-public class RefreshEntity {
+@Getter
+public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String username;
-    private String refresh;
-    private String expiration;
+    private String password;
+    private String address;
+    private String email;
+    private String phone;
+    private String role; //유저권한
 }

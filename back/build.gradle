@@ -18,33 +18,33 @@ repositories {
 }
 
 dependencies {
-    // 🔐 Spring Security (필수)
+    // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    // 🧾 JWT 토큰 생성/파싱용 (JJWT 라이브러리)
+    // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
-
-    // 🌐 Web MVC
+    // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // 🗄️ DB + JPA
+    // JPA & Database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.h2database:h2' // 개발 중 임베디드 DB
+    implementation 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
-    // 📦 유효성 검증
+
+    // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // 🔧 개발 편의성
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    // 🧩 롬복
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // ✅ 테스트
+    // Dev Tools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.springframework.security:spring-boot-security-test'
 }

@@ -1,8 +1,8 @@
-package com.ms.back.service;
+package com.ms.back.member.service;
 
-import com.ms.back.dto.JoinDTO;
-import com.ms.back.entity.UserEntity;
-import com.ms.back.repository.UserRepository;
+import com.ms.back.member.dto.JoinDTO;
+import com.ms.back.member.entity.UserEntity;
+import com.ms.back.member.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.ms.back.controller;
+package com.ms.back.member.controller;
 
-import com.ms.back.dto.JoinDTO;
-import com.ms.back.service.JoinService;
+import com.ms.back.member.dto.JoinDTO;
+import com.ms.back.member.service.JoinService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory; // 로그 라이브러리 추가
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.ms.back.jwt;
+package com.ms.back.member.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

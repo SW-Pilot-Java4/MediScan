@@ -1,12 +1,11 @@
 package com.ms.back.config;
 
-import com.ms.back.jwt.CustomLogoutFilter;
-import com.ms.back.jwt.JWTFilter;
-import com.ms.back.jwt.JWTUtil;
-import com.ms.back.jwt.LoginFilter;
-import com.ms.back.repository.RefreshRepository;
+import com.ms.back.member.jwt.CustomLogoutFilter;
+import com.ms.back.member.jwt.JWTFilter;
+import com.ms.back.member.jwt.JWTUtil;
+import com.ms.back.member.jwt.LoginFilter;
+import com.ms.back.member.repository.RefreshRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import org.hibernate.validator.internal.metadata.raw.ConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

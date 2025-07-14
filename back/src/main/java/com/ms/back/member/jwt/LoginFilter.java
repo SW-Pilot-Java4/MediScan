@@ -1,8 +1,7 @@
-package com.ms.back.jwt;
+package com.ms.back.member.jwt;
 
-import com.ms.back.dto.CustomUserDetails;
-import com.ms.back.entity.RefreshEntity;
-import com.ms.back.repository.RefreshRepository;
+import com.ms.back.member.entity.RefreshEntity;
+import com.ms.back.member.repository.RefreshRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
