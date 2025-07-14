@@ -1,8 +1,6 @@
 package com.ms.back.hospital.itemWriter;
 
-import com.ms.back.hospital.entity.Hospital;
-import com.ms.back.hospital.entity.HospitalGrade;
-import com.ms.back.hospital.repository.dao.HospitalRegisterDAO;
+import com.ms.back.hospital.repository.dao.HospitalDAO;
 import jakarta.persistence.EntityManager;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -10,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HospitalWriter implements ItemWriter<HospitalRegisterDAO> {
+public class HospitalWriter implements ItemWriter<HospitalDAO> {
     @Autowired
     private EntityManager entityManager;
 
     @Override
-    public void write(Chunk<? extends HospitalRegisterDAO> chunk) throws Exception {
-        for (HospitalRegisterDAO dao : chunk) {
+    public void write(Chunk<? extends HospitalDAO> chunk) throws Exception {
+        for (HospitalDAO dao : chunk) {
             entityManager.persist(dao.to());
         }
     }

@@ -1,17 +1,19 @@
 package com.ms.back.hospital.fieldSetMapper;
 
+import com.ms.back.hospital.dto.HospitalDetailRegister;
 import com.ms.back.hospital.entity.HospitalDetail;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;
 
-public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDetail> {
+public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDetailRegister> {
     @Override
-    public HospitalDetail mapFieldSet(FieldSet fieldSet) throws BindException {
+    public HospitalDetailRegister mapFieldSet(FieldSet fieldSet) throws BindException {
         if (fieldSet == null) return null;
 
-        HospitalDetail hospitalDetail = HospitalDetail.create(
+        HospitalDetailRegister dto = new HospitalDetailRegister(
                 fieldSet.readRawString(0),
+                null,
                 null,
                 fieldSet.readRawString(8),
                 fieldSet.readRawString(9),
@@ -40,8 +42,7 @@ public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDeta
                 fieldSet.readRawString(32),
                 fieldSet.readRawString(33)
         );
-
-        return hospitalDetail;
+        return dto;
     }
 
 

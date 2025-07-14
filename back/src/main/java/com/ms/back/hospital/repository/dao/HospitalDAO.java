@@ -3,7 +3,7 @@ package com.ms.back.hospital.repository.dao;
 import com.ms.back.hospital.dto.HospitalRegister;
 import com.ms.back.hospital.entity.Hospital;
 
-public record HospitalRegisterDAO(
+public record HospitalDAO(
         String hospitalCode,
         String name,
         String categoryCode,
@@ -30,8 +30,8 @@ public record HospitalRegisterDAO(
         );
     }
 
-    public static HospitalRegisterDAO from(HospitalRegister dto) {
-        return new HospitalRegisterDAO(
+    public static HospitalDAO from(HospitalRegister dto) {
+        return new HospitalDAO(
                 dto.hospitalCode(),
                 dto.name(),
                 dto.categoryCode(),
@@ -42,6 +42,21 @@ public record HospitalRegisterDAO(
                 dto.callNumber(),
                 dto.latitude(),
                 dto.longitude()
+        );
+    }
+
+    public static HospitalDAO from(Hospital entity) {
+        return new HospitalDAO(
+                entity.getHospitalCode(),
+                entity.getName(),
+                String.valueOf(entity.getCategoryCode()),
+                String.valueOf(entity.getRegionCode()),
+                String.valueOf(entity.getDistrictCode()),
+                String.valueOf(entity.getPostalCode()),
+                entity.getAddress(),
+                entity.getCallNumber(),
+                entity.getLatitude(),
+                entity.getLongitude()
         );
     }
 }

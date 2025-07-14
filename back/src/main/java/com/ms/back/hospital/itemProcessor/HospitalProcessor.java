@@ -1,23 +1,18 @@
 package com.ms.back.hospital.itemProcessor;
 
 import com.ms.back.hospital.dto.HospitalRegister;
-import com.ms.back.hospital.entity.Hospital;
-import com.ms.back.hospital.entity.HospitalGrade;
-import com.ms.back.hospital.repository.HospitalRepository;
-import com.ms.back.hospital.repository.dao.HospitalRegisterDAO;
+import com.ms.back.hospital.repository.dao.HospitalDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
-public class HospitalProcessor implements ItemProcessor<HospitalRegister, HospitalRegisterDAO> {
+public class HospitalProcessor implements ItemProcessor<HospitalRegister, HospitalDAO> {
 
     @Override
-    public HospitalRegisterDAO process(HospitalRegister item) throws Exception {
+    public HospitalDAO process(HospitalRegister item) throws Exception {
 
-        return HospitalRegisterDAO.from(item);
+        return HospitalDAO.from(item);
     }
 }

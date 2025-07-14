@@ -1,8 +1,9 @@
 package com.ms.back.hospital.configuration;
 
 import com.ms.back.hospital.dto.HospitalCodeWithDepartments;
+import com.ms.back.hospital.dto.HospitalDetailRegister;
+import com.ms.back.hospital.dto.HospitalGradeRegister;
 import com.ms.back.hospital.dto.HospitalRegister;
-import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import com.ms.back.hospital.entity.HospitalGrade;
 import com.ms.back.hospital.itemProcessor.HospitalDepartmentProcessor;
@@ -18,7 +19,9 @@ import com.ms.back.hospital.itemWriter.HospitalDetailWriter;
 import com.ms.back.hospital.itemWriter.HospitalGradeWriter;
 import com.ms.back.hospital.itemWriter.HospitalWriter;
 import com.ms.back.hospital.listener.JobListener;
-import com.ms.back.hospital.repository.dao.HospitalRegisterDAO;
+import com.ms.back.hospital.repository.dao.HospitalDAO;
+import com.ms.back.hospital.repository.dao.HospitalDetailDAO;
+import com.ms.back.hospital.repository.dao.HospitalGradeDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -68,7 +71,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalStep() {
         return new StepBuilder("loadHospitalStep", jobRepository)
-                .<HospitalRegister, HospitalRegisterDAO>chunk(1000,ptm)
+                .<HospitalRegister, HospitalDAO>chunk(1000,ptm)
                 .reader(hospitalReader.readerByCSV())
                 .processor(hospitalProcessor)
                 .writer(hospitalWriter)
@@ -88,7 +91,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalGradeStep() {
         return new StepBuilder("loadHospitalGradeStep", jobRepository)
-                .<HospitalGrade, HospitalGrade>chunk(10,ptm)
+                .<HospitalGradeRegister, HospitalGradeDAO>chunk(10,ptm)
                 .reader(hospitalGradeReader.read())
                 .processor(hospitalGradeProcessor)
                 .writer(hospitalGradeWriter)
@@ -109,7 +112,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalDetailStep() {
         return new StepBuilder("loadHospitalDetailStep", jobRepository)
-                .<HospitalDetail, HospitalDetail>chunk(1000,ptm)
+                .<HospitalDetailRegister, HospitalDetailDAO>chunk(1000,ptm)
                 .reader(hospitalDetailReader.readerByHospitalDetail())
                 .processor(hospitalDetailProcessor)
                 .writer(hospitalDetailWriter)
@@ -120,7 +123,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalDepartmentStep() {
         return new StepBuilder("loadHospitalDepartmentStep", jobRepository)
-                .<HospitalCodeWithDepartments, HospitalDetail>chunk(1000,ptm)
+                .<HospitalCodeWithDepartments, HospitalDetailDAO>chunk(1000,ptm)
                 .reader(groupedHospitalDepartmentReader.readerByHospitalDepartment())
                 .processor(hospitalDepartmentProcessor)
                 .writer(hospitalDepartmentWriter)

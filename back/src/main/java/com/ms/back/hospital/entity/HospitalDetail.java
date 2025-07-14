@@ -138,18 +138,20 @@ public class HospitalDetail {
         this.treatSatEnd = treatSatEnd;
     }
 
-    public static HospitalDetail create(String hospitalCode, Hospital hospital,
-                                        String closedSunday, String closedHoliday, String emergencyDayYn,
-                                        String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
-                                        String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
-                                        String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
-                                        String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
-                                        String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
-                                        String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd) {
+    public static HospitalDetail create(
+            String hospitalCode, Hospital hospital, List<String> departmentCodes,
+            String closedSunday, String closedHoliday, String emergencyDayYn,
+            String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
+            String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
+            String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
+            String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
+            String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
+            String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
+    ) {
         return new HospitalDetail(
                 hospitalCode,
                 hospital,
-                null,
+                (departmentCodes == null || departmentCodes.isEmpty()) ? null : departmentCodes,
                 closedSunday,
                 closedHoliday,
                 emergencyDayYn,

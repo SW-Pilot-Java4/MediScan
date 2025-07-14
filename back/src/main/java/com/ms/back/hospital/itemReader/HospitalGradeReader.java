@@ -1,5 +1,6 @@
 package com.ms.back.hospital.itemReader;
 
+import com.ms.back.hospital.dto.HospitalGradeRegister;
 import com.ms.back.hospital.entity.HospitalGrade;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
@@ -31,7 +32,7 @@ public class HospitalGradeReader{
     private Environment env;
 
     @Bean
-    public ItemReader<? extends HospitalGrade> read() {
+    public ItemReader<? extends HospitalGradeRegister> read() {
         String xml;
         try {
             xml = fetchFromAPI(); // OpenAPI에서 XML 문자열 가져오기
@@ -42,7 +43,7 @@ public class HospitalGradeReader{
 
         Resource resource = new ByteArrayResource(xml.getBytes(StandardCharsets.UTF_8));
 
-        return new StaxEventItemReaderBuilder<HospitalGrade>()
+        return new StaxEventItemReaderBuilder<HospitalGradeRegister>()
                 .name("hospitalGradeXmlReader")
                 .resource(resource)
                 .addFragmentRootElements("item")  // 'items'가 아니라 'item'으로 변경
@@ -61,12 +62,12 @@ public class HospitalGradeReader{
         // 보안 정책 때문에 필요하면 아래 허용 설정도 추가 가능
          XStream xStream = xStreamMarshaller.getXStream();
 
-        xStream.allowTypes(new Class[]{HospitalGrade.class});
+        xStream.allowTypes(new Class[]{HospitalGradeRegister.class});
 
         // xStream.addPermission(AnyTypePermission.ANY);
         xStream.ignoreUnknownElements(); //
 
-        xStream.aliasField("ykiho", HospitalGrade.class, "hospitalCode");
+        xStream.aliasField("ykiho", HospitalGradeRegister.class, "hospitalCode");
 
         xStream.addPermission(AnyTypePermission.ANY);  // 위험: 모든 클래스 허용
         return xStreamMarshaller;

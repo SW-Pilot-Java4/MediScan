@@ -1,6 +1,7 @@
 package com.ms.back.hospital.repository;
 
 import com.ms.back.hospital.entity.Hospital;
+import com.ms.back.hospital.repository.dao.HospitalDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +25,8 @@ public class HospitalRepositoryImpl implements HospitalRepository{
     }
 
     @Override
-    public Optional<Hospital> findByHospitalCode(String hospitalCode) {
-        return hospitalJPARepository.findById(hospitalCode);
+    public Optional<HospitalDAO> findByHospitalCode(String hospitalCode) {
+        return hospitalJPARepository.findById(hospitalCode).map(HospitalDAO::from);
     }
 
 }

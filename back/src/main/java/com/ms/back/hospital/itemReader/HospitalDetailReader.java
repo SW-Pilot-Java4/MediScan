@@ -1,6 +1,7 @@
 package com.ms.back.hospital.itemReader;
 
 import com.ms.back.hospital.dto.HospitalCodeWithDepartments;
+import com.ms.back.hospital.dto.HospitalDetailRegister;
 import com.ms.back.hospital.fieldSetMapper.HospitalDetailFieldSetMapper;
 import com.ms.back.hospital.fieldSetMapper.HospitalFieldSetMapper;
 import com.ms.back.hospital.entity.Hospital;
@@ -19,8 +20,8 @@ import java.util.List;
 public class HospitalDetailReader {
 
     @Bean
-    public ItemReader<? extends HospitalDetail> readerByHospitalDetail() {
-        return new FlatFileItemReaderBuilder<HospitalDetail>()
+    public ItemReader<? extends HospitalDetailRegister> readerByHospitalDetail() {
+        return new FlatFileItemReaderBuilder<HospitalDetailRegister>()
                 .name("hospitalDetailReader")
                 .resource(new ClassPathResource("/csv/hospital_detail.csv"))
                 .fieldSetMapper(new HospitalDetailFieldSetMapper())
