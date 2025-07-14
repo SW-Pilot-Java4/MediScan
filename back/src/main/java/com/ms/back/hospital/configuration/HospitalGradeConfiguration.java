@@ -1,6 +1,7 @@
 package com.ms.back.hospital.configuration;
 
 import com.ms.back.hospital.dto.HospitalCodeWithDepartments;
+import com.ms.back.hospital.dto.HospitalRegister;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import com.ms.back.hospital.entity.HospitalGrade;
@@ -17,6 +18,7 @@ import com.ms.back.hospital.itemWriter.HospitalDetailWriter;
 import com.ms.back.hospital.itemWriter.HospitalGradeWriter;
 import com.ms.back.hospital.itemWriter.HospitalWriter;
 import com.ms.back.hospital.listener.JobListener;
+import com.ms.back.hospital.repository.dao.HospitalRegisterDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -66,7 +68,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalStep() {
         return new StepBuilder("loadHospitalStep", jobRepository)
-                .<Hospital, Hospital>chunk(1000,ptm)
+                .<HospitalRegister, HospitalRegisterDAO>chunk(1000,ptm)
                 .reader(hospitalReader.readerByCSV())
                 .processor(hospitalProcessor)
                 .writer(hospitalWriter)

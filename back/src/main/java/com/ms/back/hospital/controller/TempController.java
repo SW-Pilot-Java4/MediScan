@@ -2,7 +2,6 @@ package com.ms.back.hospital.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
 import com.ms.back.global.standard.base.Empty;
-import com.ms.back.hospital.util.LoadData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -24,23 +23,9 @@ import java.net.URI;
 @RequestMapping("/api/temp")
 @RequiredArgsConstructor
 public class TempController {
-    private final LoadData loadData;
     private final JobLauncher jobLauncher;
     private final Job loadHospitalGradeJob;
 
-    @PostMapping("/initData")
-    public ApiResponse<Empty> init() {
-
-        loadData.readSampleData();
-
-        return ApiResponse.noContent();
-    }
-
-    @GetMapping("/test/exceptionHandler")
-    public String exceptionTest() {
-        loadData.exceptionTest();
-        return "틀린 형태의 반환 값";
-    }
     @GetMapping("/test/ok")
     public ApiResponse<String> ok() {
         return ApiResponse.ok("ok");

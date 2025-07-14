@@ -1,5 +1,6 @@
 package com.ms.back.hospital.itemReader;
 
+import com.ms.back.hospital.dto.HospitalRegister;
 import com.ms.back.hospital.fieldSetMapper.HospitalFieldSetMapper;
 import com.ms.back.hospital.entity.Hospital;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class HospitalReader {
     @Bean
-    public ItemReader<? extends Hospital> readerByCSV() {
-        return new FlatFileItemReaderBuilder<Hospital>()
+    public ItemReader<? extends HospitalRegister> readerByCSV() {
+        return new FlatFileItemReaderBuilder<HospitalRegister>()
                 .name("hospitalReader")
                 .resource(new ClassPathResource("/csv/hospital.csv"))
                 .fieldSetMapper(new HospitalFieldSetMapper())
