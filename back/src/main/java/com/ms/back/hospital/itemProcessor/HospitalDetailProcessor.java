@@ -24,7 +24,6 @@ public class HospitalDetailProcessor implements ItemProcessor<HospitalDetailRegi
     @Override
     public HospitalDetailDAO process(HospitalDetailRegister item) throws Exception {
         try {
-            item = item.setHospital(item, validationData(item.hospitalCode()));
             return HospitalDetailDAO.from(item);
         }catch (RuntimeException e) {
             // 존재하지 않는 Hospital Code가 있을 경우 해당 데이터는 Drop

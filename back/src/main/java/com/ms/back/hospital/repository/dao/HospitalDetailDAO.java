@@ -5,12 +5,13 @@ import com.ms.back.hospital.dto.HospitalGradeRegister;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.entity.HospitalDetail;
 import com.ms.back.hospital.entity.HospitalGrade;
+import jakarta.persistence.Entity;
 
 import java.util.List;
 
 public record HospitalDetailDAO(
+        Long id,
         String hospitalCode,
-        Hospital hospital,
         List<String> departmentCodes,
         String closedSunday,
         String closedHoliday,
@@ -41,8 +42,8 @@ public record HospitalDetailDAO(
 ) {
     public HospitalDetail to() {
         return HospitalDetail.create(
+                id,
                 hospitalCode,
-                hospital,
                 departmentCodes,
                 closedSunday,
                 closedHoliday,
@@ -75,8 +76,8 @@ public record HospitalDetailDAO(
 
     public static HospitalDetailDAO from(HospitalDetailRegister dto) {
         return new HospitalDetailDAO(
+                null,
                 dto.hospitalCode(),
-                dto.hospital(),
                 dto.departmentCodes(),
                 dto.closedSunday(),
                 dto.closedHoliday(),
@@ -109,8 +110,8 @@ public record HospitalDetailDAO(
 
     public static HospitalDetailDAO from(HospitalDetail entity) {
         return new HospitalDetailDAO(
+                entity.getId(),
                 entity.getHospitalCode(),
-                entity.getHospital(),
                 entity.getDepartmentCodes(),
                 entity.getClosedSunday(),
                 entity.getClosedHoliday(),
@@ -143,8 +144,8 @@ public record HospitalDetailDAO(
 
     public HospitalDetailDAO setDepartmentCodes(HospitalDetailDAO dao, List<String> departmentCodes) {
         return new HospitalDetailDAO(
+                dao.id,
                 dao.hospitalCode,
-                dao.hospital,
                 departmentCodes,
                 dao.closedSunday,
                 dao.closedHoliday,

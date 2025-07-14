@@ -39,7 +39,7 @@ public record HospitalDetailRegister(
     public HospitalDetailRegister setHospital(HospitalDetailRegister dto, HospitalDAO hospitalDAO) {
         return new HospitalDetailRegister(
                 dto.hospitalCode,
-                hospitalDAO.to(),
+                hospital,
                 dto.departmentCodes,
                 dto.closedSunday,
                 dto.closedHoliday,

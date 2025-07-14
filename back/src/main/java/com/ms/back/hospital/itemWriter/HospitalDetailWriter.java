@@ -14,9 +14,15 @@ public class HospitalDetailWriter implements ItemWriter<HospitalDetailDAO> {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public void write(Chunk<? extends HospitalDetailDAO> chunk) throws Exception {
-        for (HospitalDetailDAO dao : chunk) {
-            entityManager.merge(dao.to());
+        try {
+            for (HospitalDetailDAO dao : chunk) {
+                entityManager.persist(dao.to());
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 }

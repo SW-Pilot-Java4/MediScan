@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface HospitalJPARepository extends JpaRepository<Hospital, String> {
 
+    Optional<Hospital> findByHospitalCode(String hospitalCode);
 }

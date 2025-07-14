@@ -14,7 +14,7 @@ public class HospitalDetailRepositoryImpl implements HospitalDetailRepository{
 
     @Override
     public Optional<HospitalDetailDAO> findByHospitalCode(String hospitalCode) {
-      return hospitalDetailJPARepository.findById(hospitalCode).map(HospitalDetailDAO::from);
+      return hospitalDetailJPARepository.findByHospitalCode(hospitalCode).map(HospitalDetailDAO::from);
 
     }
 }

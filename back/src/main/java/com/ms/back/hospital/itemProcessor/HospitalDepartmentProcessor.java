@@ -18,8 +18,6 @@ import java.util.Optional;
 public class HospitalDepartmentProcessor implements ItemProcessor<HospitalCodeWithDepartments, HospitalDetailDAO> {
     private final HospitalDetailRepository hospitalDetailRepository;
 
-
-
     @Override
     public HospitalDetailDAO process(HospitalCodeWithDepartments item) throws Exception {
         try {

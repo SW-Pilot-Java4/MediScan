@@ -9,14 +9,21 @@ import java.util.List;
 @Entity
 @Table(name = "hospital_detail")
 public class HospitalDetail {
+    // 새로운 ID 필드를 추가합니다. 예를 들어, Long 타입의 auto-increment ID
+    // 또는 HospitalDetail만의 고유한 UUID 등을 사용할 수 있습니다.
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1부터 자동 증가하는 ID
+    @Column(name = "id") // HospitalDetail 고유의 ID 컬럼명
+    private Long id; // 새로운 ID 필드
+
+    // 기존의 hospitalCode는 이제 Hospital 엔티티를 참조하는 외래 키 역할을 합니다.
+    // @Column 어노테이션만 사용하여 일반 컬럼으로 매핑합니다.
+    @Column(name = "hospital_code", nullable = false, unique = true) // 이 필드는 HospitalCode와 연결됩니다.
     private String hospitalCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "hospital_code")
-    private Hospital hospital;
-
+    // 더 이상 Hospital 엔티티 객체 자체를 필드로 직접 가지지 않습니다.
+    // @OneToOne 관계 및 @MapsId는 제거합니다.
+    // private Hospital hospital; // 이 필드를 삭제합니다.
     @Convert(converter = DepartmentCodeListConverter.class)
     @Column(name = "department_code")
     private List<String> departmentCodes;
@@ -99,16 +106,58 @@ public class HospitalDetail {
     @Column(name = "treatSatEnd")
     private String treatSatEnd;           // 진료종료시간_토요일
 
-    private HospitalDetail(String hospitalCode, Hospital hospital, List<String> departmentCodes,
-                          String closedSunday, String closedHoliday, String emergencyDayYn,
-                          String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
-                          String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
-                          String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
-                          String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
-                          String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
-                          String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd) {
+    private HospitalDetail(
+            String hospitalCode, List<String> departmentCodes,
+            String closedSunday, String closedHoliday, String emergencyDayYn,
+            String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
+            String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
+            String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
+            String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
+            String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
+            String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
+    ) {
         this.hospitalCode = hospitalCode;
-        this.hospital = hospital;
+        this.departmentCodes = departmentCodes;
+        this.closedSunday = closedSunday;
+        this.closedHoliday = closedHoliday;
+        this.emergencyDayYn = emergencyDayYn;
+        this.emergencyDayPhone1 = emergencyDayPhone1;
+        this.emergencyDayPhone2 = emergencyDayPhone2;
+        this.emergencyNightYn = emergencyNightYn;
+        this.emergencyNightPhone1 = emergencyNightPhone1;
+        this.emergencyNightPhone2 = emergencyNightPhone2;
+        this.lunchWeekday = lunchWeekday;
+        this.lunchSaturday = lunchSaturday;
+        this.receptionWeekday = receptionWeekday;
+        this.receptionSaturday = receptionSaturday;
+        this.treatSunStart = treatSunStart;
+        this.treatSunEnd = treatSunEnd;
+        this.treatMonStart = treatMonStart;
+        this.treatMonEnd = treatMonEnd;
+        this.treatTueStart = treatTueStart;
+        this.treatTueEnd = treatTueEnd;
+        this.treatWedStart = treatWedStart;
+        this.treatWedEnd = treatWedEnd;
+        this.treatThuStart = treatThuStart;
+        this.treatThuEnd = treatThuEnd;
+        this.treatFriStart = treatFriStart;
+        this.treatFriEnd = treatFriEnd;
+        this.treatSatStart = treatSatStart;
+        this.treatSatEnd = treatSatEnd;
+    }
+
+    private HospitalDetail(
+            Long id, String hospitalCode, List<String> departmentCodes,
+            String closedSunday, String closedHoliday, String emergencyDayYn,
+            String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
+            String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
+            String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
+            String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
+            String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
+            String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
+    ) {
+        this.id = id;
+        this.hospitalCode = hospitalCode;
         this.departmentCodes = departmentCodes;
         this.closedSunday = closedSunday;
         this.closedHoliday = closedHoliday;
@@ -139,7 +188,7 @@ public class HospitalDetail {
     }
 
     public static HospitalDetail create(
-            String hospitalCode, Hospital hospital, List<String> departmentCodes,
+            String hospitalCode, List<String> departmentCodes,
             String closedSunday, String closedHoliday, String emergencyDayYn,
             String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
             String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
@@ -150,7 +199,6 @@ public class HospitalDetail {
     ) {
         return new HospitalDetail(
                 hospitalCode,
-                hospital,
                 (departmentCodes == null || departmentCodes.isEmpty()) ? null : departmentCodes,
                 closedSunday,
                 closedHoliday,
@@ -180,13 +228,47 @@ public class HospitalDetail {
                 treatSatEnd
         );
     }
-
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
-    }
-
-    public void setDepartmentCodes(List<String> departmentCodes) {
-        this.departmentCodes = departmentCodes;
+    public static HospitalDetail create(
+            Long id, String hospitalCode, List<String> departmentCodes,
+            String closedSunday, String closedHoliday, String emergencyDayYn,
+            String emergencyDayPhone1, String emergencyDayPhone2, String emergencyNightYn,
+            String emergencyNightPhone1, String emergencyNightPhone2, String lunchWeekday,
+            String lunchSaturday, String receptionWeekday, String receptionSaturday, String treatSunStart,
+            String treatSunEnd, String treatMonStart, String treatMonEnd, String treatTueStart,
+            String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
+            String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
+    ) {
+        return new HospitalDetail(
+                id,
+                hospitalCode,
+                (departmentCodes == null || departmentCodes.isEmpty()) ? null : departmentCodes,
+                closedSunday,
+                closedHoliday,
+                emergencyDayYn,
+                emergencyDayPhone1,
+                emergencyDayPhone2,
+                emergencyNightYn,
+                emergencyNightPhone1,
+                emergencyNightPhone2,
+                lunchWeekday,
+                lunchSaturday,
+                receptionWeekday,
+                receptionSaturday,
+                treatSunStart,
+                treatSunEnd,
+                treatMonStart,
+                treatMonEnd,
+                treatTueStart,
+                treatTueEnd,
+                treatWedStart,
+                treatWedEnd,
+                treatThuStart,
+                treatThuEnd,
+                treatFriStart,
+                treatFriEnd,
+                treatSatStart,
+                treatSatEnd
+        );
     }
 
     public HospitalDetail() {
