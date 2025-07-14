@@ -17,11 +17,7 @@ public class HospitalDetail {
     @JoinColumn(name = "hospital_code")
     private Hospital hospital;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "hospital_department_codes",
-            joinColumns = @JoinColumn(name = "hospital_code")
-    )
+    @Convert(converter = DepartmentCodeListConverter.class)
     @Column(name = "department_code")
     private List<String> departmentCodes;
 
