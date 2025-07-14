@@ -18,8 +18,8 @@ public class Hospital {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
-    private HospitalGrade grade;
+//    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private HospitalGrade grade;
 
     @Column(name = "categoryCode", nullable = false)
     private Long categoryCode;

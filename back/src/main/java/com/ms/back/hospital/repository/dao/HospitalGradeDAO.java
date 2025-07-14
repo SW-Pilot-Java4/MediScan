@@ -6,7 +6,6 @@ import com.ms.back.hospital.entity.HospitalGrade;
 
 public record HospitalGradeDAO(
         String hospitalCode,
-        Hospital hospital,
         String asmGrd01,
         String asmGrd02,
         String asmGrd03,
@@ -35,7 +34,6 @@ public record HospitalGradeDAO(
     public HospitalGrade to() {
         return HospitalGrade.create(
                 hospitalCode,
-                hospital,
                 asmGrd01,
                 asmGrd02,
                 asmGrd03,
@@ -65,32 +63,31 @@ public record HospitalGradeDAO(
 
     public static HospitalGradeDAO from(HospitalGradeRegister dto) {
         return new HospitalGradeDAO(
-                dto.hospitalCode(),
-                dto.hospital(),
-                dto.asmGrd01(),
-                dto.asmGrd02(),
-                dto.asmGrd03(),
-                dto.asmGrd04(),
-                dto.asmGrd05(),
-                dto.asmGrd06(),
-                dto.asmGrd07(),
-                dto.asmGrd08(),
-                dto.asmGrd09(),
-                dto.asmGrd10(),
-                dto.asmGrd11(),
-                dto.asmGrd12(),
-                dto.asmGrd13(),
-                dto.asmGrd14(),
-                dto.asmGrd15(),
-                dto.asmGrd16(),
-                dto.asmGrd17(),
-                dto.asmGrd18(),
-                dto.asmGrd19(),
-                dto.asmGrd20(),
-                dto.asmGrd21(),
-                dto.asmGrd22(),
-                dto.asmGrd23(),
-                dto.asmGrd24()
+                dto.getHospitalCode(),
+                dto.getAsmGrd01(),
+                dto.getAsmGrd02(),
+                dto.getAsmGrd03(),
+                dto.getAsmGrd04(),
+                dto.getAsmGrd05(),
+                dto.getAsmGrd06(),
+                dto.getAsmGrd07(),
+                dto.getAsmGrd08(),
+                dto.getAsmGrd09(),
+                dto.getAsmGrd10(),
+                dto.getAsmGrd11(),
+                dto.getAsmGrd12(),
+                dto.getAsmGrd13(),
+                dto.getAsmGrd14(),
+                dto.getAsmGrd15(),
+                dto.getAsmGrd16(),
+                dto.getAsmGrd17(),
+                dto.getAsmGrd18(),
+                dto.getAsmGrd19(),
+                dto.getAsmGrd20(),
+                dto.getAsmGrd21(),
+                dto.getAsmGrd22(),
+                dto.getAsmGrd23(),
+                dto.getAsmGrd24()
         );
     }
 }

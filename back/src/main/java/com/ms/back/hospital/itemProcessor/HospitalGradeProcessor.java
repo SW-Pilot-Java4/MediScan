@@ -23,11 +23,11 @@ public class HospitalGradeProcessor implements ItemProcessor<HospitalGradeRegist
     @Override
     public HospitalGradeDAO process(HospitalGradeRegister item) throws Exception {
         try {
-            item.setHospital(validationData(item.hospitalCode()).to());
+//            item = item.setHospital(item, validationData(item.getHospitalCode()).to());
             return HospitalGradeDAO.from(item);
         } catch (RuntimeException e) {
             // 존재하지 않는 Hospital Code가 있을 경우 해당 데이터는 Drop
-            log.error("등록되지 않은 HospitalCode"+item.hospitalCode());
+            log.error("등록되지 않은 HospitalCode"+item.getHospitalCode());
             return null;
         }
     }

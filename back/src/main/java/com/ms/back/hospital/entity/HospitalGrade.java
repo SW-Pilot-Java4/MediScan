@@ -10,10 +10,10 @@ public class HospitalGrade {
     @Id
     private String hospitalCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "hospital_code")
-    private Hospital hospital;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId
+//    @JoinColumn(name = "hospital_code")
+//    private Hospital hospital;
 
     @Column(name = "asm_grd01")
     private String asmGrd01;
@@ -88,7 +88,7 @@ public class HospitalGrade {
     private String asmGrd24;
 
     private HospitalGrade(
-            String hospitalCode, Hospital hospital,
+            String hospitalCode,
             String asmGrd01, String asmGrd02, String asmGrd03, String asmGrd04,
             String asmGrd05, String asmGrd06, String asmGrd07, String asmGrd08,
             String asmGrd09, String asmGrd10, String asmGrd11, String asmGrd12,
@@ -97,7 +97,6 @@ public class HospitalGrade {
             String asmGrd21, String asmGrd22, String asmGrd23, String asmGrd24
     ) {
         this.hospitalCode = hospitalCode;
-        this.hospital = hospital;
         this.asmGrd01 = asmGrd01;
         this.asmGrd02 = asmGrd02;
         this.asmGrd03 = asmGrd03;
@@ -129,7 +128,7 @@ public class HospitalGrade {
     }
 
     public static HospitalGrade create(
-            String hospitalCode, Hospital hospital,
+            String hospitalCode,
             String asmGrd01, String asmGrd02, String asmGrd03, String asmGrd04,
             String asmGrd05, String asmGrd06, String asmGrd07, String asmGrd08,
             String asmGrd09, String asmGrd10, String asmGrd11, String asmGrd12,
@@ -138,7 +137,7 @@ public class HospitalGrade {
             String asmGrd21, String asmGrd22, String asmGrd23, String asmGrd24
     ) {
         return new HospitalGrade(
-                hospitalCode, hospital,
+                hospitalCode,
                 asmGrd01, asmGrd02, asmGrd03, asmGrd04, asmGrd05,
                 asmGrd06, asmGrd07, asmGrd08, asmGrd09, asmGrd10,
                 asmGrd11, asmGrd12, asmGrd13, asmGrd14, asmGrd15,

@@ -53,7 +53,7 @@ public class HospitalGradeReader{
 
     public Unmarshaller itemUnmarshaller() {
         final Map<String, Class<?>> aliases = new HashMap<>();
-        aliases.put("item", HospitalGrade.class); // XML의 <item> 태그와 매핑
+        aliases.put("item", HospitalGradeRegister.class); // XML의 <item> 태그와 매핑
         aliases.put("ykiho", String.class);
 
         final XStreamMarshaller xStreamMarshaller = new XStreamMarshaller();
