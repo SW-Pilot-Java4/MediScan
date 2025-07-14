@@ -78,7 +78,7 @@ public class HospitalGradeReader{
     }
 
     private String fetchFromAPI() throws Exception {
-        String serviceKey = "jEERY0I%2B1TH7S%2Bn8sIb%2BSG6YU19UHgWGYTvT5IOb7hEwO1JfgCdb%2BnB0RR19X7UBmzwy%2BuW35YSs%2FfKzxhUg6g%3D%3D";
+        String serviceKey = env.getProperty("openapi.key.encoding");
 
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B551182/hospAsmInfoService1/getHospAsmInfo1");
         urlBuilder.append("?serviceKey=").append(serviceKey);
