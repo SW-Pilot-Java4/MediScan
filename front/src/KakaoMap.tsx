@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
+// Google API를 사용해 위경도로 주소를 가져오는 함수
 const GOOGLE_API_KEY = "AIzaSyDcIVcjPP-0zmLtZV4nXhdoZfCCHDTy_ng";
 
 const getAddressFromCoordinates = async (lat: number, lng: number) => {
@@ -16,6 +17,7 @@ const getAddressFromCoordinates = async (lat: number, lng: number) => {
   return response.data;
 };
 
+// 백엔드에서 받아오는 병원 객체의 타입
 interface Hospital {
   hospitalCode: string;
   name: string;
@@ -27,16 +29,16 @@ interface Hospital {
 }
 
 const KakaoMap: React.FC = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [hospitals, setHospitals] = useState<Hospital[]>([]);
+  const mapRef = useRef<HTMLDivElement>(null); // 지도를 렌더링할 div 참조
+  const [hospitals, setHospitals] = useState<Hospital[]>([]); // 병원 리스트 상태
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
-  const [userAddress, setUserAddress] = useState<string>("");
-  const [geoError, setGeoError] = useState<string>("");
+  } | null>(null); // 사용자 위치
+  const [userAddress, setUserAddress] = useState<string>(""); // 사용자 주소
+  const [geoError, setGeoError] = useState<string>(""); // 위치 에러 메시지
 
-  // 1. 현재 위치 + 주소 받아오기
+  // 1. 사용자 현재 위치와 주소 가져오기
   useEffect(() => {
     if (!navigator.geolocation) {
       setGeoError("브라우저에서 위치 정보를 지원하지 않습니다.");
@@ -48,6 +50,8 @@ const KakaoMap: React.FC = () => {
         setGeoError("");
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
+        console.log("📍 내 위치 위경도:", { lat, lng });
+
         setUserLocation({ lat, lng });
 
         try {
@@ -71,15 +75,18 @@ const KakaoMap: React.FC = () => {
     );
   }, []);
 
-  // 2. 병원 데이터 가져오기
+  // 2. 병원 데이터 가져오기 (백엔드 API 호출)
   useEffect(() => {
     axios
       .get<Hospital[]>("http://localhost:8080/hospitals")
-      .then((res) => setHospitals(res.data))
+      .then((res) => {
+        console.log("🚑 가져온 병원 데이터:", res.data);
+        setHospitals(res.data);
+      })
       .catch((e) => console.error("병원 데이터 오류:", e));
   }, []);
 
-  // 3. 지도 표시 및 마커 클릭 토글 기능 구현
+  // 3. 지도 렌더링 및 병원 마커 표시, 클릭 시 InfoWindow 토글 기능 구현
   useEffect(() => {
     if (
       !window.kakao ||
@@ -92,17 +99,16 @@ const KakaoMap: React.FC = () => {
     window.kakao.maps.load(() => {
       if (!mapRef.current) return;
 
+      // 지도 생성
       const map = new window.kakao.maps.Map(mapRef.current, {
         center: new window.kakao.maps.LatLng(
           userLocation.lat,
           userLocation.lng
         ),
-        level: 6,
+        level: 6, // 줌 레벨
       });
 
-      const bounds = new window.kakao.maps.LatLngBounds();
-
-      // 내 위치 별 아이콘 마커 만들기 (InfoWindow 없이)
+      // 내 위치를 별 아이콘 마커로 표시
       const imageSrc =
         "https://png.pngtree.com/png-vector/20220625/ourmid/pngtree-vector-icon-of-star-shape-png-image_5357019.png";
       const imageSize = new window.kakao.maps.Size(24, 35);
@@ -121,21 +127,20 @@ const KakaoMap: React.FC = () => {
         title: "내 위치 (별 표시)",
       });
 
-      bounds.extend(
-        new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng)
-      );
-
-      // 병원 마커용 infoWindow 하나 생성 (공유)
+      // InfoWindow 생성 (마커 클릭 시 보여줄 팝업)
       const infoWindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let currentOpenedMarker: any = null;
+      let currentOpenedMarker: any = null; // 현재 열린 마커 추적용
 
+      // 병원 리스트 마커 생성 및 클릭 이벤트 등록
       hospitals.forEach((hospital) => {
         const lat = parseFloat(hospital.longitude);
         const lng = parseFloat(hospital.latitude);
 
+        console.log(`🏥 병원 ${hospital.name} 위치: (${lat}, ${lng})`);
+
         if (isNaN(lat) || isNaN(lng)) return;
 
+        // 내 위치 기준 3km 이내 병원만 표시
         const distance = getDistanceFromLatLonInKm(
           userLocation.lat,
           userLocation.lng,
@@ -143,33 +148,40 @@ const KakaoMap: React.FC = () => {
           lng
         );
 
-        if (distance <= 1) {
+        if (distance <= 3) {
           const marker = new window.kakao.maps.Marker({
             map,
             position: new window.kakao.maps.LatLng(lat, lng),
             title: hospital.name,
           });
 
+          // 클릭 시 InfoWindow 열기/닫기 토글
           window.kakao.maps.event.addListener(marker, "click", () => {
             if (currentOpenedMarker === marker) {
-              infoWindow.close();
+              infoWindow.close(); // 이미 열려있으면 닫음
               currentOpenedMarker = null;
               return;
             }
             infoWindow.setContent(
-              `<div style="padding:5px;">${hospital.name}<br/>${hospital.address}</div>`
+              `<div style="padding:5px;">
+                <strong>${hospital.name}</strong><br/>
+                주소: ${hospital.address}<br/>
+                전화: ${hospital.callNumber}
+              </div>`
             );
             infoWindow.open(map, marker);
             currentOpenedMarker = marker;
           });
-
-          bounds.extend(marker.getPosition());
         }
       });
 
-      map.setBounds(bounds);
+      // 지도 중심과 줌 레벨 고정
+      map.setCenter(
+        new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng)
+      );
+      map.setLevel(5);
     });
-  }, [hospitals, userLocation, userAddress]);
+  }, [hospitals, userLocation]);
 
   return (
     <div>
@@ -185,14 +197,14 @@ const KakaoMap: React.FC = () => {
 
 export default KakaoMap;
 
-// 거리 계산 함수
+// 두 좌표 간 거리 계산 함수 (Haversine 공식)
 function getDistanceFromLatLonInKm(
   lat1: number,
   lon1: number,
   lat2: number,
   lon2: number
 ) {
-  const R = 6371;
+  const R = 6371; // 지구 반지름 (km)
   const dLat = deg2rad(lat2 - lat1);
   const dLon = deg2rad(lon2 - lon1);
   const a =
@@ -202,6 +214,7 @@ function getDistanceFromLatLonInKm(
   return R * c;
 }
 
+// 각도 → 라디안 변환
 function deg2rad(deg: number) {
   return deg * (Math.PI / 180);
 }

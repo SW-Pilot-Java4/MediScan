@@ -11,6 +11,7 @@ interface KakaoMapOptions {
 interface KakaoMap {
   setCenter(latlng: KakaoLatLng): void;
   setBounds(bounds: KakaoLatLngBounds): void;
+  setLevel(level: number): void;
 }
 
 interface KakaoMarkerOptions {
@@ -22,7 +23,7 @@ interface KakaoMarkerOptions {
 
 interface KakaoMarker {
   setMap(map: KakaoMap | null): void;
-  getPosition(): kakao.maps.LatLng;
+  getPosition(): KakaoLatLng; // kakao.maps.LatLng → KakaoLatLng
 }
 
 interface KakaoMaps {
