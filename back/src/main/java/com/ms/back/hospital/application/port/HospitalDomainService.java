@@ -5,5 +5,5 @@ import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import java.util.List;
 
 public interface HospitalDomainService {
-    List<Hospital> getAllData();
+    List<Hospital> getAllHospitalData();
 }

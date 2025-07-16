@@ -16,7 +16,7 @@ public class HospitalDomainServiceImpl implements HospitalDomainService {
     private final HospitalRepository hospitalRepository;
 
     @Override
-    public List<Hospital> getAllData() {
+    public List<Hospital> getAllHospitalData() {
         return hospitalRepository.getAllData();
     }
 }

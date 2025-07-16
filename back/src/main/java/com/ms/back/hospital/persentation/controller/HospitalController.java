@@ -2,7 +2,9 @@ package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
+import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.domain.service.HospitalDomainServiceImpl;
+import com.ms.back.hospital.persentation.port.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api/hospital")
 @RequiredArgsConstructor
 public class HospitalController {
-    private final HospitalDomainServiceImpl hospitalDomainServiceImpl;
+    private final HospitalService hospitalService;
 
     @GetMapping
-    public ApiResponse<List<Hospital>> getAllHospital() {
-        return ApiResponse.ok(hospitalDomainServiceImpl.getAllData());
+    public ApiResponse<List<HospitalListResponse>> getAllHospital() {
+        return ApiResponse.ok(hospitalService.getAllHospitalData());
     }
 }
