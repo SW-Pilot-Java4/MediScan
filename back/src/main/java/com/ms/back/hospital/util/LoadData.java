@@ -1,7 +1,9 @@
 package com.ms.back.hospital.util;
 
+import com.ms.back.global.exception.MediscanCustomException;
 import com.ms.back.hospital.entity.Hospital;
 import com.ms.back.hospital.repository.HospitalRepository;
+import com.ms.back.hospital.repository.HospitalRepositoryImpl;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
@@ -11,20 +13,18 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class LoadData {
-    private final HospitalRepository hospitalRepository;
+    private final HospitalRepositoryImpl hospitalRepositoryImpl;
+    private final Policy policy;
 // 임시 서비스
     @Transactional
-    public void readSampleData() throws Exception {
+    public void readSampleData()  {
         ClassPathResource resource = new ClassPathResource("initData/sampleData.csv");
 
         try (InputStream inputStream = resource.getInputStream();
@@ -35,16 +35,30 @@ public class LoadData {
 
                 String ykiho = record.get(0);
                 String name = record.get(1);
-                String code = record.get(2);
+                String categoryCode = record.get(2);
+                String regionCode = record.get(4);
+                String districtCode = record.get(6);
+                String postalCode = record.get(9);
                 String address = record.get(10);
                 String callNumber = record.get(11);
                 String x = record.get(28);
                 String y = record.get(29);
 
-                Hospital hospital = Hospital.create(ykiho, name, code, address, callNumber, x, y);
+                Hospital hospital = Hospital.create(ykiho, name, categoryCode, regionCode
+                        ,districtCode, postalCode, address, callNumber, x, y);
 
-                hospitalRepository.save(hospital);
+                hospitalRepositoryImpl.save(hospital);
             }
+        }catch (FileNotFoundException e) {
+            throw new MediscanCustomException.NotFoundFileException();
+        }catch (IllegalArgumentException e) {
+            throw new MediscanCustomException.InvalidFileFormatException();
+        }catch (IOException e) {
+            throw new MediscanCustomException.FileReadingErrorException();
         }
+    }
+
+    public void exceptionTest() {
+        policy.exceptionTest(true);
     }
 }

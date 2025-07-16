@@ -1,27 +1,25 @@
 package com.ms.back.hospital.controller;
 
+import com.ms.back.global.apiResponse.ApiResponse;
 import com.ms.back.hospital.entity.Hospital;
-import com.ms.back.hospital.repository.HospitalRepository;
+import com.ms.back.hospital.service.HospitalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Controller
 @RestController
-@RequestMapping("/hospitals")
+@RequestMapping("/api/hospital")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173") // React 개발 서버 주소
 public class HospitalController {
-
-    private final HospitalRepository hospitalRepository;
+    private final HospitalService hospitalService;
 
     @GetMapping
-    public List<Hospital> getHospitals(@RequestParam(defaultValue = "50000") int limit) {
-        Pageable pageable = PageRequest.of(0, limit);
-        return hospitalRepository.findByAddressContaining("대구", pageable).getContent();
+    public ApiResponse<List<Hospital>> getAllHospital() {
+        return ApiResponse.ok(hospitalService.getAllData());
     }
-
-
 }
