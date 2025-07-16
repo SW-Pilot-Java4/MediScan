@@ -1,12 +1,11 @@
 package com.ms.back.hospital.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "hospitals")
@@ -19,8 +18,20 @@ public class Hospital {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "code", nullable = false)
-    private Long code;
+    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    private HospitalGrade grade;
+
+    @Column(name = "categoryCode", nullable = false)
+    private Long categoryCode;
+
+    @Column(name = "regionCode", nullable = false)
+    private Long regionCode;
+
+    @Column(name = "districtCode", nullable = false)
+    private Long districtCode;
+
+    @Column(name = "postalCode", nullable = false)
+    private Long postalCode;
 
     @Column(name = "address", length = 255)
     private String address;
@@ -34,23 +45,31 @@ public class Hospital {
     @Column(name = "longitude")
     private String longitude;
 
-    private Hospital(String hospitalCode, String name, Long code,String address,
+    private Hospital(String hospitalCode, String name, Long categoryCode, Long regionCode,
+                     Long districtCode, Long postalCode, String address,
                      String callNumber, String latitude, String longitude) {
         this.hospitalCode = hospitalCode;
         this.name = name;
-        this.code = code;
+        this.categoryCode = categoryCode;
+        this.regionCode = regionCode;
+        this.districtCode = districtCode;
+        this.postalCode = postalCode;
         this.address = address;
         this.callNumber = callNumber;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public static Hospital create(String hospitalCode, String name, String code, String address,
+    public static Hospital create(String hospitalCode, String name, String categoryCode, String regionCode,
+                                  String districtCode, String postalCode, String address,
                                   String callNumber, String latitude, String longitude) {
         return new Hospital(
                 hospitalCode,
                 name,
-                Long.parseLong(code),
+                Long.parseLong(categoryCode),
+                Long.parseLong(regionCode),
+                Long.parseLong(districtCode),
+                Long.parseLong(postalCode),
                 address,
                 callNumber,
                 latitude,

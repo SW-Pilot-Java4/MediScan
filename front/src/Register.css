@@ -1,0 +1,90 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.titleWrap {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.contentWrap {
+  width: 100%;
+  max-width: 400px;
+}
+
+.inputTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.inputWrap {
+  margin-bottom: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.errorMessageWrap {
+  color: red;
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 10px;
+}
+
+.buttonWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.bottomButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bottomButton:disabled {
+  background-color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.bottomButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.registerWrap {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.registerTitle {
+  font-size: 14px;
+  color: #495057;
+}
