@@ -23,6 +23,12 @@ spring:
     console:
       enabled: true
 
+  batch:
+    job:
+      enabled: false
+      name: loadHospitalJob
+
+
 logging:
   level:
     com.ms.back: DEBUG
