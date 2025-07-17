@@ -9,4 +9,6 @@ public interface HospitalRepository {
     List<Hospital> getAllData();
     void save(Hospital hospital);
     Optional<Hospital> findByHospitalCode(String hospitalCode);
+    List<Hospital> searchByKeyword(String keyword);
 }
+

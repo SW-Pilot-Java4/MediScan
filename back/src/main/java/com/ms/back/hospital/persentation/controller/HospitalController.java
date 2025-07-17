@@ -1,15 +1,13 @@
 package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
+import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.persentation.port.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,12 @@ public class HospitalController {
     @GetMapping("/{hospitalCode}")
     public ApiResponse<HospitalInfoResponse> getHospitalDetails(@PathVariable(name = "hospitalCode") String hospitalCode) {
         return ApiResponse.ok(hospitalService.assembleHospitalInfo(hospitalCode));
+    }
+
+    //검색 기능 추가
+    @GetMapping("/search")
+    public ApiResponse<List<Hospital>> searchHospitals(@RequestParam String keyword){
+        List<Hospital> result = hospitalService.searchHospitals(keyword);
+        return ApiResponse.ok(result);
     }
 }
