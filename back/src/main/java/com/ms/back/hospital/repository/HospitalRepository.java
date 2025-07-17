@@ -10,4 +10,7 @@ public interface HospitalRepository {
     List<Hospital> getAllData();
     void save(Hospital hospital);
     Optional<HospitalDAO> findByHospitalCode(String hospitalCode);
+
+    List<Hospital> searchByKeyword(String keyword);
 }
+

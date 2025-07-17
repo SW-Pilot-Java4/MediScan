@@ -15,6 +15,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class HospitalService {
     private final HospitalRepository hospitalRepository;
+//    public HospitalService(HospitalRepository hospitalRepository) {
+//        this.hospitalRepository = hospitalRepository;
+//    }
+
+    public List<Hospital> searchHospitals(String keyword) {
+        return hospitalRepository.searchByKeyword(keyword);
+    }
 
     public List<Hospital> getAllData() {
         return hospitalRepository.getAllData();
