@@ -3,7 +3,6 @@ package com.ms.back.hospital.batch.itemProcessor;
 import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 import com.ms.back.hospital.batch.dto.HospitalCodeWithDepartments;
 import com.ms.back.hospital.domain.port.HospitalDetailRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;

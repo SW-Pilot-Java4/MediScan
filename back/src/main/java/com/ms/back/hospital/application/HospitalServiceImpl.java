@@ -1,7 +1,5 @@
 package com.ms.back.hospital.application;
 
-import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
-import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.application.port.HospitalDetailDomainService;
@@ -44,6 +42,4 @@ public class HospitalServiceImpl implements HospitalService {
                 .gradeInfo(grade)
                 .build();
     }
-
-
 }

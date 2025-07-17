@@ -13,7 +13,6 @@ import java.util.Optional;
 public class HospitalRepositoryImpl implements HospitalRepository {
     private final HospitalJPARepository hospitalJPARepository;
 
-
     @Override
     public List<Hospital> getAllData() {
         return hospitalJPARepository.findAll();
@@ -28,5 +27,4 @@ public class HospitalRepositoryImpl implements HospitalRepository {
     public Optional<Hospital> findByHospitalCode(String hospitalCode) {
         return hospitalJPARepository.findByHospitalCode(hospitalCode);
     }
-
 }

@@ -1,10 +1,8 @@
 package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
-import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
-import com.ms.back.hospital.domain.service.HospitalDomainServiceImpl;
 import com.ms.back.hospital.persentation.port.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

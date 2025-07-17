@@ -1,7 +1,6 @@
 package com.ms.back.hospital.application.dto;
 
 
-import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import lombok.Builder;
 
 import java.util.List;

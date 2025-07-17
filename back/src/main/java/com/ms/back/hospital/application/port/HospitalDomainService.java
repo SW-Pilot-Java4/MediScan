@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface HospitalDomainService {
     List<Hospital> getAllHospitalData();
-
     BaseInfo getHospital(String hospitalCode);
 }
