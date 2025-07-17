@@ -97,30 +97,11 @@ public class HospitalGrade {
             String asmGrd21, String asmGrd22, String asmGrd23, String asmGrd24
     ) {
         this.hospitalCode = hospitalCode;
-        this.asmGrd01 = asmGrd01;
-        this.asmGrd02 = asmGrd02;
-        this.asmGrd03 = asmGrd03;
-        this.asmGrd04 = asmGrd04;
-        this.asmGrd05 = asmGrd05;
-        this.asmGrd06 = asmGrd06;
-        this.asmGrd07 = asmGrd07;
-        this.asmGrd08 = asmGrd08;
-        this.asmGrd09 = asmGrd09;
-        this.asmGrd10 = asmGrd10;
-        this.asmGrd11 = asmGrd11;
-        this.asmGrd12 = asmGrd12;
-        this.asmGrd13 = asmGrd13;
-        this.asmGrd14 = asmGrd14;
-        this.asmGrd15 = asmGrd15;
-        this.asmGrd16 = asmGrd16;
-        this.asmGrd17 = asmGrd17;
-        this.asmGrd18 = asmGrd18;
-        this.asmGrd19 = asmGrd19;
-        this.asmGrd20 = asmGrd20;
-        this.asmGrd21 = asmGrd21;
-        this.asmGrd22 = asmGrd22;
-        this.asmGrd23 = asmGrd23;
-        this.asmGrd24 = asmGrd24;
+        this.asmGrd01 = asmGrd01;this.asmGrd02 = asmGrd02;this.asmGrd03 = asmGrd03;this.asmGrd04 = asmGrd04;this.asmGrd05 = asmGrd05;
+        this.asmGrd06 = asmGrd06;this.asmGrd07 = asmGrd07;this.asmGrd08 = asmGrd08;this.asmGrd09 = asmGrd09;this.asmGrd10 = asmGrd10;
+        this.asmGrd11 = asmGrd11;this.asmGrd12 = asmGrd12;this.asmGrd13 = asmGrd13;this.asmGrd14 = asmGrd14;this.asmGrd15 = asmGrd15;
+        this.asmGrd16 = asmGrd16;this.asmGrd17 = asmGrd17;this.asmGrd18 = asmGrd18;this.asmGrd19 = asmGrd19;this.asmGrd20 = asmGrd20;
+        this.asmGrd21 = asmGrd21;this.asmGrd22 = asmGrd22;this.asmGrd23 = asmGrd23;this.asmGrd24 = asmGrd24;
     }
 
     public HospitalGrade() {

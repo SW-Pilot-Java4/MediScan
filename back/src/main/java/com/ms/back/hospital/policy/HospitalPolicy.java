@@ -10,4 +10,5 @@ public class HospitalPolicy {
     public void exceptionTest(boolean b) {
         if(b) throw new MediscanException(BAD_REQUEST);
     }
+
 }

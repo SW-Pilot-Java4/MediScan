@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCode {
+    // Hospital
+    HOSPITAL_NOT_EXIST(HttpStatus.NOT_FOUND, "해당 병원은 존재하지 않습니다."),
+
     // File
     NOT_FOUND_FILE(HttpStatus.NOT_FOUND, "파일을 찾을 수 없습니다."),
     FILE_READING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일을 읽는 중 오류가 발생했습니다."),
