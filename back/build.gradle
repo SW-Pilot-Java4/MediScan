@@ -18,16 +18,16 @@ repositories {
 }
 
 dependencies {
-    // Spring Security
+//     Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     implementation 'org.springframework:spring-oxm'
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
-    // Spring Batch
+//     Spring Batch
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     testImplementation 'org.springframework.batch:spring-batch-test'
 
-    // Apache Commons CSV
+//     Apache Commons CSV
     implementation 'org.apache.commons:commons-csv:1.10.0'
 
     // H2 임시 데이터 베이스로 H2 사용

@@ -13,7 +13,6 @@ public class HospitalDetailFieldSetMapper implements FieldSetMapper<HospitalDeta
         HospitalDetailRegister dto = new HospitalDetailRegister(
                 fieldSet.readRawString(0),
                 null,
-                null,
                 fieldSet.readRawString(8),
                 fieldSet.readRawString(9),
                 fieldSet.readRawString(10),
