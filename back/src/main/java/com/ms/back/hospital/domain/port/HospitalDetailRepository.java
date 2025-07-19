@@ -1,10 +1,10 @@
 package com.ms.back.hospital.domain.port;
 
-import com.ms.back.hospital.Infrastructure.repository.dao.HospitalDetailDAO;
 
+import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 
 import java.util.Optional;
 
 public interface HospitalDetailRepository {
-    Optional<HospitalDetailDAO> findByHospitalCode(String hospitalCode);
+    Optional<HospitalDetail> findByHospitalCode(String hospitalCode);
 }

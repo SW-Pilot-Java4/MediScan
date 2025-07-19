@@ -1,6 +1,6 @@
 package com.ms.back.hospital.application.dto;
 
-import com.ms.back.hospital.Infrastructure.repository.dao.HospitalDAO;
+
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 
 public record HospitalListResponse(

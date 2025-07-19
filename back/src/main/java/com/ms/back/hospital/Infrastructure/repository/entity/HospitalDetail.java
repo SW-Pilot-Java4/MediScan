@@ -116,34 +116,21 @@ public class HospitalDetail {
             String treatTueEnd, String treatWedStart, String treatWedEnd, String treatThuStart,
             String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
     ) {
-        this.hospitalCode = hospitalCode;
-        this.departmentCodes = departmentCodes;
-        this.closedSunday = closedSunday;
-        this.closedHoliday = closedHoliday;
+        this.hospitalCode = hospitalCode;this.departmentCodes = departmentCodes;
+        this.closedSunday = closedSunday;this.closedHoliday = closedHoliday;
         this.emergencyDayYn = emergencyDayYn;
-        this.emergencyDayPhone1 = emergencyDayPhone1;
-        this.emergencyDayPhone2 = emergencyDayPhone2;
+        this.emergencyDayPhone1 = emergencyDayPhone1;this.emergencyDayPhone2 = emergencyDayPhone2;
         this.emergencyNightYn = emergencyNightYn;
-        this.emergencyNightPhone1 = emergencyNightPhone1;
-        this.emergencyNightPhone2 = emergencyNightPhone2;
-        this.lunchWeekday = lunchWeekday;
-        this.lunchSaturday = lunchSaturday;
-        this.receptionWeekday = receptionWeekday;
-        this.receptionSaturday = receptionSaturday;
-        this.treatSunStart = treatSunStart;
-        this.treatSunEnd = treatSunEnd;
-        this.treatMonStart = treatMonStart;
-        this.treatMonEnd = treatMonEnd;
-        this.treatTueStart = treatTueStart;
-        this.treatTueEnd = treatTueEnd;
-        this.treatWedStart = treatWedStart;
-        this.treatWedEnd = treatWedEnd;
-        this.treatThuStart = treatThuStart;
-        this.treatThuEnd = treatThuEnd;
-        this.treatFriStart = treatFriStart;
-        this.treatFriEnd = treatFriEnd;
-        this.treatSatStart = treatSatStart;
-        this.treatSatEnd = treatSatEnd;
+        this.emergencyNightPhone1 = emergencyNightPhone1;this.emergencyNightPhone2 = emergencyNightPhone2;
+        this.lunchWeekday = lunchWeekday;this.lunchSaturday = lunchSaturday;
+        this.receptionWeekday = receptionWeekday;this.receptionSaturday = receptionSaturday;
+        this.treatSunStart = treatSunStart;this.treatSunEnd = treatSunEnd;
+        this.treatMonStart = treatMonStart;this.treatMonEnd = treatMonEnd;
+        this.treatTueStart = treatTueStart;this.treatTueEnd = treatTueEnd;
+        this.treatWedStart = treatWedStart;this.treatWedEnd = treatWedEnd;
+        this.treatThuStart = treatThuStart;this.treatThuEnd = treatThuEnd;
+        this.treatFriStart = treatFriStart;this.treatFriEnd = treatFriEnd;
+        this.treatSatStart = treatSatStart;this.treatSatEnd = treatSatEnd;
     }
 
     private HospitalDetail(
@@ -157,34 +144,21 @@ public class HospitalDetail {
             String treatThuEnd, String treatFriStart, String treatFriEnd, String treatSatStart, String treatSatEnd
     ) {
         this.id = id;
-        this.hospitalCode = hospitalCode;
-        this.departmentCodes = departmentCodes;
-        this.closedSunday = closedSunday;
-        this.closedHoliday = closedHoliday;
+        this.hospitalCode = hospitalCode;this.departmentCodes = departmentCodes;
+        this.closedSunday = closedSunday;this.closedHoliday = closedHoliday;
         this.emergencyDayYn = emergencyDayYn;
-        this.emergencyDayPhone1 = emergencyDayPhone1;
-        this.emergencyDayPhone2 = emergencyDayPhone2;
+        this.emergencyDayPhone1 = emergencyDayPhone1;this.emergencyDayPhone2 = emergencyDayPhone2;
         this.emergencyNightYn = emergencyNightYn;
-        this.emergencyNightPhone1 = emergencyNightPhone1;
-        this.emergencyNightPhone2 = emergencyNightPhone2;
-        this.lunchWeekday = lunchWeekday;
-        this.lunchSaturday = lunchSaturday;
-        this.receptionWeekday = receptionWeekday;
-        this.receptionSaturday = receptionSaturday;
-        this.treatSunStart = treatSunStart;
-        this.treatSunEnd = treatSunEnd;
-        this.treatMonStart = treatMonStart;
-        this.treatMonEnd = treatMonEnd;
-        this.treatTueStart = treatTueStart;
-        this.treatTueEnd = treatTueEnd;
-        this.treatWedStart = treatWedStart;
-        this.treatWedEnd = treatWedEnd;
-        this.treatThuStart = treatThuStart;
-        this.treatThuEnd = treatThuEnd;
-        this.treatFriStart = treatFriStart;
-        this.treatFriEnd = treatFriEnd;
-        this.treatSatStart = treatSatStart;
-        this.treatSatEnd = treatSatEnd;
+        this.emergencyNightPhone1 = emergencyNightPhone1;this.emergencyNightPhone2 = emergencyNightPhone2;
+        this.lunchWeekday = lunchWeekday;this.lunchSaturday = lunchSaturday;
+        this.receptionWeekday = receptionWeekday;this.receptionSaturday = receptionSaturday;
+        this.treatSunStart = treatSunStart;this.treatSunEnd = treatSunEnd;
+        this.treatMonStart = treatMonStart;this.treatMonEnd = treatMonEnd;
+        this.treatTueStart = treatTueStart;this.treatTueEnd = treatTueEnd;
+        this.treatWedStart = treatWedStart;this.treatWedEnd = treatWedEnd;
+        this.treatThuStart = treatThuStart;this.treatThuEnd = treatThuEnd;
+        this.treatFriStart = treatFriStart;this.treatFriEnd = treatFriEnd;
+        this.treatSatStart = treatSatStart;this.treatSatEnd = treatSatEnd;
     }
 
     public static HospitalDetail create(

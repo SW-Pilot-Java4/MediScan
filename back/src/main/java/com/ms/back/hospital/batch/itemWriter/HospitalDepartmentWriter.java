@@ -1,6 +1,7 @@
 package com.ms.back.hospital.batch.itemWriter;
 
-import com.ms.back.hospital.Infrastructure.repository.dao.HospitalDetailDAO;
+
+import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 import jakarta.persistence.EntityManager;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -9,19 +10,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class HospitalDepartmentWriter implements ItemWriter<HospitalDetailDAO> {
+public class HospitalDepartmentWriter implements ItemWriter<HospitalDetail> {
     @Autowired
     private EntityManager entityManager;
 
     @Override
     @Transactional
-    public void write(Chunk<? extends HospitalDetailDAO> chunk) throws Exception {
+    public void write(Chunk<? extends HospitalDetail> chunk) throws Exception {
 
-        for (HospitalDetailDAO dao : chunk) {
+        for (HospitalDetail entity : chunk) {
             try {
-                entityManager.merge(dao.to());
+                entityManager.merge(entity);
             } catch (Exception e) {
-                System.out.println(dao.hospitalCode());
                 e.printStackTrace();
             }
         }

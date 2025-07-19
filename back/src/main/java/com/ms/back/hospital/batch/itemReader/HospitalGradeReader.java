@@ -79,7 +79,7 @@ public class HospitalGradeReader{
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B551182/hospAsmInfoService1/getHospAsmInfo1");
         urlBuilder.append("?serviceKey=").append(serviceKey);
         urlBuilder.append("&pageNo=1");
-        urlBuilder.append("&numOfRows=100");
+        urlBuilder.append("&numOfRows=1000");
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

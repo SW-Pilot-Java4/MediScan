@@ -1,4 +1,4 @@
-package com.ms.back.config;
+package com.ms.back.global.config;
 
 
 import org.springframework.context.annotation.Configuration;

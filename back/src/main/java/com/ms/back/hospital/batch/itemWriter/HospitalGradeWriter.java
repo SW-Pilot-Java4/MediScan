@@ -1,6 +1,7 @@
 package com.ms.back.hospital.batch.itemWriter;
 
-import com.ms.back.hospital.Infrastructure.repository.dao.HospitalGradeDAO;
+
+import com.ms.back.hospital.Infrastructure.repository.entity.HospitalGrade;
 import jakarta.persistence.EntityManager;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -13,9 +14,9 @@ public class HospitalGradeWriter implements ItemWriter<HospitalGradeDAO> {
     private EntityManager entityManager;
 
     @Override
-    public void write(Chunk<? extends HospitalGradeDAO> chunk) throws Exception {
-        for (HospitalGradeDAO hospitalGradeDAO : chunk) {
-            entityManager.persist(hospitalGradeDAO.to());
+    public void write(Chunk<? extends HospitalGrade> chunk) throws Exception {
+        for (HospitalGrade entity : chunk) {
+            entityManager.persist(entity);
         }
     }
 }
