@@ -20,10 +20,10 @@ const getAddressFromCoordinates = async (lat: number, lng: number) => {
 // 백엔드에서 받아오는 병원 객체의 타입
 interface Hospital {
   hospitalCode: string;
-  name: string;
-  code: number;
   address: string;
   callNumber: string;
+  code: number;
+  name: string;
   latitude: string; // 위도
   longitude: string; // 경도
 }
@@ -78,10 +78,15 @@ const KakaoMap: React.FC = () => {
   // 2. 병원 데이터 가져오기 (백엔드 API 호출)
   useEffect(() => {
     axios
-      .get<Hospital[]>("http://localhost:8080/hospitals")
+      .get("http://localhost:8080/api/hospital")
       .then((res) => {
         console.log("🚑 가져온 병원 데이터:", res.data);
-        setHospitals(res.data);
+        if (Array.isArray(res.data.data)) {
+          setHospitals(res.data.data);
+        } else {
+          console.error("병원 데이터가 배열이 아닙니다:", res.data.data);
+          setHospitals([]);
+        }
       })
       .catch((e) => console.error("병원 데이터 오류:", e));
   }, []);
