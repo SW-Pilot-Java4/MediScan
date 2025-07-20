@@ -90,59 +90,5 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
                 .build();
-//        http
-//                .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
-//
-//                    @Override
-//                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-//
-//                        CorsConfiguration configuration = new CorsConfiguration();
-//
-//                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
-//                        configuration.setAllowedMethods(Collections.singletonList("*"));
-//                        configuration.setAllowCredentials(true);
-//                        configuration.setAllowedHeaders(Collections.singletonList("*"));
-//                        configuration.setMaxAge(3600L);
-//
-//                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
-//
-//                        return configuration;
-//                    }
-//                })));
-//        //csrf disable
-//        http
-//                .csrf((auth) -> auth.disable());
-//
-//        //From 로그인 방식 disable
-//        http
-//                .formLogin((auth) -> auth.disable());
-//
-//        //http basic 인증 방식 disable
-//        http
-//                .httpBasic((auth) -> auth.disable());
-//
-//        //경로별 인가 작업
-//        http
-//                .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/login", "/", "/join").permitAll()
-//                        .requestMatchers("/admin").hasRole("ADMIN")
-//                        .requestMatchers("/reissue").permitAll()
-//                        .requestMatchers("/h2-console/**").permitAll()
-//                        .anyRequest().authenticated());
-//        http
-//                .addFilterBefore(new JWTFilter(jwtUtil),LoginFilter.class);
-//
-//        http
-//                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil,refreshRepository), UsernamePasswordAuthenticationFilter.class);
-//
-//        http
-//                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class);
-//
-//        //세션 설정
-//        http
-//                .sessionManagement((session) -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//
-//        return http.build();
     }
 }
