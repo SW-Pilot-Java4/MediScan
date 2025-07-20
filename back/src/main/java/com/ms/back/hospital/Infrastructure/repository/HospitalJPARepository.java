@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface HospitalJPARepository extends JpaRepository<Hospital, String> {
     Optional<Hospital> findByHospitalCode(String hospitalCode);
-    List<Hospital> findByNameContainingIgnoreCaseOrAddressContainingIgnoreCaseOrCallNumberContainingIgnoreCase(
-            String name, String address, String callNumber
-    );
+
 }

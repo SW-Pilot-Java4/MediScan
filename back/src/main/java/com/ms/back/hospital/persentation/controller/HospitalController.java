@@ -1,6 +1,7 @@
 package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
+import com.ms.back.hospital.Infrastructure.repository.HospitalCustomRepositoryImpl;
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HospitalController {
     private final HospitalService hospitalService;
+    private final HospitalCustomRepositoryImpl hospitalCustomRepositoryImpl;
 
     @GetMapping
     public ApiResponse<List<HospitalListResponse>> getAllHospital() {
@@ -30,8 +32,11 @@ public class HospitalController {
 
     //검색 기능 추가
     @GetMapping("/search")
-    public ApiResponse<List<Hospital>> searchHospitals(@RequestParam String keyword){
-        List<Hospital> result = hospitalService.searchHospitals(keyword);
-        return ApiResponse.ok(result);
+    public ApiResponse<List<Hospital>> searchHospitals(
+            @RequestParam(defaultValue="") String name,
+            @RequestParam(defaultValue="") String address,
+            @RequestParam(defaultValue="") String callNumber,
+            @RequestParam(defaultValue="") String categoryCode){
+        return ApiResponse.ok(hospitalCustomRepositoryImpl.searchByKeyword(name, address, callNumber,categoryCode));
     }
 }
