@@ -13,28 +13,28 @@ function HospitalDetail() {
   const [selectedTab, setSelectedTab] = useState("general");
 
   useEffect(() => {
-  const fetchHospital = async () => {
-    setLoading(true);
-    try {
-      const client = rq.apiEndPoints();
+    const fetchHospital = async () => {
+      setLoading(true);
+      try {
+        const client = rq.apiEndPoints();
 
-      const res = await client.GET("/api/hospital/{hospitalCode}", {
-        params: {
-          path: { hospitalCode },
-        },
-      });
+        const res = await client.GET("/api/hospital/{hospitalCode}", {
+          params: {
+            path: { hospitalCode },
+          },
+        });
 
-      if (!res.data) throw new Error("병원 데이터를 불러오지 못했습니다.");
-      setHospital(res.data.data); // ApiResponse<T> 구조상 data.data
-    } catch (err: any) {
-      setError(err.message || "알 수 없는 에러");
-    } finally {
-      setLoading(false);
-    }
-  };
+        if (!res.data) throw new Error("병원 데이터를 불러오지 못했습니다.");
+        setHospital(res.data.data); // ApiResponse<T> 구조상 data.data
+      } catch (err: any) {
+        setError(err.message || "알 수 없는 에러");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchHospital();
-}, [hospitalCode]);
+    fetchHospital();
+  }, [hospitalCode]);
 
   useEffect(() => {
     if (hospital?.baseInfo) {
