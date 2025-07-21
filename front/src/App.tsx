@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./pages/login/Login";
 import Register from "./pages/join/Register";
 import Home from "./pages/home/Home";
-import BigPicture from "./BigPicture";
+import BigPicture from "./pages/map/BigPicture";
+import HospitalDetail from "./pages/hospital/Hospital";
+import "./index.css";
 
 function App() {
+  useEffect(() => {
+    // 테마 설정
+    document.documentElement.setAttribute("data-theme", "mytheme");
+    console.log("✅ mytheme 적용됨");
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
@@ -17,6 +24,7 @@ function App() {
           <Route path="/map" element={<BigPicture />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/hospital/:hospitalCode" element={<HospitalDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
