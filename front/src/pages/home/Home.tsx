@@ -1,21 +1,28 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    alert("로그아웃 되었습니다.");
-    navigate("/login");
-  };
-
   return (
-    <div className="mainPage">
-      <h1>메인 페이지</h1>
-      <p>환영합니다! 🎉</p>
-      <button onClick={handleLogout}>로그아웃</button>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
+      <div className="w-full h-full bg-white rounded shadow p-4">
+          <div className="flex flex-row justify-around items-center ">
+            <div className="bg-yellow-400 p-4 rounded  text-sm">Box 1</div>
+            <div className="bg-yellow-400 p-4 rounded  text-sm">Box 1</div>
+            <div className="bg-yellow-400 p-4 rounded  text-sm">Box 1</div>
+            <div className="bg-yellow-400 p-4 rounded  text-sm">Box 1</div>
+        </div>
+        <div className="flex">
+        
+        </div>
+        <div className="flex"><a>s</a></div>
+        <div className="flex"><a>s</a></div>
+        <div className="flex"><a>s</a></div>
+      </div>
     </div>
   );
 }
 
 export default Home;
+
+
+{/* <h1>메인 페이지</h1>
+      <p>환영합니다! 🎉</p> */}
