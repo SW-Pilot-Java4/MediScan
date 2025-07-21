@@ -15,11 +15,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/main" element={<Home />} />
           <Route path="/map" element={<BigPicture />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
-
-        {/* 로그인/회원가입은 공통 레이아웃 없이 별도 처리 (로그인 화면은 보통 전체화면 처리) */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
