@@ -18,4 +18,4 @@ function Home() {
   );
 }
 
-export default Home; // ✅ 이 줄이 없으면 import Main from './Main'이 안 됨
+export default Home;
