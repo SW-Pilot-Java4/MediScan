@@ -79,33 +79,31 @@ const KakaoMap: React.FC = () => {
   }, []);
 
   const sendUserLocationToBackend = async (lat: number, lng: number) => {
-    console.log(lat, lng);
-    try {
-      const res = await axios.post(
-        `http://localhost:8080/api/hospital/nearby`,
-        {
+  console.log(lat, lng);
+  try {
+    const res = await axios.get(
+      `http://localhost:8080/api/hospital/nearby`, 
+      {
+        params: {
           latitude: lat,
           longitude: lng,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // 만약 인증 쿠키, 세션이 필요하다면 추가
-        }
-      );
-      console.log("✅ 병원 데이터 수신 완료:", res.data);
-      if (Array.isArray(res.data.data)) {
-        setHospitals(res.data.data);
-      } else {
-        console.error("응답 데이터 형식 오류:", res.data.data);
-        setHospitals([]);
+        withCredentials: true, // 인증 정보 필요 시 유지
       }
-    } catch (error) {
-      console.error("❌ 병원 데이터 요청 실패:", error);
-    }
-  };
+    );
 
+    console.log("✅ 병원 데이터 수신 완료:", res.data);
+
+    if (Array.isArray(res.data.data)) {
+      setHospitals(res.data.data);
+    } else {
+      console.error("응답 데이터 형식 오류:", res.data.data);
+      setHospitals([]);
+    }
+  } catch (error) {
+    console.error("❌ 병원 데이터 요청 실패:", error);
+  }
+};
   // 지도 렌더링 + 병원 마커 표시
   useEffect(() => {
     if (

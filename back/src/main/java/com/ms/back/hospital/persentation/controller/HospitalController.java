@@ -30,17 +30,18 @@ public class HospitalController {
     }
 
 
-    @PostMapping("/nearby")
+    @GetMapping("/nearby")
     public ApiResponse<List<HospitalListResponse>> getNearbyHospitals(
-            @RequestBody Map<String, Object> location
+            @RequestParam String latitude,
+            @RequestParam String longitude
     ) {
-        double lat = Double.parseDouble(location.get("latitude").toString());
-        double lng = Double.parseDouble(location.get("longitude").toString());
+//        double lat = Double.parseDouble(latitude);
+//        double lng = Double.parseDouble(longitude);
 
-        System.out.println("📍 프론트에서 받은 위도: " + lat);
-        System.out.println("📍 프론트에서 받은 경도: " + lng);
+//        System.out.println("📍 프론트에서 받은 위도: " + lat);
+//        System.out.println("📍 프론트에서 받은 경도: " + lng);
 
-        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(lat, lng, 3.0);
+        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(latitude, longitude, 3.0);
 
         return ApiResponse.ok(nearbyHospitals);
     }
