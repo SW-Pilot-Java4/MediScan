@@ -18,6 +18,9 @@ repositories {
 }
 
 dependencies {
+//    PostgreSQL 드라이버
+    implementation 'org.postgresql:postgresql:42.6.0'
+
 //     Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
