@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.itemProcessor;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.batch.dto.HospitalRegister;
 import lombok.RequiredArgsConstructor;

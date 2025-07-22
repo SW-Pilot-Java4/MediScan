@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.itemProcessor;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.Infrastructure.repository.entity.HospitalGrade;
 import com.ms.back.hospital.batch.dto.HospitalGradeRegister;
@@ -29,7 +28,6 @@ public class HospitalGradeProcessor implements ItemProcessor<HospitalGradeRegist
             return null;
         }
     }
-
 
     private Hospital validationData(String hospitalCode) {
         Optional<Hospital> dao = hospitalRepository.findByHospitalCode(hospitalCode);

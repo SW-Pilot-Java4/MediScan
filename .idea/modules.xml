@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/MediScan.iml" filepath="$PROJECT_DIR$/.idea/MediScan.iml" />
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/back.main.iml" filepath="$PROJECT_DIR$/.idea/modules/back.main.iml" />
-=======
->>>>>>> 164e984176270c6815860f48350951a51b51d38d
     </modules>
   </component>
 </project>

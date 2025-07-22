@@ -8,4 +8,5 @@ import java.util.List;
 public interface HospitalService {
     List<HospitalListResponse> getAllHospitalData();
     HospitalInfoResponse assembleHospitalInfo(String hospitalCode);
+    List<HospitalListResponse> getHospitalsNearby(double lat, double lng, double distanceKm);
 }

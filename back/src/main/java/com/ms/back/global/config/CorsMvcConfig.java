@@ -15,6 +15,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
                 .allowedMethods("*") // 허용할 HTTP 메서드 명시
                 .allowedHeaders("*")                          // 모든 헤더 허용
                 .allowCredentials(true);                      // 쿠키/인증 헤더 허용
+        
     }
 
 }

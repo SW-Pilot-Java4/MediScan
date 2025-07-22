@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.itemProcessor;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 import com.ms.back.hospital.batch.dto.HospitalCodeWithDepartments;
 import com.ms.back.hospital.domain.port.HospitalDetailRepository;
@@ -29,7 +28,6 @@ public class HospitalDepartmentProcessor implements ItemProcessor<HospitalCodeWi
             return null;
         }
     }
-
 
     private HospitalDetail validationData(String hospitalCode) {
         Optional<HospitalDetail> entity = hospitalDetailRepository.findByHospitalCode(hospitalCode);

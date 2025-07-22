@@ -18,7 +18,7 @@ public class BatchRunner {
     private final Job loadHospitalJob;
     private final Job loadHospitalDetailJob;
 
-    @Bean
+    /*@Bean
     public ApplicationRunner runHospitalJobOnStartup() {
         return args -> {
             JobParameters jobParameters = new JobParametersBuilder()
@@ -28,5 +28,5 @@ public class BatchRunner {
             jobLauncher.run(loadHospitalJob, jobParameters);
             jobLauncher.run(loadHospitalDetailJob, jobParameters);
         };
-    }
+    }*/
 }

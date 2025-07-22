@@ -2,7 +2,6 @@ package com.ms.back.hospital.Infrastructure.repository;
 
 import com.ms.back.hospital.domain.port.HospitalRepository;
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

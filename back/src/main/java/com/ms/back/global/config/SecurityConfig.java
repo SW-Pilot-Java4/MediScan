@@ -8,6 +8,7 @@ import com.ms.back.member.repository.RefreshRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +21,9 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -61,13 +64,24 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // H2 콘솔만 CSRF 비활성화
                         .ignoringRequestMatchers("/api/temp/**", "/api/hospital/**")
+                        .ignoringRequestMatchers( // Swagger 설정
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        )
                 )
                 .headers(headers -> headers
                         .frameOptions(frame -> frame.sameOrigin()) // H2 콘솔 iframe 허용
                 )
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+
+                    // ✅ 여러 Origin을 허용할 수 있도록 수정
+                    configuration.setAllowedOrigins(List.of(
+                            "http://localhost:5173", // 기존 프론트엔드
+                            "http://localhost:8080"  // Swagger UI (백엔드에서 제공됨)
+                    ));
+
                     configuration.setAllowedMethods(Collections.singletonList("*"));
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -80,6 +94,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/api/hospital/**", "/api/temp/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll() // Swagger 사용을 위한 코드 추가
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

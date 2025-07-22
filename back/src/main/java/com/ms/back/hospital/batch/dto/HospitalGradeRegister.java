@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.dto;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.HospitalGrade;
 import lombok.Data;
 

@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.itemWriter;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import jakarta.persistence.EntityManager;
 import org.springframework.batch.item.Chunk;

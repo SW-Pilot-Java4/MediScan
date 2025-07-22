@@ -1,6 +1,5 @@
 package com.ms.back.hospital.batch.dto;
 
-
 import com.ms.back.hospital.Infrastructure.repository.entity.HospitalDetail;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public record HospitalDetailRegister(
         String treatSatStart,
         String treatSatEnd
 ) {
-
     public HospitalDetail to() {
         return HospitalDetail.create(
                 hospitalCode, departmentCodes, closedSunday, closedHoliday,
