@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { showHospitalMarkerOnMap } from "../../KakaoMap";
+import rq from "../../lib/rq/rq.react.ts";
 
 function HospitalDetail() {
+  // const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const { hospitalCode } = useParams();
   const [hospital, setHospital] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,20 +13,28 @@ function HospitalDetail() {
   const [selectedTab, setSelectedTab] = useState("general");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/hospital/${hospitalCode}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("서버 오류 발생");
-        return res.json();
-      })
-      .then((json) => {
-        setHospital(json.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
+  const fetchHospital = async () => {
+    setLoading(true);
+    try {
+      const client = rq.apiEndPoints();
+
+      const res = await client.GET("/api/hospital/{hospitalCode}", {
+        params: {
+          path: { hospitalCode },
+        },
       });
-  }, [hospitalCode]);
+
+      if (!res.data) throw new Error("병원 데이터를 불러오지 못했습니다.");
+      setHospital(res.data.data); // ApiResponse<T> 구조상 data.data
+    } catch (err: any) {
+      setError(err.message || "알 수 없는 에러");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchHospital();
+}, [hospitalCode]);
 
   useEffect(() => {
     if (hospital?.baseInfo) {
