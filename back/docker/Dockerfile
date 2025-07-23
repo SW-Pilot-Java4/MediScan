@@ -1,5 +1,5 @@
 # 첫 번째 스테이지: 빌드 스테이지
-FROM gradle:7.6.3-jdk17 as builder
+FROM gradle:7.6.3-jdk17 AS builder
 
 WORKDIR /app
 

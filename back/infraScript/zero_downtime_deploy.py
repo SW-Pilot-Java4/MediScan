@@ -27,7 +27,7 @@ class ServiceManager:
         self.next_name: Optional[str] = None
         self.next_port: Optional[int] = None
         # ❗ 나중에 ghcr 이미지 주소를 본인의 GitHub 사용자명으로 수정해야 함
-        self.image_url: str = "ghcr.io/YOUR_GITHUB_USERNAME/mediscan"  # 예: ghcr.io/huiyeollee/mediscan
+        self.image_url: str = "ghcr.io/sw-pilot-java4/mediscan:latest"
 
     def _find_current_service(self) -> None:
         """
@@ -66,14 +66,11 @@ class ServiceManager:
         """
         os.system(
             f"docker run --name={name} "
-            f"--log-driver=awslogs "  # ❗ AWS CloudWatch Logs를 사용하는 경우. 로그 그룹은 아래에서 수정 가능.
-            f"--log-opt awslogs-region=ap-northeast-2 "
-            f"--log-opt awslogs-group=app-1 "  # ❗ 나중에 프로젝트에 맞는 로그 그룹으로 수정 가능
-            f"--log-opt awslogs-stream=app-1-stream-1 "  # ❗ 필요시 스트림 이름도 변경 가능
             f"-p {port}:8080 "
             f"--restart unless-stopped "
             f"-e TZ=Asia/Seoul "
-            f"--pull always "  # 항상 최신 이미지 풀링
+            f"--pull always "
+            f"--network mediscan-net "
             f"-d {self.image_url}"
         )
 
