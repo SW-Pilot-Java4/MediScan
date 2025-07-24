@@ -37,38 +37,31 @@ dependencies {
 //     Apache Commons CSV
     implementation 'org.apache.commons:commons-csv:1.10.0'
 
-    // H2 임시 데이터 베이스로 H2 사용
-    runtimeOnly 'com.h2database:h2'
-    // spring data JPA
+//    spring data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    // IO - validation
+//    IO - validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // JWT
+//    JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
-    // Spring Web
+//    Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // JPA & Database
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.h2database:h2'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-
-    // Validation
+//    Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // Lombok
+//    Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Dev Tools
+//    Dev Tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // Test
+//    Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.springframework.security:spring-boot-security-test'
 }
