@@ -18,15 +18,15 @@ public class BatchRunner {
     private final Job loadHospitalJob;
     private final Job loadHospitalDetailJob;
 
-    @Bean
-    public ApplicationRunner runHospitalJobOnStartup() {
-        return args -> {
-            JobParameters jobParameters = new JobParametersBuilder()
-                    .addString("startTime", LocalDateTime.now().toString())
-                    .toJobParameters();
-
-            jobLauncher.run(loadHospitalJob, jobParameters);
-            jobLauncher.run(loadHospitalDetailJob, jobParameters);
-        };
-    }
+//    @Bean
+//    public ApplicationRunner runHospitalJobOnStartup() {
+//        return args -> {
+//            JobParameters jobParameters = new JobParametersBuilder()
+//                    .addString("startTime", LocalDateTime.now().toString())
+//                    .toJobParameters();
+//
+//            jobLauncher.run(loadHospitalJob, jobParameters);
+//            jobLauncher.run(loadHospitalDetailJob, jobParameters);
+//        };
+//    }
 }
