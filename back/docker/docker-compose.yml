@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: mediscan-postgres
+    environment:
+      POSTGRES_USER: member         # ✅ 유저 자동 생성
+      POSTGRES_PASSWORD: mediscan  # ✅ 비밀번호 설정
+      POSTGRES_DB: mediscan        # ✅ 데이터베이스 생성
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - mediscan-net
+
+volumes:
+  postgres-data:
+
+networks:
+  mediscan-net:
+    external: true

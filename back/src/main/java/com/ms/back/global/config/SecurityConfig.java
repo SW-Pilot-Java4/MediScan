@@ -97,6 +97,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll() // Swagger 사용을 위한 코드 추가
+                        .requestMatchers("/ready", "/notready").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
