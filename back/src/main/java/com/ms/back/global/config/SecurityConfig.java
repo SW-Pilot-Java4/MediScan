@@ -23,6 +23,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +45,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // DaoAuthenticationProvider 빈 등록: UserDetailsService + PasswordEncoder 연결
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -57,16 +58,16 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    // CORS 설정
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:8080"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(Arrays.asList("access"));
+        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -81,8 +82,16 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**")
-                        .ignoringRequestMatchers("/api/temp/**", "/api/hospital/**", "/join", "/login")
+                        .ignoringRequestMatchers(
+                                "/h2-console/**",
+                                "/api/temp/**",
+                                "/api/hospital/**",
+                                "/join",
+                                "/login",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        )
                 )
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -91,10 +100,15 @@ public class SecurityConfig {
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/api/hospital/**", "/api/temp/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers("/ready", "/notready").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // authenticationProvider 등록
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(new LoginFilter(authenticationManager, jwtUtil, refreshRepository),

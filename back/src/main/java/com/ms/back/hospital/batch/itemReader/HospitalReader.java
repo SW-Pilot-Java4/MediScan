@@ -18,8 +18,8 @@ public class HospitalReader {
                 .name("hospitalReader")
                 .resource(new ClassPathResource("/csv/hospital.csv"))
                 .fieldSetMapper(new HospitalFieldSetMapper())
-                .linesToSkip(68775) // 1 / 68774 데이터 제외 1만개 읽음
-//                .linesToSkip(48000) // 너무 많은 데이터를 읽고 있어서 개발 기간 동안 제한
+//                .linesToSkip(68775) // 1 / 68774 데이터 제외 1만개 읽음
+                .linesToSkip(1) // 너무 많은 데이터를 읽고 있어서 개발 기간 동안 제한
                 .delimited().delimiter(",")
                 .names(
                         "hospitalCode",        // 암호화요양기호
