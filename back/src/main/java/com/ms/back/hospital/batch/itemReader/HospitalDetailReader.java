@@ -19,8 +19,8 @@ public class HospitalDetailReader {
                 .name("hospitalDetailReader")
                 .resource(new ClassPathResource("/csv/hospital_detail.csv"))
                 .fieldSetMapper(new HospitalDetailFieldSetMapper())
-                .linesToSkip(14957) // 1 / 14956 데이터를 제외 1만개 읽음
-//                .linesToSkip(10000) // 너무 많은 데이터를 읽고 있어서 개발 기간 동안 제한
+//                .linesToSkip(14957) // 1 / 14956 데이터를 제외 1만개 읽음
+                .linesToSkip(1) // 너무 많은 데이터를 읽고 있어서 개발 기간 동안 제한
                 .delimited()
                 .delimiter(",")
                 .names(

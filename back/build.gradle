@@ -18,6 +18,13 @@ repositories {
 }
 
 dependencies {
+//    Swagger (SpringDoc) - 최신 안정 버전
+//    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
+
+//    PostgreSQL 드라이버
+    implementation 'org.postgresql:postgresql:42.6.0'
+
 //     Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
