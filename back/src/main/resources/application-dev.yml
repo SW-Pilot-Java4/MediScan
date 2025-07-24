@@ -9,6 +9,11 @@ spring:
     password: ${custom.datasource.password}
     driver-class-name: org.postgresql.Driver
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mediscan
+    username: member
+    password: mediscan
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
