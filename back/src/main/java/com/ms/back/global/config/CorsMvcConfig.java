@@ -10,7 +10,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
+        registry.addMapping("/api/**")
                 .allowedOrigins("http://localhost:5173")    // 프론트 주소
                 .allowedMethods("*") // 허용할 HTTP 메서드 명시
                 .allowedHeaders("*")                          // 모든 헤더 허용
