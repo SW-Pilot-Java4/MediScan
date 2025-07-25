@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Tag(name = "Hospital", description = "병원 정보 API")
-@CrossOrigin(origins = "*")
 @Slf4j
 @Controller
 @RestController
@@ -49,7 +48,8 @@ public class HospitalController {
             @RequestParam(defaultValue="") String address,
             @RequestParam(defaultValue="") String callNumber,
             @RequestParam(defaultValue="") String categoryCode,
-            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ){
         log.info("📥 병원 검색 API 호출됨: name={}, address={}, callNumber={}, categoryCode={}, page={}",
                 name, address, callNumber, categoryCode, pageable.getPageNumber());
 

@@ -26,7 +26,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
 
         //인증 필요 없는 URI 예외 처리
-        if(uri.startsWith("/api/hospital")||uri.startsWith("/api/temp")||uri.startsWith("/h2-console")){
+        if (uri.startsWith("/api/hospital") || uri.startsWith("/api/temp") || uri.startsWith("/h2-console")) {
             filterChain.doFilter(request, response);
             return;
         }

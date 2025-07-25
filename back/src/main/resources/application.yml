@@ -9,4 +9,4 @@ spring:
     include: secret
 
   config:
-    import: optional:application-secret.yml.default
+    import: optional:application-secret.yml
