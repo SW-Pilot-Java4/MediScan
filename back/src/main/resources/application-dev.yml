@@ -2,32 +2,31 @@ spring:
   output:
     ansi:
       enabled: always
-      
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mediscan
+    username: member
+    password: ${custom.datasource.password}
+    driver-class-name: org.postgresql.Driver
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mediscan
+    username: member
+    password: mediscan
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      default_batch_fetch_size: 100
-      format_sql: true
-      highlight_sql: true
-      use_sql_comments: true
     show-sql: true
-
-  h2:
-    console:
-      enabled: true
+    properties:
+      hibernate:
+        format_sql: true
 
   batch:
+    jdbc:
+      initialize-schema: always
     job:
       enabled: false
-      name: loadHospitalJob
-
 
 logging:
   level:
