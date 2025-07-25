@@ -1,7 +1,8 @@
-package com.ms.back.member.service;
+package com.ms.back.member.domain.service;
 
-import com.ms.back.member.entity.UserEntity;
-import com.ms.back.member.repository.UserRepository;
+import com.ms.back.member.domain.model.UserEntity;
+import com.ms.back.member.domain.port.UserService;
+import com.ms.back.member.infrastructure.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

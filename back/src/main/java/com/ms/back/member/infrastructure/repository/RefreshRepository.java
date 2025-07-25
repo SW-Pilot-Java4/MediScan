@@ -1,6 +1,6 @@
-package com.ms.back.member.repository;
+package com.ms.back.member.infrastructure.repository;
 
-import com.ms.back.member.entity.RefreshEntity;
+import com.ms.back.member.domain.model.RefreshEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

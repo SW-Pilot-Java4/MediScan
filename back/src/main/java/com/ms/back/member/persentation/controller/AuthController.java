@@ -1,13 +1,14 @@
-package com.ms.back.member.controller;
+package com.ms.back.member.persentation.controller;
 
-import com.ms.back.member.dto.LoginRequestDTO;
-import com.ms.back.member.dto.LoginResponseDTO;
-import com.ms.back.member.service.LoginService;
+import com.ms.back.member.application.dto.LoginRequestDTO;
+import com.ms.back.member.application.dto.LoginResponseDTO;
+import com.ms.back.member.application.service.LoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class AuthController {
 
     private final LoginService loginService;
@@ -16,19 +17,24 @@ public class AuthController {
         this.loginService = loginService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
+    // 로그인 페이지 보여주기
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login"; // 뷰 이름 (login.html 등)
+    }
 
+    // 로그인 API
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
         LoginResponseDTO loginResponse = loginService.login(request, response);
 
         if (loginResponse == null) {
-            // 로그인 실패
             return ResponseEntity.status(401).build();
         }
 
-        // JWT 토큰이나 기타 정보는 response 헤더 또는 바디로 전달
         response.setHeader("access", loginResponse.getAccessToken());
-        // refresh 토큰은 쿠키에 넣어주는 로직이 서비스 내부에 있으면 편함
+        // refresh token 쿠키 세팅 등은 loginService 내부에서 처리 가능
 
         return ResponseEntity.ok(loginResponse);
     }

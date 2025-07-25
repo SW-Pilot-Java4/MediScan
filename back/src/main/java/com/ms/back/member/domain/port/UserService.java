@@ -1,6 +1,6 @@
-package com.ms.back.member.service;
+package com.ms.back.member.domain.port;
 
-import com.ms.back.member.entity.UserEntity;
+import com.ms.back.member.domain.model.UserEntity;
 
 public interface UserService {
     UserEntity findByUsername(String username);

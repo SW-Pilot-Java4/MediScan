@@ -1,12 +1,11 @@
-package com.ms.back.member.service;
+package com.ms.back.member.application.service;
 
-import com.ms.back.member.dto.LoginRequestDTO;
-import com.ms.back.member.dto.LoginResponseDTO;
-import com.ms.back.member.entity.RefreshEntity;
-import com.ms.back.member.entity.UserEntity;
-import com.ms.back.member.repository.RefreshRepository;
-import com.ms.back.member.repository.UserRepository;
-import com.ms.back.member.jwt.JWTUtil;
+import com.ms.back.member.application.dto.LoginRequestDTO;
+import com.ms.back.member.application.dto.LoginResponseDTO;
+import com.ms.back.member.domain.model.RefreshEntity;
+import com.ms.back.member.infrastructure.repository.RefreshRepository;
+import com.ms.back.member.infrastructure.repository.UserRepository;
+import com.ms.back.global.jwt.JWTUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;

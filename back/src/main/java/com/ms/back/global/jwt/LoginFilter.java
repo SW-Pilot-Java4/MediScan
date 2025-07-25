@@ -1,8 +1,8 @@
-package com.ms.back.member.jwt;
+package com.ms.back.global.jwt;
 
-import com.ms.back.member.dto.LoginRequestDTO;
-import com.ms.back.member.entity.RefreshEntity;
-import com.ms.back.member.repository.RefreshRepository;
+import com.ms.back.member.application.dto.LoginRequestDTO;
+import com.ms.back.member.domain.model.RefreshEntity;
+import com.ms.back.member.infrastructure.repository.RefreshRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;

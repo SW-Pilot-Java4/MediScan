@@ -1,8 +1,8 @@
-package com.ms.back.member.service;
+package com.ms.back.member.application.service;
 
-import com.ms.back.member.dto.CustomUserDetails;
-import com.ms.back.member.entity.UserEntity;
-import com.ms.back.member.repository.UserRepository;
+import com.ms.back.member.application.dto.CustomUserDetails;
+import com.ms.back.member.domain.model.UserEntity;
+import com.ms.back.member.infrastructure.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

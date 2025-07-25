@@ -1,4 +1,4 @@
-package com.ms.back.member.dto;
+package com.ms.back.member.application.dto;
 
 import lombok.Getter;
 import lombok.Setter;
