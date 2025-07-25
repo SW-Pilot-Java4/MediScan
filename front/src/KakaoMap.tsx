@@ -89,7 +89,7 @@ const KakaoMap: React.FC = () => {
         withCredentials: true, // 인증 정보 필요 시 유지
       });
 
-      console.log("✅ 병원 데이터 수신 완료:", res.data);
+      console.log("✅ 병원 데이터 수신 완료:", res.data.data);
 
       if (Array.isArray(res.data.data)) {
         setHospitals(res.data.data);
