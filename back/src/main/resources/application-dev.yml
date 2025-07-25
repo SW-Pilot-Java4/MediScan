@@ -14,6 +14,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/mediscan
     driver-class-name: org.postgresql.Driver
     username: member
+    password: ${custom.datasource.password}
+    driver-class-name: org.postgresql.Driver
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mediscan
+    username: member
     password: mediscan
 
 #  jpa:
@@ -49,7 +55,6 @@ spring:
       initialize-schema: always
     job:
       enabled: false
-
 
 logging:
   level:

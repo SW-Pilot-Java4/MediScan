@@ -1,8 +1,8 @@
-package com.ms.back.member.controller;
+package com.ms.back.member.persentation.controller;
 
-import com.ms.back.member.entity.RefreshEntity;
-import com.ms.back.member.jwt.JWTUtil;
-import com.ms.back.member.repository.RefreshRepository;
+import com.ms.back.member.domain.model.RefreshEntity;
+import com.ms.back.global.jwt.JWTUtil;
+import com.ms.back.member.infrastructure.repository.RefreshRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,10 +1,7 @@
-package com.ms.back.member.jwt;
+package com.ms.back.global.jwt;
 
 import io.jsonwebtoken.Jwts;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
