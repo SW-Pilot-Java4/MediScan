@@ -1294,7 +1294,7 @@ ul.icons a {
 /* Sections/Article */
 
 header {
-  margin-bottom: 1em;
+  margin-bottom: 0;
 }
 
 header p {
@@ -1304,7 +1304,8 @@ header p {
 }
 
 footer {
-  margin-top: 2em;
+  margin-top: 0;  
+  margin-bottom: 0;
 }
 
 /* Table */

@@ -1,6 +1,6 @@
-import "./assets/css/main.css";
-import "./assets/css/noscript.css";
-import KakaoMap from "./KakaoMap";
+import "../../assets/css/main.css";
+import "../../assets/css/noscript.css";
+import KakaoMap from "../../KakaoMap";
 
 const BigPicture: React.FC = () => {
   return (

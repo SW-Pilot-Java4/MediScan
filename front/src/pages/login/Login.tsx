@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // ✅ useNavigate 추가
-import './Login.css';
+import "./Login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -66,65 +66,69 @@ function Login() {
   }, [usernameValid, pwValid]);
 
   return (
-    <div className="page">
-      <div className="titleWrap">
-        <br />
-        로그인
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4 py-8">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex flex-col gap-4 bg-white p-8 rounded shadow-md w-full max-w-xl">
+          <div className="text-2xl font-bold mb-4 text-center">로그인</div>
+
+          {/* 아이디 입력 */}
+          <div>
+            <label className="text-sm font-medium mb-1 block">아이디</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="아이디를 입력하세요"
+              value={username}
+              onChange={handleUsername}
+            />
+            {!usernameValid && username.length > 0 && (
+              <div className="text-red-500 text-xs mt-1">
+                아이디는 최소 3자 이상 입력해주세요.
+              </div>
+            )}
+          </div>
+
+          {/* 비밀번호 입력 */}
+          <div>
+            <label className="text-sm font-medium mb-1 block">비밀번호</label>
+            <input
+              type="password"
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="영문, 숫자, 특수문자 포함 8자 이상"
+              value={pw}
+              onChange={handlePw}
+            />
+            {!pwValid && pw.length > 0 && (
+              <div className="text-red-500 text-xs mt-1">
+                영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.
+              </div>
+            )}
+          </div>
+
+          {/* 버튼 */}
+          <button
+            onClick={onClickConfirmButton}
+            disabled={notAllow}
+            className={`w-full mt-4 py-2 rounded font-semibold ${
+              notAllow
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
+          >
+            로그인
+          </button>
+
+          {/* 가입 링크 */}
+          <hr className="my-6 border-gray-300" />
+          <div className="text-sm text-gray-700 text-center">
+            계정이 없으신가요?{" "}
+            <Link to="/register" className="text-blue-500 hover:underline">
+              가입하기
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="contentWrap">
-        <div className="inputTitle">아이디</div>
-        <div className="inputWrap">
-          <input
-            type="text"
-            className="input"
-            placeholder="아이디를 입력하세요"
-            value={username}
-            onChange={handleUsername}
-          />
-        </div>
-        <div className="errorMessageWrap">
-          {!usernameValid && username.length > 0 && (
-            <div>아이디는 최소 3자 이상 입력해주세요.</div>
-          )}
-        </div>
-
-        <div style={{ marginTop: "26px" }} className="inputTitle">
-          비밀번호
-        </div>
-        <div className="inputWrap">
-          <input
-            type="password"
-            className="input"
-            placeholder="영문, 숫자, 특수문자 포함 8자 이상"
-            value={pw}
-            onChange={handlePw}
-          />
-        </div>
-
-        <div className="errorMessageWrap">
-          {!pwValid && pw.length > 0 && (
-            <div>영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
-          )}
-        </div>
-      </div>
-
-      <div className="buttonWrap">
-        <button
-          onClick={onClickConfirmButton}
-          disabled={notAllow}
-          className="bottomButton"
-        >
-          로그인
-        </button>
-      </div>
-
-      <hr />
-
-      <div className="registerWrap">
-        <div className="registerTitle">
-          계정이 없으신가요? <Link to="/register">가입하기</Link>
-        </div>
-      </div>
+      {/* Title */}
     </div>
   );
 }
