@@ -85,6 +85,7 @@ const KakaoMap: React.FC = () => {
         params: {
           latitude: lat,
           longitude: lng,
+          distanceKm: 3, // 또는 원하는 거리
         },
         withCredentials: true, // 인증 정보 필요 시 유지
       });

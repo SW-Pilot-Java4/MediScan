@@ -10,12 +10,12 @@ spring:
 #    username: member
 #    password: mediscan
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/mediscan
-    driver-class-name: org.postgresql.Driver
-    username: member
-    password: ${custom.datasource.password}
-    driver-class-name: org.postgresql.Driver
+ # datasource:
+  #  url: jdbc:postgresql://localhost:5432/mediscan
+   # driver-class-name: org.postgresql.Driver
+    #username: member
+    #password: ${custom.datasource.password}
+    #driver-class-name: org.postgresql.Driver
 
   datasource:
     url: jdbc:postgresql://localhost:5432/mediscan
