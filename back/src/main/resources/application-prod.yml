@@ -4,10 +4,11 @@ spring:
       enabled: always
 
   datasource:
-    url: jdbc:postgresql://mediscan-postgres:5432/mediscan
+    url: jdbc:postgresql://172.17.0.1:5432/mediscan
     username: member
-    password: mediscan
+    password: ${custom.datasource.password}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,16 +17,11 @@ spring:
       hibernate:
         format_sql: true
 
-  h2:
-    console:
-      enabled: true
-
   batch:
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
     job:
       enabled: false
-      name: loadHospitalJob
 
 logging:
   level:
