@@ -1,6 +1,6 @@
-package com.ms.back.global.jwt;
+package com.ms.back.member.jwt;
 
-import com.ms.back.member.infrastructure.repository.RefreshRepository;
+import com.ms.back.member.repository.RefreshRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

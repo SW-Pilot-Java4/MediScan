@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { Link, useNavigate } from "react-router-dom"; // ✅ useNavigate 추가
 import "./Login.css";
 
 function Login() {
@@ -10,7 +10,7 @@ function Login() {
   const [pwValid, setPwValid] = useState(false);
   const [notAllow, setNotAllow] = useState(true);
 
-  const navigate = useNavigate(); // 네비게이션 훅 선언
+  const navigate = useNavigate(); // ✅ 네비게이션 훅 선언
 
   // username 핸들러
   const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,37 +29,33 @@ function Login() {
     setPwValid(pwRegex.test(inputPw));
   };
 
-  //  로그인 버튼 클릭 시 메인 페이지로 이동
- const onClickConfirmButton = async () => {
-  try {
-    const res = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username: username,  // 여기 username 필드로 이메일 입력값 넣음
-        password: pw,
-      }),
-    });
+  // ✅ 로그인 버튼 클릭 시 메인 페이지로 이동
+  const onClickConfirmButton = async () => {
+    const params = new URLSearchParams();
+    params.append("username", username);
+    params.append("password", pw);
 
-    if (res.ok) {
-      const accessToken = res.headers.get("access");
-      if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
+    try {
+      const res = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: params.toString(),
+      });
+
+      if (res.ok) {
+        alert("로그인 성공!");
+        navigate("/main"); // ✅ 메인 페이지로 이동
+      } else {
+        alert("로그인 실패! 아이디나 비밀번호를 확인하세요.");
       }
-      alert("로그인 성공!");
-      navigate("/");
-    } else {
-      alert("로그인 실패! 아이디나 비밀번호를 확인하세요.");
+    } catch (error) {
+      console.error("로그인 오류", error);
+      alert("서버 오류가 발생했습니다.");
     }
-  } catch (error) {
-    console.error("로그인 오류", error);
-    alert("서버 오류가 발생했습니다.");
-  }
-};
-
+  };
 
   useEffect(() => {
     if (usernameValid && pwValid) {
@@ -116,7 +112,7 @@ function Login() {
             className={`w-full mt-4 py-2 rounded font-semibold ${
               notAllow
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-blue-500 text-white hover:bg-blue-600"
             }`}
           >
             로그인
@@ -126,7 +122,7 @@ function Login() {
           <hr className="my-6 border-gray-300" />
           <div className="text-sm text-gray-700 text-center">
             계정이 없으신가요?{" "}
-            <Link to="/register" className="text-blue-600 hover:underline">
+            <Link to="/register" className="text-blue-500 hover:underline">
               가입하기
             </Link>
           </div>
