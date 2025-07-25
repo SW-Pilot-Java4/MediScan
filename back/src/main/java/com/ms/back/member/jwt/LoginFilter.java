@@ -1,9 +1,7 @@
-package com.ms.back.global.jwt;
+package com.ms.back.member.jwt;
 
-import com.ms.back.member.application.dto.LoginRequestDTO;
-import com.ms.back.member.domain.model.RefreshEntity;
-import com.ms.back.member.infrastructure.repository.RefreshRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms.back.member.entity.RefreshEntity;
+import com.ms.back.member.repository.RefreshRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +14,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
 
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -27,35 +25,28 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
 
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, RefreshRepository refreshRepository) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil,RefreshRepository refreshRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.refreshRepository = refreshRepository;
     }
-
-    // 여기를 수정: JSON body에서 username, password 읽기
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        try {
-            // ObjectMapper를 이용해 JSON -> LoginRequestDTO 변환
-            ObjectMapper mapper = new ObjectMapper();
-            LoginRequestDTO loginRequest = mapper.readValue(request.getInputStream(), LoginRequestDTO.class);
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException{
+        String username =obtainUsername(request);
+        String password =obtainPassword(request);
 
-            String username = loginRequest.getUsername();
-            String password = loginRequest.getPassword();
+        System.out.println("username:"+username);
 
-            System.out.println("[LoginFilter] username: " + username);  // 로그 확인용
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password,null);
 
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+        return authenticationManager.authenticate(authToken);
 
-            return authenticationManager.authenticate(authToken);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
+
+        //유저 정보
         String username = authentication.getName();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -63,17 +54,20 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
+        //토큰 생성
         String access = jwtUtil.createJwt("access", username, role, 600000L);
         String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
 
+        //Refresh 토큰 저장
         addRefreshEntity(username, refresh, 86400000L);
 
+        //응답 설정
         response.setHeader("access", access);
         response.addCookie(createCookie("refresh", refresh));
         response.setStatus(HttpStatus.OK.value());
     }
-
     private void addRefreshEntity(String username, String refresh, Long expiredMs) {
+
         Date date = new Date(System.currentTimeMillis() + expiredMs);
 
         RefreshEntity refreshEntity = new RefreshEntity();
@@ -83,17 +77,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         refreshRepository.save(refreshEntity);
     }
-
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-        System.out.println("[LoginFilter] 로그인 실패 이유: " + failed.getMessage());
         response.setStatus(401);
     }
-
     private Cookie createCookie(String key, String value) {
+
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(24 * 60 * 60);
+        cookie.setMaxAge(24*60*60);
+        //cookie.setSecure(true);
+        //cookie.setPath("/");
         cookie.setHttpOnly(true);
+
         return cookie;
     }
 }
