@@ -11,22 +11,22 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 
-@Configuration
-@RequiredArgsConstructor
-public class BatchRunner {
-    private final JobLauncher jobLauncher;
-    private final Job loadHospitalJob;
-    private final Job loadHospitalDetailJob;
-
-//    @Bean
-//    public ApplicationRunner runHospitalJobOnStartup() {
-//        return args -> {
-//            JobParameters jobParameters = new JobParametersBuilder()
-//                    .addString("startTime", LocalDateTime.now().toString())
-//                    .toJobParameters();
+//@Configuration
+//@RequiredArgsConstructor
+//public class BatchRunner {
+//    private final JobLauncher jobLauncher;
+//    private final Job loadHospitalJob;
+//    private final Job loadHospitalDetailJob;
 //
-//            jobLauncher.run(loadHospitalJob, jobParameters);
-//            jobLauncher.run(loadHospitalDetailJob, jobParameters);
-//        };
-//    }
-}
+////    @Bean
+////    public ApplicationRunner runHospitalJobOnStartup() {
+////        return args -> {
+////            JobParameters jobParameters = new JobParametersBuilder()
+////                    .addString("startTime", LocalDateTime.now().toString())
+////                    .toJobParameters();
+////
+////            jobLauncher.run(loadHospitalJob, jobParameters);
+////            jobLauncher.run(loadHospitalDetailJob, jobParameters);
+////        };
+////    }
+//}

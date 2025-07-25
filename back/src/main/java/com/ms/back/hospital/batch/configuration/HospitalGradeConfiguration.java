@@ -89,7 +89,7 @@ public class HospitalGradeConfiguration {
     @Bean
     public Step loadHospitalGradeStep() {
         return new StepBuilder("loadHospitalGradeStep", jobRepository)
-                .<HospitalGradeRegister, HospitalGrade>chunk(10,ptm)
+                .<HospitalGradeRegister, HospitalGrade>chunk(1000,ptm)
                 .reader(hospitalGradeReader.read())
                 .processor(hospitalGradeProcessor)
                 .writer(hospitalGradeWriter)
