@@ -1,7 +1,5 @@
-/*
-
-
 package com.ms.back.global.config;
+
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -14,10 +12,9 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:5173")    // 프론트 주소
-                .allowedMethods("*") // 모든 HTTP 메서드 허용
+                .allowedMethods("*") // 허용할 HTTP 메서드 명시
                 .allowedHeaders("*")                          // 모든 헤더 허용
-                .allowCredentials(true)                      // 쿠키/인증 헤더 허용
-                .exposedHeaders("access");                   // 클라이언트가 access 헤더 읽을 수 있게 추가
+                .allowCredentials(true);                      // 쿠키/인증 헤더 허용
     }
+
 }
-*/

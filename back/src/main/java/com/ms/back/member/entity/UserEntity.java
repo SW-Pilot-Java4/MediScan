@@ -1,4 +1,4 @@
-package com.ms.back.member.domain.model;
+package com.ms.back.member.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
