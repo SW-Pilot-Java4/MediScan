@@ -1,6 +1,6 @@
-package com.ms.back.member.dto;
+package com.ms.back.member.application.dto;
 
-import com.ms.back.member.entity.UserEntity;
+import com.ms.back.member.domain.model.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

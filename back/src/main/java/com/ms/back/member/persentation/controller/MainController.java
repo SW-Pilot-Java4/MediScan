@@ -1,4 +1,4 @@
-package com.ms.back.member.controller;
+package com.ms.back.member.persentation.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

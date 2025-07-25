@@ -1,6 +1,6 @@
-package com.ms.back.member.repository;
+package com.ms.back.member.infrastructure.repository;
 
-import com.ms.back.member.entity.UserEntity;
+import com.ms.back.member.domain.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
