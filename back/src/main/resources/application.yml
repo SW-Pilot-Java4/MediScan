@@ -6,7 +6,24 @@ spring:
     name: MediScan
   profiles:
     active: dev
-    include: secret
 
   config:
     import: optional:application-secret.yml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: mediscan
+    enable:
+      jvm: true
+      process: true
+      http: true
+      hikaricp: true
+      tomcat: true
