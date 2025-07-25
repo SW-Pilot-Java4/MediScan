@@ -5,25 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e4d6ef-665f-4a2e-804b-f147a3363892" name="변경" comment="">
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/DefaultLineMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/HospitalFieldSetMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Runner/BatchRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/configuration/HospitalGradeConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/controller/TempController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemProcessor/HospitalGradeProcessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemProcessor/HospitalProcessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemReader/HospitalGradeReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemReader/HospitalReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemWriter/HospitalGradeWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/itemWriter/HospitalWriter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/listener/JobListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-secret.yml.default" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-secret.yml.default" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/KakaoMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/KakaoMap.tsx" afterDir="false" />
-=======
       <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalDetailJPARepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalDetailRepositoryImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalJPARepository.java" afterDir="false" />
@@ -81,7 +62,6 @@
       <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/util/LoadData.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/util/Policy.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/policy/HospitalPolicy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/main/resources/initData/sampleData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/csv/hospital.csv" afterDir="false" />
->>>>>>> 164e984176270c6815860f48350951a51b51d38d
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,31 +109,16 @@
     "Gradle.back [:com.ms.back.MediScanApplication.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-<<<<<<< HEAD
-    "git-widget-placeholder": "feature/map",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/LeeSeongJin/Desktop/mediscan/MediScan/back/src/main/resources",
-=======
     "git-widget-placeholder": "feature/map 병합 중",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/LeeSeongJin/Desktop/mediscan/MediScan",
->>>>>>> 164e984176270c6815860f48350951a51b51d38d
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "애플리케이션.MediScanApplication.executor": "Run"
   }
 }]]></component>
-<<<<<<< HEAD
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\LeeSeongJin\Desktop\mediscan\MediScan\back\src\main\resources" />
-    </key>
-  </component>
-=======
->>>>>>> 164e984176270c6815860f48350951a51b51d38d
   <component name="RunManager" selected="애플리케이션.MediScanApplication">
     <configuration name="MediScanApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ms.back.MediScanApplication" />

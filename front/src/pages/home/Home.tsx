@@ -25,4 +25,9 @@ function Home() {
   );
 }
 
-export default Home; // ✅ 이 줄이 없으면 import Main from './Main'이 안 됨
+export default Home;
+
+{
+  /* <h1>메인 페이지</h1>
+      <p>환영합니다! 🎉</p> */
+}
