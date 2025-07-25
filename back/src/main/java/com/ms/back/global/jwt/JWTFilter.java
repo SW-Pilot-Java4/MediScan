@@ -23,6 +23,13 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String path = request.getRequestURI();
+
+        if (path.equals("/join") || path.equals("/login") || path.equals("/reissue") || path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String accessToken = request.getHeader("access");
 
 // 토큰이 없다면 다음 필터로 넘김
