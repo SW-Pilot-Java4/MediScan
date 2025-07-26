@@ -17,12 +17,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Hospital", description = "병원 정보 API")
-
-@Controller
 @RestController
 @RequestMapping("/api/hospital")
 @RequiredArgsConstructor
@@ -40,6 +42,24 @@ public class HospitalController {
     @GetMapping("/{hospitalCode}")
     public ApiResponse<HospitalInfoResponse> getHospitalDetails(@PathVariable(name = "hospitalCode") String hospitalCode) {
         return ApiResponse.ok(hospitalService.assembleHospitalInfo(hospitalCode));
+    }
+
+
+    @GetMapping("/nearby")
+    public ApiResponse<List<HospitalListResponse>> getNearbyHospitals(
+            @RequestParam String latitude,
+            @RequestParam String longitude,
+            @RequestParam(defaultValue = "3") double distanceKm // ← 기본값 설정!
+    ) {
+       //  double lat = Double.parseDouble(latitude);
+       //  double lng = Double.parseDouble(longitude);
+
+       //  System.out.println("📍 프론트에서 받은 위도: " + lat);
+       //  System.out.println("📍 프론트에서 받은 경도: " + lng);
+
+        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(latitude, longitude, distanceKm);
+
+        return ApiResponse.ok(nearbyHospitals);
     }
 
     //검색 기능 추가

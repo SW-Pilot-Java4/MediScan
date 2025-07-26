@@ -10,6 +10,7 @@ import java.util.List;
 public interface HospitalService {
     List<HospitalListResponse> getAllHospitalData();
     HospitalInfoResponse assembleHospitalInfo(String hospitalCode);
+    List<HospitalListResponse> getHospitalsNearby(String lat, String lng, double distanceKm);
     List<Hospital> searchHospitals(String keyword);
     Page<Hospital> searchHospitals(String name, String address, String callNumber, String categoryCode, Pageable pageable);
     List<HospitalCategoryCode> getHospitalCategoryCodes();
