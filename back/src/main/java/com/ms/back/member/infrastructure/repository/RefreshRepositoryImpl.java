@@ -1,18 +1,19 @@
-package com.ms.back.member.domain.service;
+package com.ms.back.member.infrastructure.repository;
 
 import com.ms.back.member.domain.model.RefreshEntity;
 import com.ms.back.member.domain.port.RefreshService;
-import com.ms.back.member.infrastructure.repository.RefreshRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class RefreshServiceImpl implements RefreshService {
+public class RefreshRepositoryImpl implements RefreshService {
 
     private final RefreshRepository refreshRepository;
+
+    public RefreshRepositoryImpl(RefreshRepository refreshRepository) {
+        this.refreshRepository = refreshRepository;
+    }
 
     @Override
     public boolean existsByRefresh(String refresh) {

@@ -1,8 +1,8 @@
 package com.ms.back.member.application.service;
 
 import com.ms.back.member.application.dto.CustomUserDetails;
-import com.ms.back.member.domain.model.UserEntity;
-import com.ms.back.member.infrastructure.repository.UserRepository;
+import com.ms.back.member.domain.model.MemberEntity;
+import com.ms.back.member.infrastructure.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsService(MemberRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userData = userRepository.findByUsername(username);
+        MemberEntity userData = userRepository.findByUsername(username);
 
         if (userData != null) {
             return new CustomUserDetails(userData);

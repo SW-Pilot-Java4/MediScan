@@ -4,7 +4,7 @@ import com.ms.back.global.jwt.CustomLogoutFilter;
 import com.ms.back.global.jwt.JWTFilter;
 import com.ms.back.global.jwt.JWTUtil;
 import com.ms.back.global.jwt.LoginFilter;
-import com.ms.back.member.infrastructure.repository.RefreshRepository;
+import com.ms.back.member.domain.port.RefreshService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,12 +29,12 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
-    private final RefreshRepository refreshRepository;
+    private final RefreshService refreshService;
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JWTUtil jwtUtil, RefreshRepository refreshRepository, UserDetailsService userDetailsService) {
+    public SecurityConfig(JWTUtil jwtUtil, RefreshService refreshService, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
-        this.refreshRepository = refreshRepository;
+        this.refreshService = refreshService;
         this.userDetailsService = userDetailsService;
     }
 
@@ -109,9 +109,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager, jwtUtil, refreshRepository),
-                        UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager, jwtUtil, refreshService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshService), LogoutFilter.class)
                 .build();
     }
 }

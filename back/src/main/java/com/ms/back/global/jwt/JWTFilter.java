@@ -1,7 +1,7 @@
 package com.ms.back.global.jwt;
 
 import com.ms.back.member.application.dto.CustomUserDetails;
-import com.ms.back.member.domain.model.UserEntity;
+import com.ms.back.member.domain.model.MemberEntity;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -72,7 +72,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String username = jwtUtil.getUsername(accessToken);
         String role = jwtUtil.getRole(accessToken);
 
-        UserEntity userEntity = new UserEntity();
+        MemberEntity userEntity = new MemberEntity();
         userEntity.setUsername(username);
         userEntity.setRole(role);
         CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
