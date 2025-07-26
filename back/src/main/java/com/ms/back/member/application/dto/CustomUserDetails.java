@@ -1,6 +1,6 @@
-package com.ms.back.member.dto;
+package com.ms.back.member.application.dto;
 
-import com.ms.back.member.entity.UserEntity;
+import com.ms.back.member.domain.model.MemberEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
-    private final UserEntity userEntity;
+    private final MemberEntity userEntity;
 
-    public CustomUserDetails(UserEntity userEntity) {
+    public CustomUserDetails(MemberEntity userEntity) {
         this.userEntity = userEntity;
     }
     @Override

@@ -4,23 +4,12 @@ spring:
       enabled: always
 
 
-#  datasource:
-#    url: jdbc:mysql://127.0.0.1:5432
-#    driver-class-name: org.postgresql.Driver
-#    username: member
-#    password: mediscan
-
- # datasource:
-  #  url: jdbc:postgresql://localhost:5432/mediscan
-   # driver-class-name: org.postgresql.Driver
-    #username: member
-    #password: ${custom.datasource.password}
-    #driver-class-name: org.postgresql.Driver
-
   datasource:
     url: jdbc:postgresql://localhost:5432/mediscan
     username: member
-    password: mediscan
+    password: ${custom.datasource.password}
+    driver-class-name: org.postgresql.Driver
+
 
 #  jpa:
 #    hibernate:
@@ -44,6 +33,7 @@ spring:
     #driver-class-name: org.postgresql.Driver
 #    password: ${custom.datasource.password}
   #  driver-class-name: org.postgresql.Driver
+
 
   jpa:
     hibernate:
