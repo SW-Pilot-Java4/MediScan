@@ -8,6 +8,7 @@ import com.ms.back.member.domain.port.RefreshService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -23,6 +24,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -93,8 +96,8 @@ public class SecurityConfig {
                                 "/swagger-ui.html"
                         )
                 )
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // H2 콘솔 iframe 허용
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ 이 부분만 남기고 아래 인라인 CORS 제거
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/login", "/", "/join", "/reissue").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
