@@ -23,6 +23,15 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String uri = request.getRequestURI();
+
+        //인증 필요 없는 URI 예외 처리
+        if (uri.startsWith("/api/hospital") || uri.startsWith("/api/temp") || uri.startsWith("/h2-console")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+
         String accessToken = request.getHeader("access");
 
 // 토큰이 없다면 다음 필터로 넘김

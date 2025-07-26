@@ -9,6 +9,8 @@ const Layout = () => {
         <a className="flex items-center" href="/">
           <img src="/logo.png" alt="MediScan Logo" className="h-10 w-auto" />
         </a>
+        
+
         {/* 우측에 버튼이든 뭐든 추가하고 싶다면 여기에 */}
         <div className="text-white">
           {/* Placeholder */}
