@@ -7,11 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class RefreshRepositoryImpl implements RefreshService {
+public class RefreshRepositoryCustomImpl implements RefreshService {
+    private final RefreshRepository refreshRepository;  // JPA repository
 
-    private final RefreshRepository refreshRepository;
-
-    public RefreshRepositoryImpl(RefreshRepository refreshRepository) {
+    public RefreshRepositoryCustomImpl(RefreshRepository refreshRepository) {
         this.refreshRepository = refreshRepository;
     }
 

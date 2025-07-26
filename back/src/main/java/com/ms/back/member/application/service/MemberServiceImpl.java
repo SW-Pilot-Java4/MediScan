@@ -25,7 +25,7 @@ public class MemberServiceImpl implements IMemberService {
         try {
             return authDomainService.login(request.getUsername(), request.getPassword(), response);
         } catch (Exception e) {
-            e.printStackTrace(); // 필요시 로깅으로 교체
+            e.printStackTrace();
             return null;
         }
     }

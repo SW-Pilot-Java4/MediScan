@@ -31,6 +31,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.refreshService = refreshService;
+
+        setFilterProcessesUrl("/login"); // 필요 시 로그인 URL 설정
     }
 
     @Override

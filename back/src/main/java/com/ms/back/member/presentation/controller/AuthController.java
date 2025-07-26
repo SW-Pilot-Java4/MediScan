@@ -28,7 +28,7 @@ public class AuthController {
 
     private final IMemberService memberService;  // 단일 서비스 주입
 
-    public AuthController(MemberServiceImpl memberService) {
+    public AuthController(IMemberService memberService) {
         this.memberService = memberService;
     }
 

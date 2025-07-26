@@ -9,22 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class MemberRepositoryImpl implements MemberService {
-
-    private final MemberRepository userRepository;
+public class MemberRepositoryCustomImpl implements MemberService {
+    private final MemberRepository memberRepository;  // JPA repository
 
     @Override
     public MemberEntity findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return memberRepository.findByUsername(username);
     }
 
     @Override
     public MemberEntity saveUser(MemberEntity user) {
-        return userRepository.save(user);
+        return memberRepository.save(user);
     }
 
     @Override
     public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+        return memberRepository.existsByUsername(username);
     }
 }

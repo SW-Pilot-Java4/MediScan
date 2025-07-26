@@ -2,11 +2,12 @@ package com.ms.back.global.config;
 
 import com.ms.back.global.jwt.CustomLogoutFilter;
 import com.ms.back.global.jwt.JWTFilter;
-import com.ms.back.global.jwt.JWTUtil;
 import com.ms.back.global.jwt.LoginFilter;
+import com.ms.back.global.jwt.JWTUtil;
 import com.ms.back.member.domain.port.RefreshService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -29,13 +30,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
-    private final RefreshService refreshService;
-    private final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JWTUtil jwtUtil, RefreshService refreshService, UserDetailsService userDetailsService) {
+    public SecurityConfig(JWTUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
-        this.refreshService = refreshService;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -44,7 +41,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(bCryptPasswordEncoder());
@@ -74,7 +71,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           AuthenticationManager authenticationManager,
+                                           UserDetailsService userDetailsService,
+                                           RefreshService refreshService) throws Exception {
+
+        LoginFilter loginFilter = new LoginFilter(authenticationManager, jwtUtil, refreshService);
 
         return http
                 .httpBasic(httpBasic -> httpBasic.disable())
@@ -107,9 +109,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider(userDetailsService))
                 .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAt(new LoginFilter(authenticationManager, jwtUtil, refreshService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshService), LogoutFilter.class)
                 .build();
     }

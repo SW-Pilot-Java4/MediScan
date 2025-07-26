@@ -26,7 +26,7 @@ public class AuthDomainServiceImpl implements AuthDomainService {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
-    private final RefreshService refreshService;
+    private final RefreshService refreshService; //도메인 포트 주입
     private final AuthPolicy authPolicy; // 추가됨
 
     @Override
