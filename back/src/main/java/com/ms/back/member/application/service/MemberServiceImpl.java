@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MemberServiceImpl implements IMemberService {
 
-    private final AuthDomainService authDomainServicePort;
-    private final JoinDomainService joinDomainServicePort;
+    private final AuthDomainService authDomainService;
+    private final JoinDomainService joinDomainService;
 
     @Override
     public LoginResponseDTO login(LoginRequestDTO request, HttpServletResponse response) {
         try {
-            return authDomainServicePort.login(request.getUsername(), request.getPassword(), response);
+            return authDomainService.login(request.getUsername(), request.getPassword(), response);
         } catch (Exception e) {
             e.printStackTrace(); // 필요시 로깅으로 교체
             return null;
@@ -32,11 +32,11 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public boolean joinProcess(JoinDTO joinDTO) {
-        return joinDomainServicePort.joinProcess(joinDTO);
+        return joinDomainService.joinProcess(joinDTO);
     }
 
     @Override
     public void reissueTokens(HttpServletRequest request, HttpServletResponse response) {
-        authDomainServicePort.reissueTokens(request, response);
+        authDomainService.reissueTokens(request, response);
     }
 }
