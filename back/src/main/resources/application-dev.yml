@@ -6,7 +6,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mediscan
     username: member
-    password: ${custom.datasource.password}
+    password: mediscan
+#    password: ${custom.datasource.password}
     driver-class-name: org.postgresql.Driver
 
   jpa:

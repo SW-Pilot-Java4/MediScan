@@ -15,7 +15,8 @@
     margin-bottom: 20px;
 }
 
-.search-container input{
+.search-container input,
+.search-container select{
     display:block;
     width: 80%;
     margin: 10px auto; 
@@ -66,4 +67,33 @@
 .result-item p{
     margin:6px 0;
     font-size:0.95rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination button {
+  background-color: #b6e9fb;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 20px; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 0.95rem;
+  color: #555;
 }

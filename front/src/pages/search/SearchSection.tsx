@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import rq from "../../lib/rq/rq.react.ts";
 import "./SearchSection.css";
 function SearchSection() {
@@ -12,9 +11,33 @@ function SearchSection() {
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
+const client = rq.apiEndPoints();
   const token = localStorage.getItem("accessToken");
+  type CategoryOptionType = {
+  code: string;
+  label: string;
+};
+const [categoryOptions, setCategoryOptions] = useState<CategoryOptionType[]>([]);
 
+useEffect(() => {
+  const fetchCategoryCodes = async () => {
+    try {
+      const res = await client.GET("/api/hospital/category-codes");
+      
+      // 올바른 타입 단정 및 저장
+      const data = res?.data?.data as CategoryOptionType[]; 
+
+      setCategoryOptions(data);
+    } catch (err) {
+      console.error("카테고리 불러오기 실패:", err);
+      setCategoryOptions([]);
+    }
+  };
+
+  fetchCategoryCodes();
+}, []);
+
+console.log("📦 categoryOptions 상태", categoryOptions);
   const handleSearch = async (newPage = 0) => {
     console.log("📤 검색 요청:", {
       name,
@@ -27,28 +50,34 @@ function SearchSection() {
 
     try {
       const client = rq.apiEndPoints();
-
       const response = await client.GET("/api/hospital/search", {
-        params: {
-          name: name || null,
-          address: address || null,
-          callNumber: callNumber || null,
-          categoryCode: categoryCode || null,
-          page: newPage,
-          size: 10,
-        },
-      });
-
-      console.log("서버 응답:", response.data);
-
-      const data = response.data.data;
-      setResults(data.content);
-      setPage(data.page);
-      setTotalPages(data.totalPages);
-    } catch (error) {
-      console.error("검색 중 오류 발생:", error);
+    params: {
+      query: {
+        name: name.trim() === "" ? undefined : name,
+        address: address.trim() === "" ? undefined : address,
+        callNumber: callNumber.trim() === "" ? undefined : callNumber,
+        categoryCode: categoryCode.trim() === "" ? undefined : categoryCode,
+        page: newPage,
+        size: 10,
+      }
     }
-  };
+  });
+
+
+    console.log("📥 서버 응답 전체:", response);
+    console.log("📥 응답 data.data:", response.data?.data);
+
+    const data = response.data.data;
+    setResults(data.content);
+    setTotalPages(data.totalPages);
+
+    // 이 부분 수정: newPage를 그대로 사용
+    setPage(newPage);
+  } catch (error) {
+    console.error("검색 중 오류 발생:", error);
+  }
+};
+
   return (
     //검색 ui
     <div>
@@ -85,12 +114,18 @@ function SearchSection() {
           />
           {callNumberError && <p className="error-text">{callNumberError}</p>}
         </div>
-        <input
-          type="text"
-          placeholder="카테고리 코드"
+        <select
           value={categoryCode}
           onChange={(e) => setCategoryCode(e.target.value)}
-        />
+        >
+          <option value="">-병원 카테고리 선택-</option>
+          {categoryOptions.map((option) => (
+            <option key={option.code} value={option.code}>
+              {option.label} {/* ✅ 꼭 문자열로 */}
+            </option>
+          ))}
+        </select>
+
         <button onClick={() => handleSearch(0)}>검색</button>
       </div>
       {/*검색 결과*/}
@@ -102,7 +137,6 @@ function SearchSection() {
             </p>
             <p>{hospital.address}</p>
             <p>{hospital.callNumber}</p>
-            <p>카테고리 코드: {hospital.categoryCode}</p>
           </div>
         ))}
       </div>

@@ -2,6 +2,7 @@ package com.ms.back.hospital.application;
 
 import com.ms.back.hospital.Infrastructure.repository.HospitalCustomRepositoryImpl;
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
+import com.ms.back.hospital.application.dto.HospitalCategoryCode;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.application.port.HospitalDetailDomainService;
@@ -54,5 +55,24 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public Page<Hospital> searchHospitals(String name, String address, String callNumber, String categoryCode, Pageable pageable) {
         return hospitalCustomRepositoryImpl.searchByKeyword(name, address, callNumber, categoryCode, pageable);
+    }
+
+    @Override
+    public List<HospitalCategoryCode> getHospitalCategoryCodes() {
+        return List.of(
+                new HospitalCategoryCode("01", "종합전문병원"),
+                new HospitalCategoryCode("11", "종합병원"),
+                new HospitalCategoryCode("21", "병원"),
+                new HospitalCategoryCode("28", "요양병원"),
+                new HospitalCategoryCode("29", "정신병원"),
+                new HospitalCategoryCode("31", "의원"),
+                new HospitalCategoryCode("41", "치과병원"),
+                new HospitalCategoryCode("51", "치과의원"),
+                new HospitalCategoryCode("71", "보건소"),
+                new HospitalCategoryCode("72", "보건지소"),
+                new HospitalCategoryCode("73", "보건진료소"),
+                new HospitalCategoryCode("92", "한방병원"),
+                new HospitalCategoryCode("93", "한의원")
+        );
     }
 }

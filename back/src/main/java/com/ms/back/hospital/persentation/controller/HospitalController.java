@@ -4,6 +4,7 @@ import com.ms.back.global.apiResponse.ApiResponse;
 import com.ms.back.global.apiResponse.PageResponse;
 import com.ms.back.hospital.Infrastructure.repository.HospitalCustomRepositoryImpl;
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
+import com.ms.back.hospital.application.dto.HospitalCategoryCode;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.batch.dto.HospitalDto;
@@ -20,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Tag(name = "Hospital", description = "병원 정보 API")
-@Slf4j
+
 @Controller
 @RestController
 @RequestMapping("/api/hospital")
@@ -50,16 +51,17 @@ public class HospitalController {
             @RequestParam(defaultValue="") String categoryCode,
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ){
-        log.info("📥 병원 검색 API 호출됨: name={}, address={}, callNumber={}, categoryCode={}, page={}",
-                name, address, callNumber, categoryCode, pageable.getPageNumber());
 
         Page<Hospital> hospitalPage = hospitalCustomRepositoryImpl.searchByKeyword(
                 name, address, callNumber, categoryCode, pageable
         );
-        log.info("✅ 검색 결과 개수: {}", hospitalPage.getTotalElements());
 
         Page<HospitalDto> dtoPage = hospitalPage.map(HospitalDto::from);
         return ApiResponse.ok(PageResponse.from(dtoPage));
     }
-
+    @Operation(summary = "병원 카테고리 코드 목록", description = "병원 카테고리 코드와 라벨 목록을 조회합니다.")
+    @GetMapping("/category-codes")
+    public ApiResponse<List<HospitalCategoryCode>> getCategoryCodes() {
+        return ApiResponse.ok(hospitalService.getHospitalCategoryCodes());
+    }
 }
