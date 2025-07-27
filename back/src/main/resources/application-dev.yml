@@ -30,3 +30,21 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
     org.springframework.transaction.interceptor: TRACE
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,prometheus,metrics
+#  endpoint:
+#    prometheus:
+#      enabled: true
+#  metrics:
+#    tags:
+#      application: mediscan
+#    enable:
+#      jvm: true
+#      process: true
+#      http: true
+#      hikaricp: true
+#      tomcat: true

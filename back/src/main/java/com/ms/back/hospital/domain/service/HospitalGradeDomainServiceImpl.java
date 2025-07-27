@@ -52,7 +52,7 @@ public class HospitalGradeDomainServiceImpl implements HospitalGradeDomainServic
 
     private Long convertGrade(String gradeStr) {
         if (gradeStr == null) return null;
-        if (gradeStr.equals("등급 제외")) return 0L;
+        if (gradeStr.equals("등급 제외") || gradeStr.equals("등급제외")) return 0L;
 
         try {
             return Long.parseLong(gradeStr);

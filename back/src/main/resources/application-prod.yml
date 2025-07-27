@@ -4,7 +4,7 @@ spring:
       enabled: always
 
   datasource:
-    url: jdbc:postgresql://172.17.0.1:5432/mediscan
+    url: jdbc:postgresql://mediscan-postgres:5432/mediscan
     username: member
     password: ${custom.datasource.password}
     driver-class-name: org.postgresql.Driver

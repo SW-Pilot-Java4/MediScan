@@ -1,6 +1,7 @@
 package com.ms.back.hospital.batch.controller;
 
 import io.micrometer.core.annotation.Timed;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -16,7 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Tag(name = "Batch", description = "배치 실행 API")
+@Hidden
 @Timed(value = "controller.batch", description = "Batch Controller execution time")
 @RestController
 @RequestMapping("/api/batch")

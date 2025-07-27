@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -37,6 +38,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
+    private final Environment env;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -60,7 +62,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:8080"));
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173", "http://localhost:8080",
+                env.getProperty("custom.url.back"), env.getProperty("custom.url.front")
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
@@ -107,7 +112,9 @@ public class SecurityConfig {
                     // ✅ 여러 Origin을 허용할 수 있도록 수정
                     configuration.setAllowedOrigins(List.of(
                             "http://localhost:5173", // 기존 프론트엔드
-                            "http://localhost:8080"  // Swagger UI (백엔드에서 제공됨)
+                            "http://localhost:8080" , // Swagger UI (백엔드에서 제공됨)
+                            env.getProperty("custom.url.back"),
+                            env.getProperty("custom.url.front")
                     ));
 
                     configuration.setAllowedMethods(Collections.singletonList("*"));

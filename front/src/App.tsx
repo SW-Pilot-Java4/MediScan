@@ -7,6 +7,7 @@ import BigPicture from "./pages/map/BigPicture";
 import SearchSection from "./pages/search/SearchSection";
 import Layout from "./components/Layout";
 import HospitalDetail from "./pages/hospital/Hospital";
+import NotFound from "./pages/NotFound"; // ← 추가
 import "./index.css";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/map" element={<BigPicture />} />
           <Route path="/search" element={<SearchSection />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

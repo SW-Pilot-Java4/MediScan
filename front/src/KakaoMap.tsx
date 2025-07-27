@@ -158,17 +158,23 @@ const KakaoMap: React.FC = () => {
         });
 
         window.kakao.maps.event.addListener(marker, "click", () => {
-          if (currentOpenedMarker === marker) {
-            infoWindow.close();
-            currentOpenedMarker = null;
-            return;
-          }
-          infoWindow.setContent(
-            `<div style="padding:5px; width:400px;">
-              <strong>${hospital.name}</strong><br/>
-              주소: ${hospital.address}
-            </div>`
-          );
+          infoWindow.setContent(`
+    <div 
+      style="
+        padding: 8px; 
+        width: 240px; 
+        white-space: normal; 
+        word-break: break-word;
+        cursor: pointer;
+        color: #2563eb;
+        font-weight: bold;
+      "
+      onclick="window.location.href='/hospital/${hospital.hospital_code}'"
+    >
+      ${hospital.name}<br/>
+      <span style="color: #555; font-weight: normal;">${hospital.address}</span>
+    </div>
+  `);
           infoWindow.open(map, marker);
           currentOpenedMarker = marker;
         });
@@ -199,7 +205,6 @@ const KakaoMap: React.FC = () => {
 };
 
 export default KakaoMap;
-
 
 // 두 좌표 간 거리 계산 함수 (Haversine 공식)
 function getDistanceFromLatLonInKm(
@@ -288,7 +293,19 @@ export function showHospitalMarkerOnMap(
     });
 
     const infoWindow = new window.kakao.maps.InfoWindow({
-      content: `<div style="padding:5px;">${hospital.name}<br/>${hospital.address}</div>`,
+      content: `
+    <div style="
+      padding: 8px;
+      font-size: 14px;
+      max-width: 240px;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+    ">
+      <strong>${hospital.name}</strong><br/>
+      ${hospital.address}
+    </div>
+  `,
     });
     infoWindow.open(map, marker);
 
