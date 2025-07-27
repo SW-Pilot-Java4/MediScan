@@ -10,11 +10,6 @@ public class HospitalGrade {
     @Id
     private String hospitalCode;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
-//    @JoinColumn(name = "hospital_code")
-//    private Hospital hospital;
-
     @Column(name = "asm_grd01")
     private String asmGrd01;
 

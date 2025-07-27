@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity
+@Entity(name="hospital")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "hospitals")
 public class Hospital {
@@ -17,9 +17,6 @@ public class Hospital {
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
-
-//    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private HospitalGrade grade;
 
     @Column(name = "categoryCode", nullable = false)
     private Long categoryCode;

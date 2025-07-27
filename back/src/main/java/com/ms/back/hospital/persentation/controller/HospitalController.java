@@ -1,18 +1,19 @@
 package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
+import com.ms.back.global.apiResponse.PageResponse;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
+import com.ms.back.hospital.batch.dto.HospitalDto;
 import com.ms.back.hospital.persentation.port.HospitalService;
 import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.*;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +35,25 @@ public class HospitalController {
     @GetMapping("/{hospitalCode}")
     public ApiResponse<HospitalInfoResponse> getHospitalDetails(@PathVariable(name = "hospitalCode") String hospitalCode) {
         return ApiResponse.ok(hospitalService.assembleHospitalInfo(hospitalCode));
+    }
+
+    @GetMapping("/nearby")
+    public ApiResponse<List<HospitalListResponse>> getNearbyHospitals(
+            @RequestParam String latitude,
+            @RequestParam String longitude,
+            @RequestParam(defaultValue = "3") double distanceKm // ← 기본값 설정!
+    ) {
+        return ApiResponse.ok(hospitalService.getHospitalsNearby(longitude, latitude, distanceKm));
+    }
+
+    @GetMapping("/search")
+    public ApiResponse<PageResponse<HospitalDto>> searchHospitals(
+            @RequestParam(defaultValue="") String name,
+            @RequestParam(defaultValue="") String address,
+            @RequestParam(defaultValue="") String callNumber,
+            @RequestParam(defaultValue="") String categoryCode,
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ){
+        return ApiResponse.ok(hospitalService.getHospitalsByKeyword(name, address, callNumber, categoryCode, pageable));
     }
 }

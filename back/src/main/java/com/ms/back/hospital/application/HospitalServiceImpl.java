@@ -1,16 +1,21 @@
 package com.ms.back.hospital.application;
 
+import com.ms.back.global.apiResponse.PageResponse;
+import com.ms.back.hospital.Infrastructure.repository.HospitalJPARepository;
+import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
+import com.ms.back.hospital.application.dto.HospitalCategoryCode;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.application.port.HospitalDetailDomainService;
 import com.ms.back.hospital.application.port.HospitalDomainService;
 import com.ms.back.hospital.application.port.HospitalGradeDomainService;
+import com.ms.back.hospital.batch.dto.HospitalDto;
 import com.ms.back.hospital.persentation.port.HospitalService;
 import com.ms.back.hospital.policy.HospitalPolicy;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -41,5 +46,16 @@ public class HospitalServiceImpl implements HospitalService {
                 .detailInfo(detail)
                 .gradeInfo(grade)
                 .build();
+    }
+
+    @Override
+    public List<HospitalListResponse> getHospitalsNearby(String latitude, String longitude, double distanceKm) {
+        return hospitalDomainService.getHospitalsNearby(Double.parseDouble(latitude), Double.parseDouble(longitude), distanceKm);
+    }
+
+    @Override
+    public PageResponse<HospitalDto> getHospitalsByKeyword(String name, String address, String callNumber, String categoryCode, Pageable pageable) {
+        return  PageResponse
+                .from(hospitalDomainService.findHospitalsByKeyword(name, address, callNumber, categoryCode, pageable));
     }
 }
