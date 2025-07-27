@@ -25,6 +25,13 @@ dependencies {
 //    PostgreSQL 드라이버
     implementation 'org.postgresql:postgresql:42.6.0'
 
+
+// Querydsl 설정 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
 //     Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
@@ -46,28 +53,28 @@ dependencies {
     // spring data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-//    IO - validation
+    // IO - validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-//    JWT
+    // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
-//    Spring Web
+    // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-//    Validation
+    // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-//    Lombok
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-//    Dev Tools
+    // Dev Tools
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-//    Test
+    // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.springframework.security:spring-boot-security-test'
 }

@@ -10,9 +10,10 @@ import com.ms.back.hospital.application.port.HospitalGradeDomainService;
 import com.ms.back.hospital.persentation.port.HospitalService;
 import com.ms.back.hospital.policy.HospitalPolicy;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.data.domain.*;
 import java.util.List;
 
 @Service

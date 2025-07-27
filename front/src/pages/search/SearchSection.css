@@ -1,0 +1,99 @@
+.search-container{
+    text-align:center;
+    padding:40px;
+    font-family:'Arial', sans-serif;
+    background-color: #f9f9f9;
+    border-radius:12px;
+    margin: 20px auto;
+    max-width:600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.search-container h2{
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.search-container input,
+.search-container select{
+    display:block;
+    width: 80%;
+    margin: 10px auto; 
+    padding: 10px;
+    font-size:1rem;
+    border:1px solid #ccc;
+    border-radius: 8px;
+}
+.error-text {
+  color: red;
+  font-size: 0.85rem;
+  width: 80%; 
+  margin-left: auto;
+  margin-right: auto; 
+  text-align: left;  
+}
+
+.search-container button{
+    margin-top:15px;
+    padding:0px 20px;
+    font-size: 1rem;
+    background-color: #b6e9fb;
+    color: #6c8189;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.search-container button:hover{
+    background-color: #6c8189
+}
+
+/* 검색결과섹션 */
+.search-results{
+    margin-top: 30px;
+    text-align:center;
+}
+.result-item{
+    background-color:#ffffff;
+    padding: 15px 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    max-width: 600px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align:left;
+}
+
+.result-item p{
+    margin:6px 0;
+    font-size:0.95rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination button {
+  background-color: #b6e9fb;
+  color: #333;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 20px; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 0.95rem;
+  color: #555;
+}

@@ -32,6 +32,7 @@ function Register() {
         address,
         phone,
       }),
+      credentials: "include"
     });
 
     if (response.status === 200) {
