@@ -19,6 +19,7 @@ import com.ms.back.hospital.batch.itemWriter.HospitalDepartmentWriter;
 import com.ms.back.hospital.batch.itemWriter.HospitalDetailWriter;
 import com.ms.back.hospital.batch.itemWriter.HospitalGradeWriter;
 import com.ms.back.hospital.batch.itemWriter.HospitalWriter;
+import com.ms.back.hospital.batch.listener.HospitalDetailJobListener;
 import com.ms.back.hospital.batch.listener.JobListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -37,6 +38,7 @@ public class HospitalGradeConfiguration {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager ptm;
     private final JobListener jobListener;
+    private final HospitalDetailJobListener hospitalDetailJobListener;
 
 //    Reader
     private final HospitalGradeReader hospitalGradeReader;
@@ -102,6 +104,7 @@ public class HospitalGradeConfiguration {
                 .start(loadHospitalDetailStep())
                 .next(loadHospitalDepartmentStep())
                 .listener(jobListener)
+                .listener(hospitalDetailJobListener)
                 .build();
 
     }
