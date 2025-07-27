@@ -10,31 +10,6 @@ spring:
     password: ${custom.datasource.password}
     driver-class-name: org.postgresql.Driver
 
-
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-
-  #datasource:
-   # url: jdbc:postgresql://localhost:5432/mediscan
-    #username: member
-    #password: ${custom.datasource.password}
-    #driver-class-name: org.postgresql.Driver
-
-  #datasource:
-   # url: jdbc:postgresql://localhost:5432/mediscan
-    #username: member
-    #password: mediscan
-    #driver-class-name: org.postgresql.Driver
-#    password: ${custom.datasource.password}
-  #  driver-class-name: org.postgresql.Driver
-
-
   jpa:
     hibernate:
       ddl-auto: update
