@@ -40,5 +40,4 @@ public class HospitalRepositoryImpl implements HospitalRepository {
     public Page<Hospital> searchByKeyword(String name, String address, String callNumber, String categoryCode, Pageable pageable) {
         return hospitalCustomRepository.searchByKeyword(name, address, callNumber, categoryCode, pageable);
     }
-
 }

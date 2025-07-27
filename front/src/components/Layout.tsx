@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import rq from "../lib/rq/rq.react"; // 실제 경로에 맞게 조정
 
@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Layout = () => {
   const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -91,11 +92,25 @@ const Layout = () => {
 
       {/* 푸터 */}
       <footer className="h-12 fixed bottom-0 left-0 right-0 bg-white border-t border-gray-700 flex items-center justify-center z-10">
-        <div className="grid grid-cols-4 w-full max-w-4xl mx-auto text-sm">
-          <div className="bg-yellow-400 p-2 text-center">Box 1</div>
-          <div className="bg-red-400 p-2 text-center">Box 2</div>
-          <div className="bg-blue-400 p-2 text-center">Box 3</div>
-          <div className="bg-green-400 p-2 text-center">Box 4</div>
+        <div className="flex items-center justify-center gap-10 text-sm">
+          <div
+            className=" px-4 py-2 rounded text-center"
+            onClick={() => navigate("/search")}
+          >
+            Search
+          </div>
+          <div
+            className=" px-4 py-2 rounded text-center"
+            onClick={() => navigate("/")}
+          >
+            Home
+          </div>
+          <div
+            className=" px-4 py-2 rounded text-center"
+            onClick={() => navigate("/map")}
+          >
+            Map
+          </div>
         </div>
       </footer>
     </div>

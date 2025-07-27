@@ -6,7 +6,7 @@ spring:
     name: MediScan
   profiles:
     active: dev
-    include: secret
 
   config:
-    import: optional:application-secret.yml.default
+    import: optional:application-secret.yml
+

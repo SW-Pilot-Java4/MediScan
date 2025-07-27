@@ -2,28 +2,20 @@ package com.ms.back.hospital.persentation.controller;
 
 import com.ms.back.global.apiResponse.ApiResponse;
 import com.ms.back.global.apiResponse.PageResponse;
-import com.ms.back.hospital.Infrastructure.repository.HospitalCustomRepositoryImpl;
-import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
-import com.ms.back.hospital.application.dto.HospitalCategoryCode;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.batch.dto.HospitalDto;
 import com.ms.back.hospital.persentation.port.HospitalService;
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
-import org.springframework.web.bind.annotation.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Map;
 
 @Tag(name = "Hospital", description = "병원 정보 API")
 @RestController
@@ -33,6 +25,7 @@ public class HospitalController {
     private final HospitalService hospitalService;
 
     @Operation(summary = "전체 병원 조회", description = "전체 병원 리스트를 조회합니다.")
+    @Timed(value = "controller.hospital.logic", description = "Hospital logic execution time")
     @GetMapping
     public ApiResponse<List<HospitalListResponse>> getAllHospital() {
         return ApiResponse.ok(hospitalService.getAllHospitalData());
@@ -44,6 +37,10 @@ public class HospitalController {
         return ApiResponse.ok(hospitalService.assembleHospitalInfo(hospitalCode));
     }
 
+    @Operation(
+            summary = "근처 병원 조회",
+            description = "사용자의 위도(latitude), 경도(longitude)와 반경 거리(km)를 기준으로 가까운 병원 리스트를 조회합니다. 기본 반경은 3km입니다."
+    )
     @GetMapping("/nearby")
     public ApiResponse<List<HospitalListResponse>> getNearbyHospitals(
             @RequestParam String latitude,
@@ -53,6 +50,10 @@ public class HospitalController {
         return ApiResponse.ok(hospitalService.getHospitalsNearby(longitude, latitude, distanceKm));
     }
 
+    @Operation(
+            summary = "병원 검색",
+            description = "병원명(name), 주소(address), 전화번호(callNumber), 분류 코드(categoryCode)를 기준으로 병원을 검색합니다. 페이징 처리가 적용됩니다."
+    )
     @GetMapping("/search")
     public ApiResponse<PageResponse<HospitalDto>> searchHospitals(
             @RequestParam(defaultValue="") String name,

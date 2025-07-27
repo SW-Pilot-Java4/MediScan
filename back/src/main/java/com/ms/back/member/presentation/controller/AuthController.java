@@ -7,6 +7,8 @@ import com.ms.back.member.application.dto.JoinDTO;
 import com.ms.back.member.application.dto.LoginRequestDTO;
 import com.ms.back.member.application.dto.LoginResponseDTO;
 import com.ms.back.member.presentation.controller.port.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +22,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Iterator;
 
+@Tag(name = "Auth", description = "인증 및 회원 관련 API")
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
     private final MemberService memberService;  // 단일 서비스 주입
 
+    @Operation(summary = "로그인", description = "사용자의 아이디와 비밀번호로 로그인을 수행하고, 엑세스 토큰을 응답 헤더에 포함시킵니다.")
     @PostMapping("/login")
     public ApiResponse<?> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
         LoginResponseDTO loginResponse = memberService.login(request, response);
@@ -36,6 +40,7 @@ public class AuthController {
         return ApiResponse.ok(loginResponse);
     }
 
+    @Operation(summary = "회원가입", description = "회원 정보를 입력받아 신규 회원을 등록합니다.")
     @PostMapping("/join")
     public ApiResponse<String> joinProcess(@RequestBody JoinDTO joinDTO) {
         memberService.join(joinDTO);
@@ -46,6 +51,7 @@ public class AuthController {
         return ApiResponse.ok("회원가입 성공");
     }
 
+    @Operation(summary = "토큰 재발급", description = "리프레시 토큰을 이용하여 새로운 액세스 토큰과 리프레시 토큰을 발급합니다.")
     @PostMapping("/reissue")
     public ApiResponse<?> reissue(HttpServletRequest request, HttpServletResponse response) {
         memberService.reissueTokens(request, response);
