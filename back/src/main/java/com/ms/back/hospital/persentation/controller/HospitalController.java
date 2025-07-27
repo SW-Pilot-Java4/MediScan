@@ -46,7 +46,7 @@ public class HospitalController {
        //  System.out.println("📍 프론트에서 받은 위도: " + lat);
        //  System.out.println("📍 프론트에서 받은 경도: " + lng);
 
-        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(latitude, longitude, distanceKm);
+        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(longitude, latitude, distanceKm);
 
         return ApiResponse.ok(nearbyHospitals);
     }

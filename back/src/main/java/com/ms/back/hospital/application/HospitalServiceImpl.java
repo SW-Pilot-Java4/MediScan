@@ -1,5 +1,7 @@
 package com.ms.back.hospital.application;
 
+import com.ms.back.hospital.Infrastructure.repository.HospitalJPARepository;
+import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.application.port.HospitalDetailDomainService;
@@ -22,6 +24,7 @@ public class HospitalServiceImpl implements HospitalService {
     private final HospitalDetailDomainService hospitalDetailDomainService;
     private final HospitalGradeDomainService hospitalGradeDomainService;
     private final HospitalPolicy hospitalPolicy;
+    private final HospitalJPARepository hospitalRepository;
 
     @Override
     public List<HospitalListResponse> getAllHospitalData() {
@@ -45,31 +48,34 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public List<HospitalListResponse> getHospitalsNearby(String latitude, String longitude, double distanceKm) {
-        List<HospitalListResponse> allHospitals = getAllHospitalData();
-        Double lat = Double.parseDouble(latitude);
-        Double lng = Double.parseDouble(longitude);
+        double lat = Double.parseDouble(latitude);
+        double lng = Double.parseDouble(longitude);
 
-        // 위도 경도 문자열을 double로 변환하고 거리 계산 후 필터링
-        return allHospitals.stream()
+        int latInt = (int) lat;
+        int lngInt = (int) lng;
+
+        // DB에서 정수 기준으로 1차 필터링
+        List<Hospital> candidates = hospitalRepository.findHospitalsByLatLngInt(latInt, lngInt);
+
+        // 2차 필터링: 거리 계산 후 필터
+        return candidates.stream()
                 .filter(hospital -> {
-                    String hospLatStr = hospital.getLatitude();
-                    String hospLngStr = hospital.getLongitude();
+                    if (hospital.getLatitude() == null || hospital.getLongitude() == null) return false;
 
-                    if (hospital.getLatitude() == null || hospital.getLatitude().isBlank() || hospital.getLongitude() == null || hospital.getLongitude().isBlank()) {
-                        System.out.println("⚠️ 위도/경도 비어있는 병원: " + hospital.getLatitude()+" / " +hospital.getLongitude());
-                        return false;
-                    }
+                    double hospLat = Double.parseDouble(hospital.getLatitude());
+                    double hospLng = Double.parseDouble(hospital.getLongitude());
 
-                    try {
-                        double hospitalLat = Double.parseDouble(hospLatStr);
-                        double hospitalLng = Double.parseDouble(hospLngStr);
-                        double distance = calculateDistance(lat, lng, hospitalLat, hospitalLng);
-                        return distance <= distanceKm;
-                    } catch (NumberFormatException e) {
-                        System.out.println("❌ 숫자 파싱 실패 - 위도: " + hospLatStr + ", 경도: " + hospLngStr);
-                        return false;
-                    }
+                    double distance = calculateDistance(lat, lng, hospLat, hospLng);
+                    return distance <= distanceKm;
                 })
+                .map(hospital -> new HospitalListResponse(
+                        hospital.getHospitalCode(),
+                        hospital.getName(),
+                        hospital.getAddress(),
+                        String.valueOf(hospital.getLatitude()),
+                        String.valueOf(hospital.getLongitude())
+                        // 필요 필드 추가
+                ))
                 .toList();
     }
 
