@@ -184,9 +184,14 @@ const KakaoMap: React.FC = () => {
   return (
     <div>
       {geoError ? (
-        <p style={{ color: "red" }}>⚠️ {geoError}</p>
+        <p className="text-red-600 text-center text-lg font-semibold mb-4">
+          ⚠️ {geoError}
+        </p>
       ) : (
-        <p>📍 내 위치: {userAddress || "불러오는 중..."}</p>
+        <p className="text-black text-center text-xl font-bold mb-4">
+          📍 내 위치
+          <br /> {userAddress || "불러오는 중..."}
+        </p>
       )}
       <div ref={mapRef} style={{ width: "100%", height: "500px" }} />
     </div>
