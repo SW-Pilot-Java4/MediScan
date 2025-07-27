@@ -31,7 +31,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HospitalController {
     private final HospitalService hospitalService;
-    private final HospitalCustomRepositoryImpl hospitalCustomRepositoryImpl;
 
     @Operation(summary = "전체 병원 조회", description = "전체 병원 리스트를 조회합니다.")
     @GetMapping
@@ -45,25 +44,15 @@ public class HospitalController {
         return ApiResponse.ok(hospitalService.assembleHospitalInfo(hospitalCode));
     }
 
-
     @GetMapping("/nearby")
     public ApiResponse<List<HospitalListResponse>> getNearbyHospitals(
             @RequestParam String latitude,
             @RequestParam String longitude,
             @RequestParam(defaultValue = "3") double distanceKm // ← 기본값 설정!
     ) {
-       //  double lat = Double.parseDouble(latitude);
-       //  double lng = Double.parseDouble(longitude);
-
-       //  System.out.println("📍 프론트에서 받은 위도: " + lat);
-       //  System.out.println("📍 프론트에서 받은 경도: " + lng);
-
-        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(longitude, latitude, distanceKm);
-
-        return ApiResponse.ok(nearbyHospitals);
+        return ApiResponse.ok(hospitalService.getHospitalsNearby(longitude, latitude, distanceKm));
     }
 
-    //검색 기능 추가
     @GetMapping("/search")
     public ApiResponse<PageResponse<HospitalDto>> searchHospitals(
             @RequestParam(defaultValue="") String name,
@@ -72,17 +61,6 @@ public class HospitalController {
             @RequestParam(defaultValue="") String categoryCode,
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ){
-
-        Page<Hospital> hospitalPage = hospitalCustomRepositoryImpl.searchByKeyword(
-                name, address, callNumber, categoryCode, pageable
-        );
-
-        Page<HospitalDto> dtoPage = hospitalPage.map(HospitalDto::from);
-        return ApiResponse.ok(PageResponse.from(dtoPage));
-    }
-    @Operation(summary = "병원 카테고리 코드 목록", description = "병원 카테고리 코드와 라벨 목록을 조회합니다.")
-    @GetMapping("/category-codes")
-    public ApiResponse<List<HospitalCategoryCode>> getCategoryCodes() {
-        return ApiResponse.ok(hospitalService.getHospitalCategoryCodes());
+        return ApiResponse.ok(hospitalService.getHospitalsByKeyword(name, address, callNumber, categoryCode, pageable));
     }
 }

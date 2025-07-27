@@ -2,8 +2,7 @@ package com.ms.back.member.application.service;
 
 import com.ms.back.member.application.dto.CustomUserDetails;
 import com.ms.back.member.domain.model.MemberEntity;
-import com.ms.back.member.domain.port.MemberService;
-import com.ms.back.member.infrastructure.repository.MemberRepository;
+import com.ms.back.member.domain.port.MemberRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,15 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
-    public CustomUserDetailsService(@Lazy MemberService memberService) {
-        this.memberService = memberService;
+    public CustomUserDetailsService(@Lazy MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MemberEntity userData = memberService.findByUsername(username);
+        MemberEntity userData = memberRepository.findByUsername(username);
 
         if (userData != null) {
             return new CustomUserDetails(userData);

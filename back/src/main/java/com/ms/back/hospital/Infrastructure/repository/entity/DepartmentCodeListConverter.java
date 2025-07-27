@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 @Converter
 public class DepartmentCodeListConverter implements AttributeConverter<List<String>, String> {
-
     private static final String DELIMITER = ",";
 
     @Override

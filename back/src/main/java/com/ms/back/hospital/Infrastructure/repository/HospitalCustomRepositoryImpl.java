@@ -2,10 +2,8 @@ package com.ms.back.hospital.Infrastructure.repository;
 
 import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
 import com.ms.back.hospital.Infrastructure.repository.entity.QHospital;
-import com.ms.back.hospital.domain.port.HospitalCustomRepository;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
@@ -14,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 import com.querydsl.core.BooleanBuilder;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +24,10 @@ public class HospitalCustomRepositoryImpl implements HospitalCustomRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<Hospital> searchByKeyword(String hname, String haddress, String hnum, String catcode, Pageable pageable) {
+    public Page<Hospital> searchByKeyword(String name, String address, String callNumber, String categoryCode, Pageable pageable) {
         QHospital hospital = QHospital.hospital;
 
-        BooleanBuilder builder = buildPredicate(hospital, hname, haddress, hnum, catcode);
+        BooleanBuilder builder = buildPredicate(hospital, name, address, callNumber, categoryCode);
 
         //content
         List<Hospital> content = queryFactory
@@ -86,7 +84,6 @@ public class HospitalCustomRepositoryImpl implements HospitalCustomRepository {
             }
         });
 
-
         return builder;
     }
 
@@ -113,17 +110,3 @@ public class HospitalCustomRepositoryImpl implements HospitalCustomRepository {
         return true;
     }
 }
-
-//        if (hname != null && !hname.isBlank()) {
-//            builder.and(hospital.name.containsIgnoreCase(hname));
-//        }
-//        if (haddress != null && !haddress.isBlank()) {
-//            builder.and(hospital.address.containsIgnoreCase(haddress));
-//        }
-//        if (hnum != null && !hnum.isBlank()) {
-//            String sanitizedNum = hnum.replaceAll("-","");
-//            builder.and(Expressions.stringTemplate(
-//                    "function('replace', {0}, '-', '')", hospital.callNumber
-//                    ).containsIgnoreCase(sanitizedNum)
-//            );
-//        }

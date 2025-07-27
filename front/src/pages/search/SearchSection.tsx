@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import rq from "../../lib/rq/rq.react.ts";
 import "./SearchSection.css";
+
 function SearchSection() {
-  //병원 검색 상태
+  // 병원 검색 상태
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [callNumber, setCallNumber] = useState("");
@@ -11,33 +12,34 @@ function SearchSection() {
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-const client = rq.apiEndPoints();
+
+  const client = rq.apiEndPoints();
   const token = localStorage.getItem("accessToken");
+
   type CategoryOptionType = {
-  code: string;
-  label: string;
-};
-const [categoryOptions, setCategoryOptions] = useState<CategoryOptionType[]>([]);
-
-useEffect(() => {
-  const fetchCategoryCodes = async () => {
-    try {
-      const res = await client.GET("/api/hospital/category-codes");
-      
-      // 올바른 타입 단정 및 저장
-      const data = res?.data?.data as CategoryOptionType[]; 
-
-      setCategoryOptions(data);
-    } catch (err) {
-      console.error("카테고리 불러오기 실패:", err);
-      setCategoryOptions([]);
-    }
+    code: string;
+    label: string;
   };
 
-  fetchCategoryCodes();
-}, []);
+  const fixedCategoryOptions: CategoryOptionType[] = [
+    { code: "01", label: "종합전문병원" },
+    { code: "11", label: "종합병원" },
+    { code: "21", label: "병원" },
+    { code: "28", label: "요양병원" },
+    { code: "29", label: "정신병원" },
+    { code: "31", label: "의원" },
+    { code: "41", label: "치과병원" },
+    { code: "51", label: "치과의원" },
+    { code: "71", label: "보건소" },
+    { code: "72", label: "보건지소" },
+    { code: "73", label: "보건진료소" },
+    { code: "92", label: "한방병원" },
+    { code: "93", label: "한의원" },
+  ];
 
-console.log("📦 categoryOptions 상태", categoryOptions);
+  const [categoryOptions, setCategoryOptions] =
+    useState<CategoryOptionType[]>(fixedCategoryOptions);
+
   const handleSearch = async (newPage = 0) => {
     console.log("📤 검색 요청:", {
       name,
@@ -49,37 +51,32 @@ console.log("📦 categoryOptions 상태", categoryOptions);
     });
 
     try {
-      const client = rq.apiEndPoints();
       const response = await client.GET("/api/hospital/search", {
-    params: {
-      query: {
-        name: name.trim() === "" ? undefined : name,
-        address: address.trim() === "" ? undefined : address,
-        callNumber: callNumber.trim() === "" ? undefined : callNumber,
-        categoryCode: categoryCode.trim() === "" ? undefined : categoryCode,
-        page: newPage,
-        size: 10,
-      }
+        params: {
+          query: {
+            name: name.trim() === "" ? undefined : name,
+            address: address.trim() === "" ? undefined : address,
+            callNumber: callNumber.trim() === "" ? undefined : callNumber,
+            categoryCode: categoryCode.trim() === "" ? undefined : categoryCode,
+            page: newPage,
+            size: 10,
+          },
+        },
+      });
+
+      console.log("📥 서버 응답 전체:", response);
+      console.log("📥 응답 data.data:", response.data?.data);
+
+      const data = response.data.data;
+      setResults(data.content);
+      setTotalPages(data.totalPages);
+      setPage(newPage);
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
     }
-  });
-
-
-    console.log("📥 서버 응답 전체:", response);
-    console.log("📥 응답 data.data:", response.data?.data);
-
-    const data = response.data.data;
-    setResults(data.content);
-    setTotalPages(data.totalPages);
-
-    // 이 부분 수정: newPage를 그대로 사용
-    setPage(newPage);
-  } catch (error) {
-    console.error("검색 중 오류 발생:", error);
-  }
-};
+  };
 
   return (
-    //검색 ui
     <div>
       <div className="search-container">
         <h2>병원 검색</h2>
@@ -109,7 +106,6 @@ console.log("📦 categoryOptions 상태", categoryOptions);
                 setCallNumber(value);
                 setCallNumberError("전화번호는 숫자만 입력해야 합니다.");
               }
-              // setCallNumber(e.target.value)
             }}
           />
           {callNumberError && <p className="error-text">{callNumberError}</p>}
@@ -121,14 +117,15 @@ console.log("📦 categoryOptions 상태", categoryOptions);
           <option value="">-병원 카테고리 선택-</option>
           {categoryOptions.map((option) => (
             <option key={option.code} value={option.code}>
-              {option.label} {/* ✅ 꼭 문자열로 */}
+              {option.label}
             </option>
           ))}
         </select>
 
         <button onClick={() => handleSearch(0)}>검색</button>
       </div>
-      {/*검색 결과*/}
+
+      {/* 검색 결과 */}
       <div className="search-results">
         {results.map((hospital: any) => (
           <div key={hospital.hospitalCode} className="result-item">
