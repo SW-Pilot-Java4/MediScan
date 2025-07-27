@@ -52,12 +52,12 @@ jobs:
           file: ./back/docker/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ env.OWNER_LC }}/mediscan:latest
+            ghcr.io/${{ github.repository_owner }}/mediscan:latest
 
   deploy:
     name: EC2 Zero Downtime 배포
     runs-on: ubuntu-latest
-    needs: [ dockerImagePreparationBuildAndPush ]
+    needs: [dockerImagePreparationBuildAndPush]
     steps:
       - name: AWS SSM Send-Command
         uses: peterkimzz/aws-ssm-send-command@master
