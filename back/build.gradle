@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
 
-////   actuator
+////   actuator s
 //    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 //
 ////    micrometer, prometheus
