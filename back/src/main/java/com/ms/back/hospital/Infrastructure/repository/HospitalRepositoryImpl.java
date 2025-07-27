@@ -27,4 +27,14 @@ public class HospitalRepositoryImpl implements HospitalRepository {
     public Optional<Hospital> findByHospitalCode(String hospitalCode) {
         return hospitalJPARepository.findByHospitalCode(hospitalCode);
     }
+
+    @Override
+    public String findHospitalCodeByName(String name) {
+        List<Hospital> list = hospitalJPARepository.findByName(name);
+
+        if (list.size() == 1) return list.get(0).getHospitalCode();
+
+        return "exit";
+    }
+
 }

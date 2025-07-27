@@ -61,7 +61,7 @@ public class SecurityConfig {
 //                .formLogin(AbstractHttpConfigurer::disable)
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // H2 콘솔만 CSRF 비활성화
-                        .ignoringRequestMatchers("/api/temp/**", "/api/hospital/**")
+                        .ignoringRequestMatchers("/api/temp/**", "/api/hospital/**","api/batch/**")
                         .ignoringRequestMatchers( // Swagger 설정
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -90,7 +90,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/login", "/", "/join", "/reissue").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/api/hospital/**", "/api/temp/**").permitAll()
+                        .requestMatchers(
+                                "/api/hospital/**",
+                                "/api/temp/**",
+                                "api/batch/**"
+                        ).permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers(
