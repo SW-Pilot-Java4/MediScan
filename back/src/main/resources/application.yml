@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: MediScan
+  profiles:
+    active: dev
+
+  config:
+    import: optional:application-secret.yml
+
