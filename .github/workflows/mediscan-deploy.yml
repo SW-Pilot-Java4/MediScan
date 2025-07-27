@@ -52,7 +52,7 @@ jobs:
           file: ./back/docker/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/mediscan:latest
+            ghcr.io/${{ env.OWNER_LC }}/mediscan:latest
 
   deploy:
     name: EC2 Zero Downtime 배포
