@@ -11,12 +11,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/main" element={<Home />} /> {/* ✅ 괄호 닫기 */}
-        <Route path="/map" element={<BigPicture />} />
-        <Route path="/search" element={<SearchSection />} />
+        <Route element={<Layout />}>
+         <Route path="/" element={<Home />} />
+         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register />} />
+         <Route path="/main" element={<Home />} />
+         <Route path="/map" element={<BigPicture />} />
+         <Route path="/search" element={<SearchSection />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

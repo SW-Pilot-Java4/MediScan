@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class HospitalController {
        //  System.out.println("📍 프론트에서 받은 위도: " + lat);
        //  System.out.println("📍 프론트에서 받은 경도: " + lng);
 
-        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(latitude, longitude, distanceKm);
+        List<HospitalListResponse> nearbyHospitals = hospitalService.getHospitalsNearby(longitude, latitude, distanceKm);
 
         return ApiResponse.ok(nearbyHospitals);
     }

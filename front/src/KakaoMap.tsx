@@ -164,10 +164,9 @@ const KakaoMap: React.FC = () => {
             return;
           }
           infoWindow.setContent(
-            `<div style="padding:5px;">
+            `<div style="padding:5px; width:400px;">
               <strong>${hospital.name}</strong><br/>
-              주소: ${hospital.address}<br/>
-              전화: ${hospital.callNumber}
+              주소: ${hospital.address}
             </div>`
           );
           infoWindow.open(map, marker);
