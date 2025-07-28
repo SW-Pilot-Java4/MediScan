@@ -27,7 +27,7 @@ dependencies {
 //    implementation 'io.micrometer:micrometer-core'
 //    implementation 'io.micrometer:micrometer-registry-prometheus'
 
-//    Swagger (SpringDoc) - 최신 안정 버전
+//    Swagger (SpringDoc) - 최신 안정 버전ss
 //    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
 

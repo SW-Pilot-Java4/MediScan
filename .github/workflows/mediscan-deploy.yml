@@ -36,9 +36,9 @@ jobs:
 
       - name: Repository OWNER 아이디를 소문자로 변환해 저장
         run: |
-          echo "OWNER_LC=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "OWNER_LC=${OWNER,,}" >> ${GITHUB_ENV}
         env:
-          OWNER: ${{ github.repository_owner }}
+          OWNER: "${{ github.repository_owner }}"
 
       - name: application-secret.yml 생성
         env:
@@ -52,7 +52,7 @@ jobs:
           file: ./back/docker/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/mediscan:latest
+            ghcr.io/${{ env.OWNER_LC }}//mediscan:latest
 
   deploy:
     name: EC2 Zero Downtime 배포
