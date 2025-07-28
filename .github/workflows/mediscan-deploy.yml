@@ -65,7 +65,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          instance-ids: ${{ secrets.INSTANCE_ID }}
+          instance-ids: i-0e2dae30be87a0f15
           working-directory: /
           comment: Mediscan Zero Downtime Deployment
           command: |
