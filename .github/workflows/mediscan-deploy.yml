@@ -36,7 +36,7 @@ jobs:
 
       - name: Repository OWNER 아이디를 소문자로 변환해 저장
         run: |
-          echo "OWNER_LC=${OWNER,,}" >> $GITHUB_ENV
+          echo "OWNER_LC=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
         env:
           OWNER: ${{ github.repository_owner }}
 
