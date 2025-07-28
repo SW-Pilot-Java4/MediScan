@@ -42,7 +42,7 @@ jobs:
       - name: application-secret.yml 생성
         env:
           APPLICATION_SECRET: ${{ secrets.APPLICATION_SECRET_YML }}
-          run: echo "$APPLICATION_SECRET" > back/src/main/resources/application-secret.yml
+        run: echo "$APPLICATION_SECRET" > back/src/main/resources/application-secret.yml
 
       - name: 도커 이미지 Build & GitHub Container Registry로 Push
         uses: docker/build-push-action@v3
