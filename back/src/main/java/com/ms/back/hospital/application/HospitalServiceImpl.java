@@ -1,9 +1,6 @@
 package com.ms.back.hospital.application;
 
 import com.ms.back.global.apiResponse.PageResponse;
-import com.ms.back.hospital.Infrastructure.repository.HospitalJPARepository;
-import com.ms.back.hospital.Infrastructure.repository.entity.Hospital;
-import com.ms.back.hospital.application.dto.HospitalCategoryCode;
 import com.ms.back.hospital.application.dto.HospitalInfoResponse;
 import com.ms.back.hospital.application.dto.HospitalListResponse;
 import com.ms.back.hospital.application.port.HospitalDetailDomainService;
