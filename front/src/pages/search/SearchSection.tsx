@@ -154,7 +154,7 @@ function SearchSection() {
             key={hospital.hospitalCode}
             className="border rounded-lg p-4 bg-white shadow-sm"
             onClick={() => {
-              const baseUrl = import.meta.env.VITE_CORE_FRONT_BASE_URL;
+              const baseUrl = "http://api-sw-pilot.mediscan.site";
               window.location.href = `${baseUrl}/hospital/${hospital.hospitalCode}`;
             }}
           >
