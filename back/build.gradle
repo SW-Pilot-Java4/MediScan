@@ -20,14 +20,14 @@ repositories {
 dependencies {
 
 
-////   actuator sss
+////   actuator
 //    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 //
 ////    micrometer, prometheus
 //    implementation 'io.micrometer:micrometer-core'
 //    implementation 'io.micrometer:micrometer-registry-prometheus'
 
-//    Swagger (SpringDoc) - 최신 안정 버전ssdd
+//    Swagger (SpringDoc) - 최신 안정 버전
 //    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
 
