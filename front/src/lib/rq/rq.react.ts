@@ -4,7 +4,8 @@ import type { paths } from "../../types/api/v1/schema.ts";
 class Rq {
   public apiEndPoints() {
     return createClient<paths>({
-      baseUrl: import.meta.env.VITE_CORE_BACK_BASE_URL,
+      // baseUrl: import.meta.env.VITE_CORE_API_BASE_URL,
+      baseUrl: "http://api-sw-pilot.mediscan.site",
       credentials: "include",
     });
   }
