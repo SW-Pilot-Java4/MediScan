@@ -1,12 +1,63 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { showHospitalMarkerOnMap } from "../../KakaoMap";
 import rq from "../../lib/rq/rq.react.ts";
 
+interface HospitalBaseInfo {
+  name: string;
+  address: string;
+  callNumber: string;
+  latitude: number;
+  longitude: number;
+}
+
+interface HospitalDetailInfo {
+  treatMonStart?: string;
+  treatMonEnd?: string;
+  treatTueStart?: string;
+  treatTueEnd?: string;
+  treatWedStart?: string;
+  treatWedEnd?: string;
+  treatThuStart?: string;
+  treatThuEnd?: string;
+  treatFriStart?: string;
+  treatFriEnd?: string;
+  treatSatStart?: string;
+  treatSatEnd?: string;
+  treatSunStart?: string;
+  treatSunEnd?: string;
+
+  closedSunday?: string;
+  closedHoliday?: string;
+  lunchWeekday?: string;
+  lunchSaturday?: string;
+  receptionWeekday?: string;
+  receptionSaturday?: string;
+
+  emergencyDayYn?: string;
+  emergencyDayPhone1?: string;
+  emergencyDayPhone2?: string;
+  emergencyNightYn?: string;
+  emergencyNightPhone1?: string;
+  emergencyNightPhone2?: string;
+
+  departmentCodes?: string[];
+}
+
+interface GradeInfo {
+  grades?: Record<string, number | null>;
+}
+
+interface HospitalResponse {
+  baseInfo: HospitalBaseInfo;
+  detailInfo: HospitalDetailInfo;
+  gradeInfo?: GradeInfo;
+}
+
 function HospitalDetail() {
   // const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const { hospitalCode } = useParams();
-  const [hospital, setHospital] = useState(null);
+  const [hospital, setHospital] = useState<HospitalResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -483,7 +534,10 @@ function HospitalDetail() {
           <tbody>
             {gradeInfo?.grades && Object.keys(gradeInfo.grades).length > 0 ? (
               Object.entries(gradeInfo.grades)
-                .filter(([_, value]) => value && value >= 1 && value <= 5)
+                .filter(
+                  ([_, value]) =>
+                    typeof value === "number" && value >= 1 && value <= 5
+                )
                 .map(([key, value]) => (
                   <tr key={key} className="border-b">
                     <td className="py-2 px-4">{asmGrdMap[key] ?? key}</td>
