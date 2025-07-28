@@ -32,7 +32,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ medi }}
 
       - name: Repository OWNER 아이디를 소문자로 변환해 저장
         run: |
