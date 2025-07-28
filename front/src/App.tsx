@@ -5,6 +5,7 @@ import Home from "./pages/home/Home"; // ✅ 메인 컴포넌트 import 추가
 import BigPicture from "./pages/map/BigPicture";
 import SearchSection from "./pages/search/SearchSection";
 import Layout from "./components/Layout";
+import NotFound from "./pages/NotFound";
 import "./index.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/map" element={<BigPicture />} />
           <Route path="/search" element={<SearchSection />} />
         </Route>
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
