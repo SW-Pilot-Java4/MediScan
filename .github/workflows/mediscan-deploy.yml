@@ -42,7 +42,7 @@ jobs:
       - name: application-secret.yml 생성
         env:
           APPLICATION_SECRET: ${{ secrets.APPLICATION_SECRET_YML }}
-        run: echo "$APPLICATION_SECRET" > back/src/main/resources/application-secret.yml
+          run: echo "$APPLICATION_SECRET" > back/src/main/resources/application-secret.yml
 
       - name: 도커 이미지 Build & GitHub Container Registry로 Push
         uses: docker/build-push-action@v3
@@ -70,6 +70,6 @@ jobs:
           comment: Mediscan Zero Downtime Deployment
           command: |
             mkdir -p /docker_projects/mediscan
-            curl -o /docker_projects/mediscan/zero_downtime_deploy.py https://raw.githubusercontent.com/SW-Pilot-Java4/mediscan/main/back/infraScript/zero_downtime_deploy.py
+            curl -o /docker_projects/mediscan/zero_downtime_deploy.py https://raw.githubusercontent.com/SW-Pilot-Java4/MediScan/main/back/infraScript/zero_downtime_deploy.py
             chmod +x /docker_projects/mediscan/zero_downtime_deploy.py
             python3 /docker_projects/mediscan/zero_downtime_deploy.py
