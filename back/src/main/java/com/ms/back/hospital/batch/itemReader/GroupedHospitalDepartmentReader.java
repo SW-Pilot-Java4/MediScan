@@ -48,6 +48,7 @@ public class GroupedHospitalDepartmentReader implements ItemReader<HospitalCodeW
         }
 
         String currentCode = nextRow.getHospitalCode();
+        String currentName = nextRow.getHospitalName();
         List<String> deptList = new ArrayList<>();
         deptList.add(nextRow.getDepartmentCode());
 
@@ -66,6 +67,6 @@ public class GroupedHospitalDepartmentReader implements ItemReader<HospitalCodeW
             deptList.add(row.getDepartmentCode());
         }
 
-        return new HospitalCodeWithDepartments(currentCode, deptList);
+        return new HospitalCodeWithDepartments(currentCode, currentName, deptList);
     }
 }

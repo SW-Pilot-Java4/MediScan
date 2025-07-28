@@ -1,84 +1,60 @@
 package com.ms.back.member.presentation.controller;
 
+import com.ms.back.global.apiResponse.ApiResponse;
+import com.ms.back.global.apiResponse.ApiResultType;
+import com.ms.back.global.standard.base.Empty;
 import com.ms.back.member.application.dto.JoinDTO;
 import com.ms.back.member.application.dto.LoginRequestDTO;
 import com.ms.back.member.application.dto.LoginResponseDTO;
-import com.ms.back.member.application.service.MemberServiceImpl;
-import com.ms.back.member.presentation.controller.port.IMemberService;
+import com.ms.back.member.presentation.controller.port.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Iterator;
 
-@Controller
-@ResponseBody
+@Tag(name = "Auth", description = "인증 및 회원 관련 API")
+@RestController
+@RequiredArgsConstructor
 public class AuthController {
+    private final MemberService memberService;  // 단일 서비스 주입
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
-
-    private final IMemberService memberService;  // 단일 서비스 주입
-
-    public AuthController(IMemberService memberService) {
-        this.memberService = memberService;
-    }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
+    @Operation(summary = "로그인", description = "사용자의 아이디와 비밀번호로 로그인을 수행하고, 엑세스 토큰을 응답 헤더에 포함시킵니다.")
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
+    public ApiResponse<?> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
         LoginResponseDTO loginResponse = memberService.login(request, response);
-        if (loginResponse == null) {
-            return ResponseEntity.status(401).build();
-        }
+
+        // 헤더에 access 토큰 추가
         response.setHeader("access", loginResponse.getAccessToken());
-        return ResponseEntity.ok(loginResponse);
+
+        // 로그인 성공 → SUCCESS 타입으로 반환
+        return ApiResponse.ok(loginResponse);
     }
 
+    @Operation(summary = "회원가입", description = "회원 정보를 입력받아 신규 회원을 등록합니다.")
     @PostMapping("/join")
-    public ResponseEntity<String> joinProcess(@RequestBody JoinDTO joinDTO) {
-        logger.info("🟢 /join 요청 들어옴: {}", joinDTO);
-        boolean result = memberService.joinProcess(joinDTO);
-        if (result) {
-            logger.info("✅ 회원가입 성공: {}", joinDTO.getUsername());
-            return ResponseEntity.ok("회원가입 성공");
-        } else {
-            logger.warn("⚠ 이미 존재하는 아이디: {}", joinDTO.getUsername());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 아이디입니다");
-        }
+    public ApiResponse<String> joinProcess(@RequestBody JoinDTO joinDTO) {
+        memberService.join(joinDTO);
+//        if (result) {
+//        } else {
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 아이디입니다");
+//        }
+        return ApiResponse.ok("회원가입 성공");
     }
 
-    @GetMapping("/")
-    public String mainP() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        return "Main Controller: " + username + " / Role: " + role;
-    }
-
+    @Operation(summary = "토큰 재발급", description = "리프레시 토큰을 이용하여 새로운 액세스 토큰과 리프레시 토큰을 발급합니다.")
     @PostMapping("/reissue")
-    public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            memberService.reissueTokens(request, response);
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ApiResponse<?> reissue(HttpServletRequest request, HttpServletResponse response) {
+        memberService.reissueTokens(request, response);
+        return ApiResponse.noContent();
     }
 }

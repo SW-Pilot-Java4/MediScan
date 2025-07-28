@@ -1,48 +1,52 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function HospitalEntryPage() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // 토큰 등 로컬 저장소에서 삭제 (필요하면)
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    alert("로그아웃 되었습니다!");
-
-    // 로그인 페이지로 이동
-    navigate("/login");
-  };
-
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
-      <div className="w-full h-full bg-white rounded shadow p-4">
-        <div className="flex flex-col gap-4">
-          <button className="btn btn-primary">기본 버튼 (하늘색)</button>
-          <button className="btn btn-outline btn-primary">아웃라인 버튼</button>
-          <button className="btn btn-primary btn-active">활성 상태</button>
-
-          {/* 로그아웃 버튼 */}
-          <button className="btn btn-error" onClick={handleLogout}>
-            로그아웃
-          </button>
+    <div className="min-h-screen bg-base-200 px-4 py-10 flex flex-col items-center">
+      <div className="w-full max-w-2xl flex flex-col gap-8">
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          원하는 병원을 쉽게 찾아보세요
+        </h1>
+        <p className="text-center text-gray-600 -mt-4">
+          병원 이름으로 검색하거나, 지도로 주변 병원을 확인할 수 있어요.
+        </p>
+        {/* 병원 검색으로 찾아보기 */}
+        <div
+          onClick={() => navigate("/search")}
+          className="bg-white bg-blue1 shadow-md rounded-xl p-6 cursor-pointer transition hover:shadow-lg hover:bg-gray-50"
+        >
+          <div className="flex items-center justify-center min-h-[80px]">
+            <h2 className="text-xl font-semibold text-gray-800 text-center">
+              🔍 병원 검색으로 찾아보기
+            </h2>
+          </div>
+          {/* // 주소 기입 */}
         </div>
 
-        <div className="flex"></div>
-        <div className="bg-primary text-white p-4 mt-4">
-          테마 색상 확인용 박스
-        </div>
-
-        <div className="flex">
-          <a>s</a>
-        </div>
-        <div className="flex">
-          <a>s</a>
+        {/* 지도로 병원 찾아보기 */}
+        <div
+          onClick={() => navigate("/map")}
+          className="bg-white bg-blue1 shadow-md rounded-xl p-6 cursor-pointer transition hover:shadow-lg hover:bg-gray-50"
+        >
+          <div className="flex items-center justify-center min-h-[80px]">
+            <h2 className="text-xl font-semibold text-gray-800 text-center">
+              🗺️ 지도로 병원 찾아보기
+            </h2>
+          </div>
+          {/* // 주소 기입 */}
         </div>
       </div>
+      <footer>
+        <div className="text-sm text-gray-500 text-center mt-12">
+          MediScan은 건강 보험 심사평가원에서 <br></br>
+          제공하는 정보를 바탕으로 제공합니다.
+        </div>
+      </footer>
     </div>
   );
 }
 
-export default Home; // ✅ 이 줄이 없으면 import Main from './Main'이 안 됨
+export default HospitalEntryPage;

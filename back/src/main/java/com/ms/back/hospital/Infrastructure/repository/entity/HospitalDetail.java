@@ -3,7 +3,10 @@ package com.ms.back.hospital.Infrastructure.repository.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -247,5 +250,17 @@ public class HospitalDetail {
 
     public HospitalDetail() {
 
+    }
+
+    public void addDepartmentCodes(List<String> newCodes) {
+        if (newCodes == null || newCodes.isEmpty()) return;
+
+        if (this.departmentCodes == null) {
+            this.departmentCodes = new ArrayList<>(newCodes);
+        } else {
+            Set<String> merged = new HashSet<>(this.departmentCodes);
+            merged.addAll(newCodes);
+            this.departmentCodes = new ArrayList<>(merged); // 순서 유지를 원하면 LinkedHashSet 사용
+        }
     }
 }

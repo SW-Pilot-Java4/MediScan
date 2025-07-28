@@ -87,4 +87,13 @@ public class ApiResponse<T> {
                 new Empty()
         );
     }
+
+    public static ApiResponse<Empty> unauthorized() {
+        return new ApiResponse<>(
+                HttpStatus.UNAUTHORIZED.value(),          // 401
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(), // "Unauthorized"
+                ApiResultType.CUSTOM_EXCEPTION,           // FAIL 타입으로 설정 가능
+                new Empty()
+        );
+    }
 }

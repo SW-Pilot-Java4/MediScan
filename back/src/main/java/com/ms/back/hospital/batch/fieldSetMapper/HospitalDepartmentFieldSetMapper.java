@@ -11,6 +11,7 @@ public class HospitalDepartmentFieldSetMapper implements FieldSetMapper<Hospital
         if (fieldSet == null) return null;
         return new HospitalDepartmentRow(
                 fieldSet.readString("hospitalCode"),
+                fieldSet.readString("hospitalName"),
                 fieldSet.readString("departmentCode")
         );
     }

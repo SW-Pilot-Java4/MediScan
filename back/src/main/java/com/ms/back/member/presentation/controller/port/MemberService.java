@@ -6,10 +6,10 @@ import com.ms.back.member.application.dto.LoginResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public interface IMemberService {
+public interface MemberService {
 
     // 회원가입
-    boolean joinProcess(JoinDTO joinDTO);
+    boolean join(JoinDTO joinDTO);
 
     // 로그인
     LoginResponseDTO login(LoginRequestDTO request, HttpServletResponse response);

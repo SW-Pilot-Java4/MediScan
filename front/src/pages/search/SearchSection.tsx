@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import rq from "../../lib/rq/rq.react.ts";
-import "./SearchSection.css";
+
 function SearchSection() {
-  //병원 검색 상태
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [callNumber, setCallNumber] = useState("");
@@ -11,91 +11,75 @@ function SearchSection() {
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-const client = rq.apiEndPoints();
+
+  const client = rq.apiEndPoints();
   const token = localStorage.getItem("accessToken");
-  type CategoryOptionType = {
-  code: string;
-  label: string;
-};
-const [categoryOptions, setCategoryOptions] = useState<CategoryOptionType[]>([]);
 
-useEffect(() => {
-  const fetchCategoryCodes = async () => {
+  const navigate = useNavigate();
+
+  const fixedCategoryOptions = [
+    { code: "01", label: "종합전문병원" },
+    { code: "11", label: "종합병원" },
+    { code: "21", label: "병원" },
+    { code: "28", label: "요양병원" },
+    { code: "29", label: "정신병원" },
+    { code: "31", label: "의원" },
+    { code: "41", label: "치과병원" },
+    { code: "51", label: "치과의원" },
+    { code: "71", label: "보건소" },
+    { code: "72", label: "보건지소" },
+    { code: "73", label: "보건진료소" },
+    { code: "92", label: "한방병원" },
+    { code: "93", label: "한의원" },
+  ];
+
+  const [categoryOptions, setCategoryOptions] = useState(fixedCategoryOptions);
+
+  const handleSearch = async (newPage = 0) => {
     try {
-      const res = await client.GET("/api/hospital/category-codes");
-      
-      // 올바른 타입 단정 및 저장
-      const data = res?.data?.data as CategoryOptionType[]; 
+      const response = await client.GET("/api/hospital/search", {
+        params: {
+          query: {
+            name: name.trim() || undefined,
+            address: address.trim() || undefined,
+            callNumber: callNumber.trim() || undefined,
+            categoryCode: categoryCode.trim() || undefined,
+            page: newPage,
+            size: 10,
+          },
+        },
+      });
 
-      setCategoryOptions(data);
-    } catch (err) {
-      console.error("카테고리 불러오기 실패:", err);
-      setCategoryOptions([]);
+      const data = response.data.data;
+      setResults(data.content);
+      setTotalPages(data.totalPages);
+      setPage(newPage);
+    } catch (error) {
+      console.error("검색 중 오류:", error);
     }
   };
 
-  fetchCategoryCodes();
-}, []);
-
-console.log("📦 categoryOptions 상태", categoryOptions);
-  const handleSearch = async (newPage = 0) => {
-    console.log("📤 검색 요청:", {
-      name,
-      address,
-      callNumber,
-      categoryCode,
-      page: newPage,
-      size: 10,
-    });
-
-    try {
-      const client = rq.apiEndPoints();
-      const response = await client.GET("/api/hospital/search", {
-    params: {
-      query: {
-        name: name.trim() === "" ? undefined : name,
-        address: address.trim() === "" ? undefined : address,
-        callNumber: callNumber.trim() === "" ? undefined : callNumber,
-        categoryCode: categoryCode.trim() === "" ? undefined : categoryCode,
-        page: newPage,
-        size: 10,
-      }
-    }
-  });
-
-
-    console.log("📥 서버 응답 전체:", response);
-    console.log("📥 응답 data.data:", response.data?.data);
-
-    const data = response.data.data;
-    setResults(data.content);
-    setTotalPages(data.totalPages);
-
-    // 이 부분 수정: newPage를 그대로 사용
-    setPage(newPage);
-  } catch (error) {
-    console.error("검색 중 오류 발생:", error);
-  }
-};
-
   return (
-    //검색 ui
-    <div>
-      <div className="search-container">
-        <h2>병원 검색</h2>
+    <div className="min-h-screen bg-base-200 flex flex-col items-center justify-center px-4 py-12">
+      {/* 검색 박스 */}
+      <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg p-6 space-y-4">
+        <h2 className="text-2xl font-bold text-center">🔍 병원 검색</h2>
+
         <input
           type="text"
           placeholder="병원 이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="w-full border rounded px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="text"
           placeholder="병원 주소"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          className="w-full border rounded px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <div className="input-wrapper">
+        <div>
           <input
             type="text"
             placeholder="전화번호 (숫자만 입력)"
@@ -109,55 +93,75 @@ console.log("📦 categoryOptions 상태", categoryOptions);
                 setCallNumber(value);
                 setCallNumberError("전화번호는 숫자만 입력해야 합니다.");
               }
-              // setCallNumber(e.target.value)
             }}
+            className="w-full border rounded px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {callNumberError && <p className="error-text">{callNumberError}</p>}
+          {callNumberError && (
+            <p className="text-sm text-red-500 mt-1">{callNumberError}</p>
+          )}
         </div>
+
         <select
           value={categoryCode}
           onChange={(e) => setCategoryCode(e.target.value)}
+          className="w-full border rounded px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">-병원 카테고리 선택-</option>
-          {categoryOptions.map((option) => (
-            <option key={option.code} value={option.code}>
-              {option.label} {/* ✅ 꼭 문자열로 */}
+          <option value="">- 병원 카테고리 선택 -</option>
+          {categoryOptions.map((opt) => (
+            <option key={opt.code} value={opt.code}>
+              {opt.label}
             </option>
           ))}
         </select>
 
-        <button onClick={() => handleSearch(0)}>검색</button>
-      </div>
-      {/*검색 결과*/}
-      <div className="search-results">
-        {results.map((hospital: any) => (
-          <div key={hospital.hospitalCode} className="result-item">
-            <p>
-              <strong>{hospital.name}</strong>
-            </p>
-            <p>{hospital.address}</p>
-            <p>{hospital.callNumber}</p>
-          </div>
-        ))}
+        <button
+          onClick={() => handleSearch(0)}
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        >
+          검색
+        </button>
       </div>
 
-      {/* 페이지네이션 */}
-      {totalPages > 0 && (
-        <div className="pagination">
-          <button onClick={() => handleSearch(page - 1)} disabled={page <= 0}>
-            ◀이전
-          </button>
-          <span style={{ margin: "0 10px" }}>
-            페이지 {page + 1}/{totalPages}
-          </span>
-          <button
-            onClick={() => handleSearch(page + 1)}
-            disabled={page + 1 >= totalPages}
+      {/* 검색 결과 */}
+      <div className="w-full max-w-3xl mt-8 space-y-4">
+        {results.map((hospital: any) => (
+          <div
+            key={hospital.hospitalCode}
+            className="border rounded-lg p-4 bg-white shadow-sm"
+            onClick={() => {
+              const baseUrl = import.meta.env.VITE_CORE_FRONT_BASE_URL;
+              window.location.href = `${baseUrl}/hospital/${hospital.hospitalCode}`;
+            }}
           >
-            다음▶
-          </button>
-        </div>
-      )}
+            <p className="font-semibold text-lg">{hospital.name}</p>
+            <p className="text-sm text-gray-600">{hospital.address}</p>
+            <p className="text-sm text-gray-600">{hospital.callNumber}</p>
+          </div>
+        ))}
+
+        {/* 페이지네이션 */}
+        {totalPages > 0 && (
+          <div className="flex justify-center items-center gap-4 mt-4">
+            <button
+              onClick={() => handleSearch(page - 1)}
+              disabled={page <= 0}
+              className="px-4 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+            >
+              ◀ 이전
+            </button>
+            <span>
+              페이지 {page + 1} / {totalPages}
+            </span>
+            <button
+              onClick={() => handleSearch(page + 1)}
+              disabled={page + 1 >= totalPages}
+              className="px-4 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+            >
+              다음 ▶
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

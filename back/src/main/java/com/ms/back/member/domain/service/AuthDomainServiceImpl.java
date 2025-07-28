@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class AuthDomainServiceImpl implements AuthDomainService {
 
     private final AuthenticationManager authenticationManager;

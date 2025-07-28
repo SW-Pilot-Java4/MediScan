@@ -32,8 +32,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
+          password: ${{ secrets.MEDI }}
       - name: Repository OWNER 아이디를 소문자로 변환해 저장
         run: |
           echo "OWNER_LC=${OWNER,,}" >> ${GITHUB_ENV}
@@ -57,7 +56,7 @@ jobs:
   deploy:
     name: EC2 Zero Downtime 배포
     runs-on: ubuntu-latest
-    needs: [ dockerImagePreparationBuildAndPush ]
+    needs: [dockerImagePreparationBuildAndPush]
     steps:
       - name: AWS SSM Send-Command
         uses: peterkimzz/aws-ssm-send-command@master
@@ -66,7 +65,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          instance-ids: ${{ secrets.INSTANCE_ID }}
+          instance-ids: i-0e2dae30be87a0f15
           working-directory: /
           comment: Mediscan Zero Downtime Deployment
           command: |
