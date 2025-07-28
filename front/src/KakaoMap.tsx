@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 // Google API를 사용해 위경도로 주소를 가져오는 함수
-const GOOGLE_API_KEY = import.meta.env.GOOGLE_API_KEY;
+const GOOGLE_API_KEY = "http://api-sw-pilot.mediscan.site";
+// const GOOGLE_API_KEY = import.meta.env.GOOGLE_API_KEY;
 
 const getAddressFromCoordinates = async (lat: number, lng: number) => {
   const response = await axios.get(
