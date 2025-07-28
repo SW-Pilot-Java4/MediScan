@@ -11,7 +11,7 @@ const getAddressFromCoordinates = async (lat: number, lng: number) => {
     {
       params: {
         latlng: `${lat},${lng}`,
-        key: GOOGLE_API_KEY,
+        key: "AIzaSyDcIVcjPP-0zmLtZV4nXhdoZfCCHDTy_ng",
       },
     }
   );
