@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 // Google API를 사용해 위경도로 주소를 가져오는 함수
 const GOOGLE_API_KEY = "AIzaSyDcIVcjPP-0zmLtZV4nXhdoZfCCHDTy_ng";
 
