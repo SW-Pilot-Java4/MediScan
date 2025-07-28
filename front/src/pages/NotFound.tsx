@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-center bg-white px-4">
+    <div className="flex flex-col items-center justify-center h-screen text-center bg-sky2 px-4">
       <a href="/">
         <img src="/mediscan1.png" alt="Logo" className="h-30 w-auto" />
       </a>
