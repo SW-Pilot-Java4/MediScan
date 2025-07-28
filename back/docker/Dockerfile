@@ -7,6 +7,7 @@ COPY ../gradlew ./gradlew
 COPY ../gradle ./gradle
 COPY ../build.gradle ./build.gradle
 COPY ../settings.gradle ./settings.gradle
+COPY src/main/resources/application-secret.yml /app/config/
 
 RUN chmod +x ./gradlew
 RUN ./gradlew dependencies --no-daemon
