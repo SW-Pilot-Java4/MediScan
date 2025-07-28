@@ -26,7 +26,7 @@ public class ReadinessService {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT 1")) {
             if (rs.next()) {
-                // 쿼리 실행이 성공하면, 데이터베이스 연결이 정상임을 의미
+                // 쿼리 실행이 성공하면, 데이터베이스 연결이 정상임을 의미 / test
                 return true;
             }
         } catch (Exception e) {
