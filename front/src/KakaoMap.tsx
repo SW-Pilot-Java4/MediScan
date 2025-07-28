@@ -78,10 +78,11 @@ const KakaoMap: React.FC = () => {
     );
   }, []);
 
+  const API_BASE_URL = import.meta.env.VITE_CORE_BACK_BASE_URL;
   const sendUserLocationToBackend = async (lat: number, lng: number) => {
     console.log(lat, lng);
     try {
-      const res = await axios.get(`http://localhost:8080/api/hospital/nearby`, {
+      const res = await axios.get(`${API_BASE_URL}/api/hospital/nearby`, {
         params: {
           latitude: lat,
           longitude: lng,
@@ -142,19 +143,41 @@ const KakaoMap: React.FC = () => {
         title: "내 위치 (별 표시)",
       });
 
-      const infoWindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
+      /*eslint-disable-next-line @typescript-eslint/no-explicit-any*/
+      let currentOpenedInfoWindow: any = null;
+      /*eslint-disable-next-line @typescript-eslint/no-explicit-any*/
       let currentOpenedMarker: any = null;
 
       hospitals.forEach((hospital) => {
         const lat = parseFloat(hospital.longitude);
         const lng = parseFloat(hospital.latitude);
-
         if (isNaN(lat) || isNaN(lng)) return;
 
         const marker = new window.kakao.maps.Marker({
           map,
           position: new window.kakao.maps.LatLng(lat, lng),
           title: hospital.name,
+        });
+
+        const infoWindow = new window.kakao.maps.InfoWindow({
+          zIndex: 1,
+          content: `
+          <div 
+            style="
+              padding: 8px; 
+              width: 240px; 
+              white-space: normal; 
+              word-break: break-word;
+              cursor: pointer;
+              color: #2563eb;
+              font-weight: bold;
+            "
+            onclick="window.location.href='/hospital/${hospital.hospitalCode}'"
+          >
+            ${hospital.name}<br/>
+            <span style="color: #555; font-weight: normal;">${hospital.address}</span>
+          </div>
+        `,
         });
 
         window.kakao.maps.event.addListener(marker, "click", () => {
@@ -174,17 +197,19 @@ const KakaoMap: React.FC = () => {
         color: #2563eb;
         font-weight: bold;
       "
-      onclick="window.location.href='/hospital/${hospital.hospital_code}'"
+      onclick="window.location.href='/hospital/${hospital.hospitalCode}'"
     >
       ${hospital.name}<br/>
       <span style="color: #555; font-weight: normal;">${hospital.address}</span>
     </div>
   `);
+          if (currentOpenedInfoWindow) currentOpenedInfoWindow.close();
           infoWindow.open(map, marker);
-          currentOpenedMarker = marker;
+          currentOpenedInfoWindow = infoWindow;
         });
       });
 
+      // 지도 다시 중앙 설정 (선택 사항)
       map.setCenter(
         new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng)
       );
@@ -212,7 +237,7 @@ const KakaoMap: React.FC = () => {
 export default KakaoMap;
 
 // 두 좌표 간 거리 계산 함수 (Haversine 공식)
-function getDistanceFromLatLonInKm(
+/*function getDistanceFromLatLonInKm(
   lat1: number,
   lon1: number,
   lat2: number,
@@ -231,92 +256,4 @@ function getDistanceFromLatLonInKm(
 // 각도 → 라디안 변환
 function deg2rad(deg: number) {
   return deg * (Math.PI / 180);
-}
-
-export function showHospitalMarkerOnMap(
-  mapId: string,
-  hospital: {
-    name: string;
-    address: string;
-    latitude?: string;
-    longitude?: string;
-  }
-) {
-  window.kakao.maps.load(async () => {
-    const container = document.getElementById(mapId);
-    if (!container) return;
-
-    const mapOption = {
-      center: new window.kakao.maps.LatLng(37.5665, 126.978), // 기본 좌표 (서울 시청)
-      level: 4,
-      disableDoubleClickZoom: true,
-      scrollwheel: false,
-      draggable: false, // 드래그 비활성화
-    };
-
-    const map = new window.kakao.maps.Map(container, mapOption);
-
-    // 좌표 변환 함수
-    const geocodeToLatLng = async (address: string) => {
-      return new Promise<kakao.maps.LatLng | null>((resolve) => {
-        const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoder.addressSearch(address, (result, status) => {
-          if (status === window.kakao.maps.services.Status.OK) {
-            const loc = result[0];
-            resolve(new window.kakao.maps.LatLng(Number(loc.y), Number(loc.x)));
-          } else {
-            resolve(null);
-          }
-        });
-      });
-    };
-
-    let latLng: kakao.maps.LatLng | null = null;
-
-    if (hospital.latitude && hospital.longitude) {
-      const lat = parseFloat(hospital.latitude);
-      const lng = parseFloat(hospital.longitude);
-      if (!isNaN(lat) && !isNaN(lng)) {
-        latLng = new window.kakao.maps.LatLng(lat, lng);
-      }
-    }
-
-    // 위경도가 없거나 파싱 실패한 경우 주소로 좌표 변환
-    if (!latLng) {
-      latLng = await geocodeToLatLng(hospital.address);
-      if (!latLng) {
-        console.warn("🛑 주소로 위치를 찾을 수 없습니다.");
-        return;
-      }
-    }
-
-    // 마커 생성
-    const marker = new window.kakao.maps.Marker({
-      map,
-      position: latLng,
-      title: hospital.name,
-    });
-
-    const infoWindow = new window.kakao.maps.InfoWindow({
-      content: `
-    <div style="
-      padding: 8px;
-      font-size: 14px;
-      max-width: 240px;
-      white-space: normal;
-      word-break: break-word;
-      line-height: 1.4;
-    ">
-      <strong>${hospital.name}</strong><br/>
-      ${hospital.address}
-    </div>
-  `,
-    });
-    infoWindow.open(map, marker);
-
-    map.setCenter(latLng);
-    map.setDraggable(false); // 확대/축소, 드래그 금지
-    map.setZoomable(false);
-  });
-}
-// ✅ 추가 작성 끝 부분
+}*/

@@ -5,82 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e4d6ef-665f-4a2e-804b-f147a3363892" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/back/infra/prometheus/prometheus.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/component/StartupTimer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/component/HospitalDetailCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/controller/BatchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/listener/HospitalDetailJobListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/.env.production" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/public/mediscan1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/src/context/AuthContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/src/pages/NotFound.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/mediscan-deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/mediscan-deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/Dockerfile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/back/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/back/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/apiResponse/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/apiResponse/ApiResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/config/CorsMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/config/CorsMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/global/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalCustomRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalCustomRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/DepartmentCodeListConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/DepartmentCodeListConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/Hospital.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/Hospital.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/HospitalDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/HospitalDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/HospitalGrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/entity/HospitalGrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/back/docker/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/HospitalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/HospitalServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/port/HospitalDomainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/port/HospitalDomainService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/Runner/BatchRunner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/configuration/HospitalGradeConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/configuration/HospitalGradeConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalCodeWithDepartments.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalCodeWithDepartments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalDepartmentRow.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalDepartmentRow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalDetailRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/dto/HospitalDetailRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/fieldSetMapper/HospitalDepartmentFieldSetMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/fieldSetMapper/HospitalDepartmentFieldSetMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemProcessor/HospitalDepartmentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemProcessor/HospitalDepartmentProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemProcessor/HospitalDetailProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemProcessor/HospitalDetailProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemReader/GroupedHospitalDepartmentReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemReader/GroupedHospitalDepartmentReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemReader/HospitalGradeReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemReader/HospitalGradeReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemWriter/HospitalDetailWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/batch/itemWriter/HospitalDetailWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/port/HospitalCustomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/Infrastructure/repository/HospitalCustomRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/port/HospitalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/port/HospitalRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/service/HospitalDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/service/HospitalDomainServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/service/HospitalGradeDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/domain/service/HospitalGradeDomainServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/controller/HospitalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/controller/HospitalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/controller/TempController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/controller/TempController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/port/HospitalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/persentation/port/HospitalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/port/JoinDomainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/port/JoinDomainService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/service/CustomUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/application/service/MemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/port/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/port/MemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/service/AuthDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/service/AuthDomainServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/service/JoinDomainServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/domain/service/JoinDomainServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/infrastructure/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/infrastructure/repository/MemberJPARepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/infrastructure/repository/MemberRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/infrastructure/repository/MemberRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/presentation/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/presentation/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/presentation/controller/port/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/member/presentation/controller/port/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-prod.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-secret.yml.default" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-secret.yml.default" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/postcss.config.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/front/postcss.config.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/KakaoMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/KakaoMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/assets/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/lib/rq/rq.react.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/lib/rq/rq.react.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/home/Home.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/home/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/join/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/join/Register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/login/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/map/BigPicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/map/BigPicture.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +81,7 @@
     "애플리케이션.MediScanApplication.executor": "Run"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.C:/Users/LeeSeongJin/Desktop/mediscan/MediScan/back">
+  <component name="RunManager" selected="애플리케이션.MediScanApplication">
     <configuration name="MediScanApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ms.back.MediScanApplication" />
       <module name="back.main" />
@@ -191,13 +128,6 @@
         <item itemvalue="Gradle.C:/Users/LeeSeongJin/Desktop/mediscan/MediScan/back" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-f644763e9732-24fca987" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

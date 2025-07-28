@@ -1,14 +1,66 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { showHospitalMarkerOnMap } from "../../KakaoMap";
+import { showHospitalMarkerOnMap } from "../../lib/kakaoMapUtils.ts";
 import rq from "../../lib/rq/rq.react.ts";
+
+interface HospitalBaseInfo {
+  hospitalCode?: string;
+  name?: string;
+  address?: string;
+  callNumber?: string;
+  latitude?: string; // 서버가 string으로 보내면 string으로 맞춤
+  longitude?: string;
+}
+
+interface HospitalDetailInfo {
+  treatMonStart?: string;
+  treatMonEnd?: string;
+  treatTueStart?: string;
+  treatTueEnd?: string;
+  treatWedStart?: string;
+  treatWedEnd?: string;
+  treatThuStart?: string;
+  treatThuEnd?: string;
+  treatFriStart?: string;
+  treatFriEnd?: string;
+  treatSatStart?: string;
+  treatSatEnd?: string;
+  treatSunStart?: string;
+  treatSunEnd?: string;
+
+  closedSunday?: string;
+  closedHoliday?: string;
+  lunchWeekday?: string;
+  lunchSaturday?: string;
+  receptionWeekday?: string;
+  receptionSaturday?: string;
+
+  emergencyDayYn?: string;
+  emergencyDayPhone1?: string;
+  emergencyDayPhone2?: string;
+  emergencyNightYn?: string;
+  emergencyNightPhone1?: string;
+  emergencyNightPhone2?: string;
+
+  departmentCodes?: string[];
+}
+
+interface GradeInfo {
+  grades?: Record<string, number | null>;
+}
+
+interface HospitalResponse {
+  baseInfo?: HospitalBaseInfo;
+  detailInfo?: HospitalDetailInfo;
+  gradeInfo?: GradeInfo;
+}
 
 function HospitalDetail() {
   // const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const { hospitalCode } = useParams();
-  const [hospital, setHospital] = useState(null);
+  const hospitalCode = useParams().hospitalCode!;
+  const [hospital, setHospital] = useState<HospitalResponse | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [selectedTab, setSelectedTab] = useState("general");
 
@@ -26,8 +78,12 @@ function HospitalDetail() {
 
         if (!res.data) throw new Error("병원 데이터를 불러오지 못했습니다.");
         setHospital(res.data.data); // ApiResponse<T> 구조상 data.data
-      } catch (err: any) {
-        setError(err.message || "알 수 없는 에러");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("알 수 없는 에러");
+        }
       } finally {
         setLoading(false);
       }
@@ -39,12 +95,12 @@ function HospitalDetail() {
   useEffect(() => {
     if (hospital?.baseInfo) {
       showHospitalMarkerOnMap("detail-map", {
-        name: hospital.baseInfo.name,
-        address: hospital.baseInfo.address,
+        name: hospital.baseInfo?.name ?? "이름 없음",
+        address: hospital.baseInfo?.address ?? "주소 없음",
         // latitude: hospital.baseInfo.latitude,
         // longitude: hospital.baseInfo.longitude,
-        latitude: hospital.baseInfo.longitude,
-        longitude: hospital.baseInfo.latitude,
+        latitude: hospital.baseInfo?.latitude ?? "0",
+        longitude: hospital.baseInfo?.longitude ?? "0",
       });
     }
   }, [hospital]);
@@ -54,6 +110,13 @@ function HospitalDetail() {
   if (!hospital) return <p>데이터가 없습니다.</p>;
 
   const { baseInfo, detailInfo, gradeInfo } = hospital;
+
+  // baseInfo가 undefined일 때 기본값 지정
+  const safeBaseInfo = baseInfo ?? {
+    name: "이름 없음",
+    address: "주소 없음",
+    callNumber: "전화번호 없음",
+  };
 
   // 🔧 공통 박스 스타일
   const boxStyle = {
@@ -174,14 +237,14 @@ function HospitalDetail() {
             marginBottom: "4px",
           }}
         >
-          {baseInfo.name}
+          {safeBaseInfo.name}
         </div>
         <div style={{ marginBottom: "4px" }}>
-          <span>{baseInfo.address}</span>
+          <span>{safeBaseInfo.address}</span>
         </div>
         <div>
           <span>
-            전화 번호 : <span>{baseInfo.callNumber}</span>
+            전화 번호 : <span>{safeBaseInfo.callNumber}</span>
           </span>
         </div>
       </div>
@@ -295,7 +358,7 @@ function HospitalDetail() {
                     textAlign: "center",
                   }}
                 >
-                  {detailInfo.departmentCodes &&
+                  {detailInfo?.departmentCodes &&
                   detailInfo.departmentCodes.length > 0
                     ? detailInfo.departmentCodes
                         .map((code) => departmentCodeMap[code] || code)
@@ -313,7 +376,7 @@ function HospitalDetail() {
                     일요일 진료 여부
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.closedSunday === "Y" ? "진료 안함" : "진료함"}
+                    {detailInfo?.closedSunday === "Y" ? "진료 안함" : "진료함"}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -321,32 +384,32 @@ function HospitalDetail() {
                     공휴일 진료 여부
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.closedHoliday === "Y" ? "진료 안함" : "진료함"}
+                    {detailInfo?.closedHoliday === "Y" ? "진료 안함" : "진료함"}
                   </td>
                 </tr>
                 <tr className="border-b">
                   <th className="py-2 px-4 font-medium text-gray-600">
                     평일 점심시간
                   </th>
-                  <td className="py-2 px-4">{detailInfo.lunchWeekday}</td>
+                  <td className="py-2 px-4">{detailInfo?.lunchWeekday}</td>
                 </tr>
                 <tr className="border-b">
                   <th className="py-2 px-4 font-medium text-gray-600">
                     토요일 점심시간
                   </th>
-                  <td className="py-2 px-4">{detailInfo.lunchSaturday}</td>
+                  <td className="py-2 px-4">{detailInfo?.lunchSaturday}</td>
                 </tr>
                 <tr className="border-b">
                   <th className="py-2 px-4 font-medium text-gray-600">
                     평일 접수시간
                   </th>
-                  <td className="py-2 px-4">{detailInfo.receptionWeekday}</td>
+                  <td className="py-2 px-4">{detailInfo?.receptionWeekday}</td>
                 </tr>
                 <tr className="border-b">
                   <th className="py-2 px-4 font-medium text-gray-600">
                     토요일 접수시간
                   </th>
-                  <td className="py-2 px-4">{detailInfo.receptionSaturday}</td>
+                  <td className="py-2 px-4">{detailInfo?.receptionSaturday}</td>
                 </tr>
               </>
             )}
@@ -358,7 +421,7 @@ function HospitalDetail() {
                     주간 응급 진료
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.emergencyDayYn === "Y" ? "가능" : "불가능"}
+                    {detailInfo?.emergencyDayYn === "Y" ? "가능" : "불가능"}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -366,8 +429,8 @@ function HospitalDetail() {
                     주간 응급 연락처
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.emergencyDayPhone1} /{" "}
-                    {detailInfo.emergencyDayPhone2}
+                    {detailInfo?.emergencyDayPhone1} /{" "}
+                    {detailInfo?.emergencyDayPhone2}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -375,7 +438,7 @@ function HospitalDetail() {
                     야간 응급 진료
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.emergencyNightYn === "Y" ? "가능" : "불가능"}
+                    {detailInfo?.emergencyNightYn === "Y" ? "가능" : "불가능"}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -383,8 +446,8 @@ function HospitalDetail() {
                     야간 응급 연락처
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.emergencyNightPhone1} /{" "}
-                    {detailInfo.emergencyNightPhone2}
+                    {detailInfo?.emergencyNightPhone1} /{" "}
+                    {detailInfo?.emergencyNightPhone2}
                   </td>
                 </tr>
               </>
@@ -396,7 +459,7 @@ function HospitalDetail() {
                     월요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatMonStart} ~ {detailInfo.treatMonEnd}
+                    {detailInfo?.treatMonStart} ~ {detailInfo?.treatMonEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -404,7 +467,7 @@ function HospitalDetail() {
                     화요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatTueStart} ~ {detailInfo.treatTueEnd}
+                    {detailInfo?.treatTueStart} ~ {detailInfo?.treatTueEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -412,7 +475,7 @@ function HospitalDetail() {
                     수요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatWedStart} ~ {detailInfo.treatWedEnd}
+                    {detailInfo?.treatWedStart} ~ {detailInfo?.treatWedEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -420,7 +483,7 @@ function HospitalDetail() {
                     목요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatThuStart} ~ {detailInfo.treatThuEnd}
+                    {detailInfo?.treatThuStart} ~ {detailInfo?.treatThuEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -428,7 +491,7 @@ function HospitalDetail() {
                     금요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatFriStart} ~ {detailInfo.treatFriEnd}
+                    {detailInfo?.treatFriStart} ~ {detailInfo?.treatFriEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -436,7 +499,7 @@ function HospitalDetail() {
                     토요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatSatStart} ~ {detailInfo.treatSatEnd}
+                    {detailInfo?.treatSatStart} ~ {detailInfo?.treatSatEnd}
                   </td>
                 </tr>
                 <tr className="border-b">
@@ -444,7 +507,7 @@ function HospitalDetail() {
                     일요일
                   </th>
                   <td className="py-2 px-4">
-                    {detailInfo.treatSunStart} ~ {detailInfo.treatSunEnd}
+                    {detailInfo?.treatSunStart} ~ {detailInfo?.treatSunEnd}
                   </td>
                 </tr>
               </>
@@ -483,7 +546,11 @@ function HospitalDetail() {
           <tbody>
             {gradeInfo?.grades && Object.keys(gradeInfo.grades).length > 0 ? (
               Object.entries(gradeInfo.grades)
-                .filter(([_, value]) => value && value >= 1 && value <= 5)
+                .filter(
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  ([_key, value]) =>
+                    typeof value === "number" && value >= 1 && value <= 5
+                )
                 .map(([key, value]) => (
                   <tr key={key} className="border-b">
                     <td className="py-2 px-4">{asmGrdMap[key] ?? key}</td>
