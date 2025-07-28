@@ -5,7 +5,7 @@ class Rq {
   public apiEndPoints() {
     return createClient<paths>({
       // baseUrl: import.meta.env.VITE_CORE_API_BASE_URL,
-      baseUrl: "http://api-sw-pilot.mediscan.site",
+      baseUrl: "https://api-sw-pilot.mediscan.site",
       credentials: "include",
     });
   }
