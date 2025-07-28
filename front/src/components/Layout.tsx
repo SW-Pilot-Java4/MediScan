@@ -1,6 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import rq from "../lib/rq/rq.react"; // 실제 경로에 맞게 조정
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
