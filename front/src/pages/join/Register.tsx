@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -10,6 +10,8 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [canSubmit, setCanSubmit] = useState(false);
 
+  const API_BASE_URL = import.meta.env.VITE_CORE_BACK_BASE_URL;
+
   const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -19,7 +21,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/join", {
+      const response = await fetch(`${API_BASE_URL}/join`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -78,10 +78,11 @@ const KakaoMap: React.FC = () => {
     );
   }, []);
 
+  const API_BASE_URL = import.meta.env.VITE_CORE_BACK_BASE_URL;
   const sendUserLocationToBackend = async (lat: number, lng: number) => {
     console.log(lat, lng);
     try {
-      const res = await axios.get(`http://localhost:8080/api/hospital/nearby`, {
+      const res = await axios.get(`${API_BASE_URL}/api/hospital/nearby`, {
         params: {
           latitude: lat,
           longitude: lng,
@@ -142,13 +143,12 @@ const KakaoMap: React.FC = () => {
         title: "내 위치 (별 표시)",
       });
 
-      const infoWindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
-      let currentOpenedMarker: any = null;
+      // ✅ 여기서부터 병원 마커 및 InfoWindow 처리
+      let currentOpenedInfoWindow: kakao.maps.InfoWindow | null = null;
 
       hospitals.forEach((hospital) => {
         const lat = parseFloat(hospital.longitude);
         const lng = parseFloat(hospital.latitude);
-
         if (isNaN(lat) || isNaN(lng)) return;
 
         const marker = new window.kakao.maps.Marker({
@@ -157,29 +157,35 @@ const KakaoMap: React.FC = () => {
           title: hospital.name,
         });
 
+        const infoWindow = new window.kakao.maps.InfoWindow({
+          zIndex: 1,
+          content: `
+          <div 
+            style="
+              padding: 8px; 
+              width: 240px; 
+              white-space: normal; 
+              word-break: break-word;
+              cursor: pointer;
+              color: #2563eb;
+              font-weight: bold;
+            "
+            onclick="window.location.href='/hospital/${hospital.hospitalCode}'"
+          >
+            ${hospital.name}<br/>
+            <span style="color: #555; font-weight: normal;">${hospital.address}</span>
+          </div>
+        `,
+        });
+
         window.kakao.maps.event.addListener(marker, "click", () => {
-          infoWindow.setContent(`
-    <div 
-      style="
-        padding: 8px; 
-        width: 240px; 
-        white-space: normal; 
-        word-break: break-word;
-        cursor: pointer;
-        color: #2563eb;
-        font-weight: bold;
-      "
-      onclick="window.location.href='/hospital/${hospital.hospital_code}'"
-    >
-      ${hospital.name}<br/>
-      <span style="color: #555; font-weight: normal;">${hospital.address}</span>
-    </div>
-  `);
+          if (currentOpenedInfoWindow) currentOpenedInfoWindow.close();
           infoWindow.open(map, marker);
-          currentOpenedMarker = marker;
+          currentOpenedInfoWindow = infoWindow;
         });
       });
 
+      // 지도 다시 중앙 설정 (선택 사항)
       map.setCenter(
         new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng)
       );
