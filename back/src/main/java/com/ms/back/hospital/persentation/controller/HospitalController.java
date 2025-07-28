@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @Tag(name = "Hospital", description = "병원 정보 API")
@@ -47,6 +48,7 @@ public class HospitalController {
             @RequestParam String longitude,
             @RequestParam(defaultValue = "3") double distanceKm // ← 기본값 설정!
     ) {
+
         return ApiResponse.ok(hospitalService.getHospitalsNearby(longitude, latitude, distanceKm));
     }
 

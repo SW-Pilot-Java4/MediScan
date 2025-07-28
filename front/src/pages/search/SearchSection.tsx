@@ -1,21 +1,35 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import rq from "../../lib/rq/rq.react.ts";
 
 function SearchSection() {
+  interface Hospital {
+    hospital_code?: string;
+    hospitalCode?: string;
+    name?: string;
+    address?: string;
+    callNumber?: string; // 필요하면 추가
+  }
+
+  interface HospitalPage {
+    content: Hospital[];
+    totalPages: number;
+  }
+
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [callNumber, setCallNumber] = useState("");
   const [callNumberError, setCallNumberError] = useState("");
   const [categoryCode, setCategoryCode] = useState("");
-  const [results, setResults] = useState([]);
+  //const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Hospital[]>([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   const client = rq.apiEndPoints();
-  const token = localStorage.getItem("accessToken");
+  //const token = localStorage.getItem("accessToken");
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const fixedCategoryOptions = [
     { code: "01", label: "종합전문병원" },
@@ -33,7 +47,8 @@ function SearchSection() {
     { code: "93", label: "한의원" },
   ];
 
-  const [categoryOptions, setCategoryOptions] = useState(fixedCategoryOptions);
+  const [categoryOptions] = useState(fixedCategoryOptions);
+  //const [categoryOptions, setCategoryOptions] = useState(fixedCategoryOptions);
 
   const handleSearch = async (newPage = 0) => {
     try {
@@ -50,9 +65,18 @@ function SearchSection() {
         },
       });
 
-      const data = response.data.data;
-      setResults(data.content);
-      setTotalPages(data.totalPages);
+      const data = response.data?.data as HospitalPage | Hospital[] | undefined;
+
+      if (data && typeof data === "object" && "content" in data) {
+        setResults(data.content);
+        setTotalPages(data.totalPages);
+      } else if (Array.isArray(data)) {
+        setResults(data);
+        setTotalPages(1);
+      } else {
+        setResults([]);
+        setTotalPages(0);
+      }
       setPage(newPage);
     } catch (error) {
       console.error("검색 중 오류:", error);
@@ -124,6 +148,7 @@ function SearchSection() {
 
       {/* 검색 결과 */}
       <div className="w-full max-w-3xl mt-8 space-y-4">
+        {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
         {results.map((hospital: any) => (
           <div
             key={hospital.hospitalCode}
