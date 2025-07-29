@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { showHospitalMarkerOnMap } from "../../lib/kakaoMapUtils.ts";
 import rq from "../../lib/rq/rq.react.ts";
+import HospitalMap from "../../HospitalMap.tsx"; // 경로는 맞게 조절
 
 interface HospitalBaseInfo {
   hospitalCode?: string;
@@ -91,19 +91,6 @@ function HospitalDetail() {
 
     fetchHospital();
   }, [hospitalCode]);
-
-  useEffect(() => {
-    if (hospital?.baseInfo) {
-      showHospitalMarkerOnMap("detail-map", {
-        name: hospital.baseInfo?.name ?? "이름 없음",
-        address: hospital.baseInfo?.address ?? "주소 없음",
-        // latitude: hospital.baseInfo.latitude,
-        // longitude: hospital.baseInfo.longitude,
-        latitude: hospital.baseInfo?.latitude ?? "0",
-        longitude: hospital.baseInfo?.longitude ?? "0",
-      });
-    }
-  }, [hospital]);
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p className="text-red-500">에러: {error}</p>;
@@ -568,12 +555,19 @@ function HospitalDetail() {
         </table>
       </div>
 
-      {/* 지도 영역 */}
       <div style={{ ...boxStyle }}>
-        <div
-          id="detail-map"
-          style={{ width: "100%", height: "300px", borderRadius: "8px" }}
-        />
+        {hospital?.baseInfo ? (
+          <HospitalMap
+            hospital={{
+              ...hospital.baseInfo,
+              name: hospital.baseInfo.name ?? "이름 없음",
+              address: hospital.baseInfo.address ?? "주소 없음",
+            }}
+            height={300}
+          />
+        ) : (
+          <p>지도 정보를 표시할 병원 정보가 없습니다.</p>
+        )}
       </div>
     </div>
   );

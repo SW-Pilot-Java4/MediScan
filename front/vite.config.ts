@@ -7,11 +7,11 @@ export default defineConfig({
     // tailwindcss()
   ],
   server: {
-    host: "127.0.0.1",
+    host: "localhost",
     port: 5173, // (선택) 기본 포트 명시
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "https://api-sw-pilot.mediscan.site",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

@@ -6,11 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d8e4d6ef-665f-4a2e-804b-f147a3363892" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/tsconfig.node.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/KakaoMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/KakaoMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/lib/kakaoMapUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/lib/kakaoMapUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
