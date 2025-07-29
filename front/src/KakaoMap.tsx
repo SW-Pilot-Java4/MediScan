@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Google API를 사용해 위경도로 주소를 가져오는 함수
@@ -20,7 +21,7 @@ const getAddressFromCoordinates = async (lat: number, lng: number) => {
 
 // 백엔드에서 받아오는 병원 객체의 타입
 interface Hospital {
-  hospitalCode: string;
+  hospital_code: string;
   address: string;
   callNumber: string;
   code: number;
@@ -31,6 +32,7 @@ interface Hospital {
 
 const KakaoMap: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [userLocation, setUserLocation] = useState<{
     lat: number;
@@ -89,7 +91,7 @@ const KakaoMap: React.FC = () => {
           longitude: lng,
           distanceKm: 3, // 또는 원하는 거리
         },
-        withCredentials: true, // 인증 정보 필요 시 유지
+        // withCredentials: true, // 인증 정보 필요 시 유지
       });
 
       console.log("✅ 병원 데이터 수신 완료:", res.data.data);
@@ -104,7 +106,6 @@ const KakaoMap: React.FC = () => {
       console.error("❌ 병원 데이터 요청 실패:", error);
     }
   };
-  // 지도 렌더링 + 병원 마커 표시
   useEffect(() => {
     if (
       !window.kakao ||
@@ -143,7 +144,6 @@ const KakaoMap: React.FC = () => {
         map,
         title: "내 위치 (별 표시)",
       });
-
       /*eslint-disable-next-line @typescript-eslint/no-explicit-any*/
       let currentOpenedInfoWindow: any = null;
       /*eslint-disable-next-line @typescript-eslint/no-explicit-any*/
@@ -160,25 +160,28 @@ const KakaoMap: React.FC = () => {
           title: hospital.name,
         });
 
+        const contentDiv = document.createElement("div");
+        contentDiv.style.padding = "8px";
+        contentDiv.style.width = "240px";
+        contentDiv.style.whiteSpace = "normal";
+        contentDiv.style.wordBreak = "break-word";
+        contentDiv.style.cursor = "pointer";
+        contentDiv.style.color = "#2563eb";
+        contentDiv.style.fontWeight = "bold";
+
+        contentDiv.innerHTML = `
+          ${hospital.name}<br/>
+          <span style="color: #555; font-weight: normal;">${hospital.address}</span>
+        `;
+
+        // React Router의 navigate로 페이지 이동 처리
+        contentDiv.onclick = () => {
+          navigate(`/hospital/${hospital.hospital_code}`);
+        };
+
         const infoWindow = new window.kakao.maps.InfoWindow({
           zIndex: 1,
-          content: `
-          <div 
-            style="
-              padding: 8px; 
-              width: 240px; 
-              white-space: normal; 
-              word-break: break-word;
-              cursor: pointer;
-              color: #2563eb;
-              font-weight: bold;
-            "
-            onclick="window.location.href='/hospital/${hospital.hospitalCode}'"
-          >
-            ${hospital.name}<br/>
-            <span style="color: #555; font-weight: normal;">${hospital.address}</span>
-          </div>
-        `,
+          content: contentDiv,
         });
 
         window.kakao.maps.event.addListener(marker, "click", () => {
@@ -187,37 +190,20 @@ const KakaoMap: React.FC = () => {
             currentOpenedMarker = null;
             return;
           }
-          infoWindow.setContent(`
-    <div 
-      style="
-        padding: 8px; 
-        width: 240px; 
-        white-space: normal; 
-        word-break: break-word;
-        cursor: pointer;
-        color: #2563eb;
-        font-weight: bold;
-      "
-      onclick="window.location.href='/hospital/${hospital.hospitalCode}'"
-    >
-      ${hospital.name}<br/>
-      <span style="color: #555; font-weight: normal;">${hospital.address}</span>
-    </div>
-  `);
+
           if (currentOpenedInfoWindow) currentOpenedInfoWindow.close();
           infoWindow.open(map, marker);
           currentOpenedInfoWindow = infoWindow;
+          currentOpenedMarker = marker;
         });
       });
 
-      // 지도 다시 중앙 설정 (선택 사항)
       map.setCenter(
         new window.kakao.maps.LatLng(userLocation.lat, userLocation.lng)
       );
       map.setLevel(5);
     });
-  }, [hospitals, userLocation]);
-
+  }, [hospitals, userLocation, navigate]); // navigate 의존성 추가
   return (
     <div>
       {geoError ? (

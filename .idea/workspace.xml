@@ -5,19 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e4d6ef-665f-4a2e-804b-f147a3363892" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/mediscan-deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/mediscan-deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/back/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/back/docker/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/HospitalServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/java/com/ms/back/hospital/application/HospitalServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/back/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/KakaoMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/KakaoMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/lib/kakaoMapUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/lib/kakaoMapUtils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/hospital/Hospital.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/join/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/join/Register.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/pages/search/SearchSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,25 +59,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.C:/Users/LeeSeongJin/Desktop/mediscan/MediScan/back.executor": "Run",
-    "Gradle.back [:com.ms.back.MediScanApplication.main()].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/map 병합 중",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/LeeSeongJin/Desktop/mediscan/MediScan",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "프로젝트",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true",
-    "애플리케이션.MediScanApplication.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.C:/Users/LeeSeongJin/Desktop/mediscan/MediScan/back.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.back [:com.ms.back.MediScanApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/map&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/LeeSeongJin/Desktop/mediscan/MediScan&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;애플리케이션.MediScanApplication.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="애플리케이션.MediScanApplication">
     <configuration name="MediScanApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ms.back.MediScanApplication" />
