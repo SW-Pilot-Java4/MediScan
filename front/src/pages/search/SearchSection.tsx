@@ -154,7 +154,7 @@ function SearchSection() {
             key={hospital.hospitalCode}
             className="border rounded-lg p-4 bg-white shadow-sm"
             onClick={() => {
-              const baseUrl = "http://api-sw-pilot.mediscan.site";
+              const baseUrl = "https://www.mediscan.site";
               window.location.href = `${baseUrl}/hospital/${hospital.hospitalCode}`;
             }}
           >

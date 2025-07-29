@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Register from "./pages/join/Register";
 import Home from "./pages/home/Home"; // ✅ 메인 컴포넌트 import 추가
+import HospitalDetail from "./pages/hospital/Hospital";
 import BigPicture from "./pages/map/BigPicture";
 import SearchSection from "./pages/search/SearchSection";
 import Layout from "./components/Layout";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/main" element={<Home />} />
           <Route path="/map" element={<BigPicture />} />
           <Route path="/search" element={<SearchSection />} />
+          <Route path="/hospital/:hospitalCode" element={<HospitalDetail />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
