@@ -64,6 +64,7 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173", "http://localhost:8080",
+                "https://api-sw-pilot.mediscan.site", "https://www.mediscan.site",
                 env.getProperty("custom.url.back"), env.getProperty("custom.url.front")
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -113,6 +114,7 @@ public class SecurityConfig {
                     configuration.setAllowedOrigins(List.of(
                             "http://localhost:5173", // 기존 프론트엔드
                             "http://localhost:8080" , // Swagger UI (백엔드에서 제공됨)
+                            "https://api-sw-pilot.mediscan.site", "https://www.mediscan.site",
                             env.getProperty("custom.url.back"),
                             env.getProperty("custom.url.front")
                     ));

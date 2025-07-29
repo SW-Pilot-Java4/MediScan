@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Google API를 사용해 위경도로 주소를 가져오는 함수
 const GOOGLE_API_KEY = "AIzaSyDcIVcjPP-0zmLtZV4nXhdoZfCCHDTy_ng";
+// const GOOGLE_API_KEY = import.meta.env.GOOGLE_API_KEY;
 
 const getAddressFromCoordinates = async (lat: number, lng: number) => {
   const response = await axios.get(
@@ -78,7 +79,7 @@ const KakaoMap: React.FC = () => {
     );
   }, []);
 
-  const API_BASE_URL = import.meta.env.VITE_CORE_BACK_BASE_URL;
+  const API_BASE_URL = "https://api-sw-pilot.mediscan.site";
   const sendUserLocationToBackend = async (lat: number, lng: number) => {
     console.log(lat, lng);
     try {
